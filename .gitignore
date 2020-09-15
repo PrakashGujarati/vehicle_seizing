@@ -1,0 +1,4 @@
+/bootstrap/cache
+/bootstrap/*.*
+/storage/*.key
+.env
