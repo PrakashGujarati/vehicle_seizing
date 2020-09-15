@@ -11,7 +11,7 @@
 	<div class="card">
 		<div class="card-header">Subscription Add</div>
 		<div class="card-body">
-			<form method="post" action="{{ route('subscription.store') }}">
+			<form method="post" action="{{ route('subscribers.store') }}">
     		@csrf
 			<div class="row">
 				<div class="col-md-4">

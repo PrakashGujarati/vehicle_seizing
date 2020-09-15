@@ -8,7 +8,7 @@
       </div>
       <div class="col-md-6">
          <div class="float-md-right">
-           <a class="btn btn-primary btn-sm" href="{{ route('subscription.create') }}">New Subscription Add</a>
+           <a class="btn btn-primary btn-sm" href="{{ route('subscribers.create') }}">New Subscription Add</a>
          </div>
       </div>
    </div>

@@ -3,6 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Vehicle;
+use App\User;
+use App\HeadOffices;
+use Auth;
+use DB;
+use App\UserAssigned;
+
 
 class HomeController extends Controller
 {
@@ -23,6 +30,22 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('dashboard_stat');
+         $name = Auth::user()->name;
+
+         if($name == "Admin")
+         {
+            $VehicleCount = Vehicle::all()->count();    
+         } 
+         else
+         {
+            $VehicleCount = UserAssigned::where('user_id',Auth::user()->id)->count(); 
+         }
+
+        
+
+        $UserActiveCount = User::where('role','agent')->where('status','Active')->count();
+        $UserInactiveCount = User::where('role','agent')->where('status','Inactive')->count();
+        $HeadOfficeCount = HeadOffices::all()->count();
+        return view('dashboard_stat',compact('VehicleCount','UserActiveCount','HeadOfficeCount','UserInactiveCount'));
     }
 }

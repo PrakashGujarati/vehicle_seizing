@@ -11,7 +11,7 @@
 
 
          <li  class="">
-            <a href="#"><i class="fas fa-tachometer-alt" aria-hidden="true"></i>Dashboard</a>
+            <a href="/"><i class="fas fa-tachometer-alt" aria-hidden="true"></i>Dashboard</a>
         </li>
 {{-- 
         {{ Eventy::action('main_menu', ['menu_order' => 2]) }} --}}
@@ -36,7 +36,7 @@
             <a href="{{ route('agent-view-permission.index') }}"><i class="fas fa-user menu-icon"></i>View Fields</a>
         </li>
         <li  class="#">
-            <a href="{{ route('subscription.index') }}"><i class="fas fa-user menu-icon"></i>Subscriptions</a>
+            <a href="{{ route('subscribers.index') }}"><i class="fas fa-user menu-icon"></i>Subscriptions</a>
         </li>
        @endif
 

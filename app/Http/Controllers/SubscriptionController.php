@@ -114,7 +114,7 @@ class SubscriptionController extends Controller
 
         if($add)
         {
-            return redirect()->route('subscription.index');
+            return redirect()->route('subscribers.index');
         }
 
 

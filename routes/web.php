@@ -90,7 +90,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('agentview', 'AgentViewController@agent_index')->name('agentview.index');
 	Route::get('agent_vehicle_search','AgentViewController@AgentVehicleSearch')->name('AgentVehicle.search');
 
-	Route::resource('subscription', 'SubscriptionController');
+	Route::resource('subscribers', 'SubscriptionController');
 	Route::get('subscription_search', 'SubscriptionController@search_subscription')->name('subscription.search');
 
 

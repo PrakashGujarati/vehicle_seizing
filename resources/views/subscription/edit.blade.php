@@ -11,7 +11,7 @@
 	<div class="card">
 		<div class="card-header">Subscription Edit</div>
 		<div class="card-body">
-			<form method="post" id="Officeform" action="{{ route('subscription.update',$subscriptionEdit->id) }}">
+			<form method="post" id="Officeform" action="{{ route('subscribe.update',$subscriptionEdit->id) }}">
 	    	@csrf
 	    	@method('PUT')
 	    	<input type="hidden" name="hidden_id" value="{{$subscriptionEdit->id}}" placeholder="">
