@@ -13,9 +13,12 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['middleware' => 'auth:api'], function () {
+    //return $request->user();
+    Route::post('profile', 'Api\AgentController@profile');
+    Route::post('assigned/vehicle-list', 'Api\VehicleController@assignedVehicleList');
+    Route::post('vehicle/count', 'Api\VehicleController@vehicleCount');
+    Route::post('vehicle/list', 'Api\VehicleController@vehicleList');
 });
 
 
@@ -23,5 +26,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
    	//Route::post('login', 'Api\AgentController@login');
 
 	Route::post('login', 'Api\AgentController@login');
-    Route::post('signup', 'AgentController@signup');
+
+    Route::post('checkemail', 'Api\AgentController@checkEmail');
+
+
+	
+	
+
+
+
+	
 

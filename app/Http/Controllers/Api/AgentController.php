@@ -13,32 +13,65 @@ use App\UserSubscription;
 
 class AgentController extends Controller
 {
+	public $successStatus = 200;
+
 	public function login(Request $request)
 	{
-		$request->validate([
-			'email' => 'required|string|email',
-			'password' => 'required|string'
-		]);        $credentials = request(['email', 'password']);       
-		 if(!Auth::attempt($credentials))
-		return response()->json([
-			'message' => 'Unauthorized'
-		], 401);        $user = $request->user();       
-		 $tokenResult = $user->createToken('Personal Access Token');
-		$token = $tokenResult->token;        
-		   
-			  $token->save();        return response()->json([
-				'access_token' => $tokenResult->accessToken,
-				'token_type' => 'Bearer',
-				'expires_at' => Carbon::parse(
-					$tokenResult->token->expires_at
-				)->toDateTimeString()
-			]);
+       $validator = Validator::make($request->all(), [
+            'email' => 'required|string|email',
+            'password' => 'required'
+        ]);
+
+        if($validator->fails()){
+            return $validator->errors();       
+        }
+
+        $credentials = request(['email', 'password']);
+        if(!Auth::attempt($credentials)){
+            $error = "Unauthorized";
+            return $error;
+        }
+        $user = $request->user();
+        $success['token'] =  $user->createToken('token')->accessToken;
+        return $success;
 	}
+
+	public function checkEmail(Request $request)
+	{
+     $validator = Validator::make($request->all(), [
+            'email' => 'required|string|email',
+        ]);
+        if($validator->fails()){
+            return $validator->errors();       
+        }
+
+      	$checkEmail = User::where('email',$request->email)->where('status','Active')->first();
+      	if($checkEmail)
+        {
+        	 return response()->json(['Email Is Not Available'=>$checkEmail],$this-> successStatus);
+        }
+        else
+        {
+        	 return response()->json(['Email Not available'],$this-> successStatus);
+        }
+	}
+	public function profile(Request $request)
+	{	
+
+      	$checkEmail = User::select('name','email','contact')->where('id', Auth::user()->id)->first();
+      	if($checkEmail)
+      	{
+        	 return response()->json(['Profile'=>$checkEmail],$this-> successStatus);
+      	}
+
+	}
+
+	
 
       
 
-
-      /*	$GetUserSubscription = UserSubscription::where('user_id',$request->id)->first();
+/*
+      	$GetUserSubscription = UserSubscription::where('user_id',$request->id)->first();
 
       	$dateStart = $GetUserSubscription->start_date; 
       	$dateEnd = $GetUserSubscription->end_date; 
