@@ -65,6 +65,23 @@ class AgentController extends Controller
       	}
 
 	}
+  public function logout(Request $request)
+    {
+      
+        
+        $isUser = $request->user()->token()->revoke();
+        if($isUser){
+            $success['message'] = "Successfully logged out.";
+            return $success;
+        }
+        else{
+            $error = "Something went wrong.";
+            return $error;
+        }
+            
+        
+    }
+
 
 	
 

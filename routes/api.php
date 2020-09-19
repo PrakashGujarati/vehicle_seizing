@@ -19,6 +19,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('assigned/vehicle-list', 'Api\VehicleController@assignedVehicleList');
     Route::post('vehicle/count', 'Api\VehicleController@vehicleCount');
     Route::post('vehicle/list', 'Api\VehicleController@vehicleList');
+    Route::get('logout', 'Api\AgentController@logout');
 });
 
 
