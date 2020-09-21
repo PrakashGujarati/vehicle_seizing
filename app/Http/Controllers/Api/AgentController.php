@@ -29,11 +29,15 @@ class AgentController extends Controller
         $credentials = request(['email', 'password']);
         if(!Auth::attempt($credentials)){
             $error = "Unauthorized";
-            return $error;
+            /*return response()->json(['Code'=>500,'message'=>'invalid login credentials','data'=>["null"=>""]]);*/
+
+            return response()->json(['Code'=>500,'message'=>'invalid login credentials']);
+            
         }
         $user = $request->user();
         $success['token'] =  $user->createToken('token')->accessToken;
-        return $success;
+        //return $success;
+         return response()->json(['Code'=>200,'message'=>'success','data'=>$success]);
 	}
 
 	public function checkEmail(Request $request)
@@ -48,11 +52,11 @@ class AgentController extends Controller
       	$checkEmail = User::where('email',$request->email)->where('status','Active')->first();
       	if($checkEmail)
         {
-        	 return response()->json(['Email Is Not Available'=>$checkEmail],$this-> successStatus);
+             return response()->json(['Code'=>200,'message'=>'success','data'=>$checkEmail]);
         }
         else
-        {
-        	 return response()->json(['Email Not available'],$this-> successStatus);
+        {    
+             return response()->json(['Code'=>500,'message'=>'Email not found..']);
         }
 	}
 	public function profile(Request $request)
@@ -61,7 +65,7 @@ class AgentController extends Controller
       	$checkEmail = User::select('name','email','contact')->where('id', Auth::user()->id)->first();
       	if($checkEmail)
       	{
-        	 return response()->json(['Profile'=>$checkEmail],$this-> successStatus);
+            return response()->json(['Code'=>200,'message'=>'success','data'=>$checkEmail]);
       	}
 
 	}
@@ -72,11 +76,13 @@ class AgentController extends Controller
         $isUser = $request->user()->token()->revoke();
         if($isUser){
             $success['message'] = "Successfully logged out.";
-            return $success;
+            //return $success;
+             return response()->json(['Code'=>200,'message'=>'success','data'=>$success]);
         }
         else{
             $error = "Something went wrong.";
-            return $error;
+            //return $error;
+            return response()->json(['Code'=>500,'message'=>'Something went wrong.']);
         }
             
         

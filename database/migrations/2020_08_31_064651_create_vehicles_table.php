@@ -42,6 +42,8 @@ class CreateVehiclesTable extends Migration
             $table->string('dispatch_date')->nullable();
             $table->string('letter_date')->nullable();
             $table->string('valid_date')->nullable();
+            $table->string('deleted')->nullable();
+            $table->string('create_type')->nullable();
             $table->timestamps();
         });
     }

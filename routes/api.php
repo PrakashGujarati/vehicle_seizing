@@ -20,6 +20,10 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('vehicle/count', 'Api\VehicleController@vehicleCount');
     Route::post('vehicle/list', 'Api\VehicleController@vehicleList');
     Route::get('logout', 'Api\AgentController@logout');
+
+    Route::post('vehicle/search-number', 'Api\VehicleController@searchnumber');
+    
+    
 });
 
 

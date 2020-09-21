@@ -39,6 +39,8 @@ Route::group(['middleware' => 'auth'], function () {
 
 
  Route::resource('Vehicle', 'VehicleController');
+ Route::post('vehicle/unassigned', 'VehicleController@vehicleunassigned')->name('vehicle.unassigned');
+ Route::post('vehicle/datedelete', 'VehicleController@VehicleSelectedDateDelete')->name('vehicle.datedelete');
 
 	  Route::get('vehicle/import', 'VehicleController@import')->name('Vehicle.importpage');
 

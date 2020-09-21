@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Vehicle;
 use App\User;
+use App\UserAssigned;
 use Illuminate\Http\Request;
+use Session;
 
 class VehicleController extends Controller
 {
@@ -15,7 +17,9 @@ class VehicleController extends Controller
      */
     public function index()
     {
-        $vehicledata = Vehicle::all();
+        //return $vehicledata = Vehicle::all();
+        $vehicledata = Vehicle::where('deleted' ,null)->get();
+        //dd($vehicledata);
         $userdata = User::where('role','agent')->where('status','Active')->get();
         return view('vehicle.table',compact('vehicledata','userdata'));
 
@@ -45,7 +49,11 @@ class VehicleController extends Controller
      */
     public function store(Request $request)
     {
+        // $request = new Request($request->all());
+
+        $request->merge(["create_type"=>"form"]);
         $data = Vehicle::create($request->all());
+        
         if($data)
         {
             return redirect()->route('Vehicle.index');
@@ -116,7 +124,8 @@ class VehicleController extends Controller
     }
     public function import()
     {
-        $vehicledata = Vehicle::all();
+        //$vehicledata = Vehicle::all();
+         $vehicledata = Vehicle::where('deleted' ,null)->get();
         return view('vehicle.import',compact('vehicledata'));
     }
     
@@ -156,7 +165,8 @@ class VehicleController extends Controller
         }
         else
         {
-            $vehicledata = Vehicle::all();
+             $vehicledata = Vehicle::where('deleted' ,null)->get();
+           // $vehicledata = Vehicle::all();
         }
         
         $allowancehtml = view('vehicle.dynamic_vehicle_table', compact('vehicledata'))->render();
@@ -199,15 +209,88 @@ class VehicleController extends Controller
             })->get();
         }
         else
-        {
-            $vehicledata = Vehicle::all();
+        {   
+             $vehicledata = Vehicle::where('deleted' ,null)->get();
         }
         
         $allowancehtml = view('vehicle.dynamic_import_vehicle_table', compact('vehicledata'))->render();
         $data=['data' => $allowancehtml];
         return Response()->json($data);
     }
-    
+
+    public function vehicleunassigned(Request $request)
+    {
+
+       $SelectedDateRecords =  UserAssigned::whereDate('created_at', '=', $request->date)->get();
+       
+       $delete=[]; 
+
+       foreach ($SelectedDateRecords as $date) {
+            $delete = UserAssigned::find($date->id)->delete();
+       }
+       if($delete)
+       {
+            Session::flash('message-success', 'Unassigned successfully..');  
+            return redirect()->route('Vehicle.index');
+       }
+       else
+       {
+                Session::flash('message-danger', 'record is not available..');  
+                return redirect()->route('Vehicle.index');
+       }
+
+    }
+     public function VehicleSelectedDateDelete(Request $request)
+     {
+        $msg = "";         
+        $errormsg = "";
+
+        $SelectedDateRecords =  Vehicle::whereDate('created_at', '=', $request->date)->where('create_type',null)->where('deleted' ,null)->get();
+
+        //dd($SelectedDateRecords);
+
+
+        $UserAssignedcheck =  UserAssigned::whereDate('created_at', '=', $request->date)->get();
+        if(count($UserAssignedcheck) > 0)
+        {
+            $delete=[]; 
+           foreach ($UserAssignedcheck as $date) {
+                $delete = UserAssigned::find($date->id)->delete();
+           } 
+       }
+
+       
+        if(count($SelectedDateRecords) > 0)
+        {   
+            $update=[]; 
+           foreach ($SelectedDateRecords as $date) {
+                $update = Vehicle::find($date->id);
+                $update->deleted = 'delete';
+                $update->save();
+           }
+           if($update)
+           {
+                $vehicledata = Vehicle::where('deleted' ,null)->get();
+                 $allowancehtml = view('vehicle.dynamic_vehicle_table', compact('vehicledata'))->render();
+                 $msg = "Record Deleted Successfully";
+                $data=['data' => $allowancehtml ,'msg'=>$msg];
+                return Response()->json($data);
+           }    
+        }
+        else
+        {
+
+
+            $errormsg = "Record Is Not Available";
+            $data=['msg'=>$msg ,'errormsg' =>$errormsg];
+            return Response()->json($data);
+        }
+       
+       
+
+
+
+     }
 
 
     

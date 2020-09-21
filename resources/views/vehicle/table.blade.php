@@ -4,6 +4,20 @@
 <div class="main-content">
 <div class="alert alert-success successmessage"></div>
 <div class="alert alert-danger dangermessage"></div>
+<div class="row">
+    <div class="col-md-12">
+        @if(Session::has('message-success'))
+        <div class="alert alert-success">{{Session::get('message-success')}}</div>
+        @endif
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        @if(Session::has('message-danger'))
+        <div class="alert alert-danger">{{Session::get('message-danger')}}</div>
+        @endif
+    </div>
+</div>
 
    <div class="row">
       <div class="col-md-6">
@@ -50,6 +64,31 @@
         <button class="btn btn-info" id="assignedsubmit">assigned</button>
       </div>
     </div><br>
+    <div class="row d-flex">
+      <div class="col-md-4">
+        {{-- <input type="text" class="searchString form-control" name="s" id="search"  placeholder="Search..." id="myInput"  autocompelete="false"> --}}
+      </div>
+      <div class="col-md-3">
+      </div>
+      <div class="col-md-4 text-right d-flex">
+        <form class="d-flex" method="POST" action="{{ route('vehicle.unassigned') }}">
+          @csrf
+          <input type="date" class="form-control" id="date" name="date" >
+        &nbsp&nbsp
+        <button class="btn btn-info" type="submit" name="submit">
+        </form>
+        unassigned</button>
+        <button id="deleterecord" style="background-color: Transparent;
+                      background-repeat:no-repeat;
+                      border: none;
+                      cursor:pointer;
+                      overflow: hidden;
+                      outline:none;" class="text-danger mr-2"> <i class="fas fa-trash"></i></button>
+        {{-- <button class="btn btn-info" id="assignedsubmit">
+        unassigned</button> --}}
+      </div>
+    </div>
+    <br>
     <div class="table-responsive">
      <table class="table table-striped table-bordered" cellspacing="0" width="100%" id="data">
         <thead>
@@ -160,15 +199,41 @@ $('#search').on('keyup',function(){
                       $('.dangermessage').html(data.errormsg);
                       $('.dangermessage').delay(5000).fadeOut(800);  
                     }
-                    
-                    
-
-                    
-
               }
           });
         });
 
+  $(document).on('click','#deleterecord',function(){
+    var date = $('#date').val();
+     $.ajax({
+                url: "{{ route('vehicle.datedelete') }}",
+                type:"POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data:{
+                    "date":date,
+                },
+                cache: false,
+                success: function(data){
+                $('.vehicle_table_dynamic').html(data.data);
+
+                    if(data.msg)
+                    {
+                      $('.successmessage').css('display','block');
+                      $('.successmessage').html(data.msg);
+                      $('.successmessage').delay(5000).fadeOut(800);
+                    }
+                    else
+                    { 
+                      $('.dangermessage').css('display','block');
+                      $('.dangermessage').html(data.errormsg);
+                      $('.dangermessage').delay(5000).fadeOut(800);  
+                    }
+              }
+          });
+
+  });
 
 
 </script>
