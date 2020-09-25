@@ -18,7 +18,7 @@
                       border: none;
                       cursor:pointer;
                       overflow: hidden;
-                      outline:none;" class="text-danger mr-2"> <i class="fas fa-trash"></i></button>
+                      outline:none;" class="text-danger"> <i class="fas fa-trash"></i></button>
                     </form>
                   </div>
                  </td>

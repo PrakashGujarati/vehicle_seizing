@@ -50,8 +50,6 @@
       <div class="col-md-4">
         <input type="text" class="searchString form-control" name="s" id="search"  placeholder="Search..." id="myInput"  autocompelete="false">
       </div>
-      <div class="col-md-3">
-      </div>
       <div class="col-md-4 text-right d-flex">
         <select name="user_id" id="user_id" class="form-control">
           <option value="" disabled="" selected="">Select User</option>
@@ -61,31 +59,16 @@
           @endforeach
         </select>
         &nbsp&nbsp
-        <button class="btn btn-info" id="assignedsubmit">assigned</button>
+        <button class="btn btn-info btn-sm" id="assignedsubmit">Assign</button>
       </div>
-    </div><br>
-    <div class="row d-flex">
-      <div class="col-md-4">
-        {{-- <input type="text" class="searchString form-control" name="s" id="search"  placeholder="Search..." id="myInput"  autocompelete="false"> --}}
-      </div>
-      <div class="col-md-3">
-      </div>
-      <div class="col-md-5 text-right d-flex">
+      <div class="col-md-4 text-right d-flex">
         <form class="d-flex" method="POST" action="{{ route('vehicle.unassigned') }}">
           @csrf
-          <input type="date" class="form-control" id="date" name="date" >
-        &nbsp
-        <button class="btn btn-info" type="submit" name="submit">
+          <input type="date" class="form-control" id="date" name="date" >&nbsp;
+          <button class="btn btn-info btn-sm" type="submit" name="submit">        
+        Unassign</button>&nbsp;
         </form>
-        unassigned</button>
-        <button id="deleterecord" style="background-color: Transparent;
-                      background-repeat:no-repeat;
-                      border: none;
-                      cursor:pointer;
-                      overflow: hidden;
-                      outline:none;" class="text-danger"> <i class="fas fa-trash"></i></button>
-        {{-- <button class="btn btn-info" id="assignedsubmit">
-        unassigned</button> --}}
+        <button id="deleterecord" class="btn btn-danger btn-sm"> Delete</button>       
       </div>
     </div>
     <br>
@@ -93,7 +76,7 @@
      <table class="table table-striped table-bordered" cellspacing="0" width="100%" id="data">
         <thead>
            <tr>
-                <th></th>
+                <th><input id="checkAll" type="checkbox"  value="checkAll"></th>
                 <th>Action</th>
                 <th>Customer Name</th>
                 <th>Agreement No</th>
@@ -128,6 +111,7 @@
              @include('vehicle.dynamic_vehicle_table')
         </tbody>
      </table>
+     {{ $vehicledata->links() }}
    </div>
 </div>
   
@@ -158,6 +142,9 @@ $('#search').on('keyup',function(){
     });
   })
 
+  $("#checkAll").click(function(){
+    $('input:checkbox').not(this).prop('checked', this.checked);
+});
 
   $(document).on('click','#assignedsubmit',function(){
 

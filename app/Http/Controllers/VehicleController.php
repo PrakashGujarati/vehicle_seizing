@@ -18,7 +18,7 @@ class VehicleController extends Controller
     public function index()
     {
         //return $vehicledata = Vehicle::all();
-        $vehicledata = Vehicle::where('deleted' ,null)->get();
+        $vehicledata = Vehicle::where('deleted' ,null)->paginate(12);
         //dd($vehicledata);
         $userdata = User::where('role','agent')->where('status','Active')->get();
         return view('vehicle.table',compact('vehicledata','userdata'));

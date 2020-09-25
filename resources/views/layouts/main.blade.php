@@ -81,10 +81,6 @@
   border-radius: 2px;
 
 }
-.container
-{
-  max-width: 1045px;
-}
 </style>
 @yield('css')
 
@@ -95,12 +91,9 @@
 <body>
 
 <nav class="navbar navbar-expand navbar-dark bg-dark flex-md-nowrap">
-   <a class="navbar-brand navbar-brand col-sm-3 col-md-2 mr-0 d-none d-sm-block" href="#">
+   <a class="navbar-brand navbar-brand col-md-1 mr-0 d-none d-sm-block" href="#">
       <div>
-       
-         {{--  <img src="" class="img-fluid" alt="">   --}}
-         Admin
-         
+       Swotsiz
       </div>
    </a>
    <div class="collapse navbar-collapse" id="navbarsExample02">
