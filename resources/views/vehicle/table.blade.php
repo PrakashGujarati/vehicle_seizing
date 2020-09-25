@@ -70,11 +70,11 @@
       </div>
       <div class="col-md-3">
       </div>
-      <div class="col-md-4 text-right d-flex">
+      <div class="col-md-5 text-right d-flex">
         <form class="d-flex" method="POST" action="{{ route('vehicle.unassigned') }}">
           @csrf
           <input type="date" class="form-control" id="date" name="date" >
-        &nbsp&nbsp
+        &nbsp
         <button class="btn btn-info" type="submit" name="submit">
         </form>
         unassigned</button>
@@ -83,7 +83,7 @@
                       border: none;
                       cursor:pointer;
                       overflow: hidden;
-                      outline:none;" class="text-danger mr-2"> <i class="fas fa-trash"></i></button>
+                      outline:none;" class="text-danger"> <i class="fas fa-trash"></i></button>
         {{-- <button class="btn btn-info" id="assignedsubmit">
         unassigned</button> --}}
       </div>

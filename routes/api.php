@@ -22,7 +22,8 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('logout', 'Api\AgentController@logout');
 
     Route::post('vehicle/search-number', 'Api\VehicleController@searchnumber');
-    
+    Route::post('vehicle/search', 'Api\VehicleController@vehicleSearch');
+
     
 });
 
