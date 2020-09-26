@@ -96,6 +96,9 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('subscription_search', 'SubscriptionController@search_subscription')->name('subscription.search');
 
 
+	Route::resource('assigned-Vehicle', 'AssignedVehicleController');
+	Route::post('assigned-vehicle-display','AssignedVehicleController@AssignedVehicle')->name('assigned-vehicle-display');
 
+	
 
 });

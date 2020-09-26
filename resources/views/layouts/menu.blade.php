@@ -38,6 +38,10 @@
         <li  class="#">
             <a href="{{ route('subscribers.index') }}"><i class="fas fa-user menu-icon"></i>Subscriptions</a>
         </li>
+        <li  class="#">
+            <a href="{{ route('assigned-Vehicle.index') }}"><i class="fas fa-user menu-icon"></i>Assigned Vehicle</a>
+        </li>
+        
        @endif
 
         @if( Auth::user()->role == "agent")

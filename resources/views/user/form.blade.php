@@ -84,7 +84,7 @@
 				<div class="col-md-4">
 					<div class="field-group">
 						<label for="User_status">Role</label> *<br>				
-						<select class="form-control" name="role" id="role">
+						<select class="form-control" name="role" id="role" required="">
 							<option value="" disabled="" selected="">Select Role</option>
 							<option value="agent">Agent</option>
 						</select>				<div class="err"><div class="errorMessage" id="User_status_em_" style="display:none"></div></div>
