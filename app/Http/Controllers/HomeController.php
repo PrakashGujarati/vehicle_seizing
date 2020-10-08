@@ -44,8 +44,10 @@ class HomeController extends Controller
         
 
         $UserActiveCount = User::where('role','agent')->where('status','Active')->count();
+        $Users = User::where('role','agent')->get();
+
         $UserInactiveCount = User::where('role','agent')->where('status','Inactive')->count();
         $HeadOfficeCount = HeadOffices::all()->count();
-        return view('dashboard_stat',compact('VehicleCount','UserActiveCount','HeadOfficeCount','UserInactiveCount'));
+        return view('dashboard_stat',compact('VehicleCount','UserActiveCount','HeadOfficeCount','UserInactiveCount','Users'));
     }
 }

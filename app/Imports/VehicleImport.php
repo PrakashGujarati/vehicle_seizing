@@ -14,17 +14,21 @@ use Illuminate\Http\Request;
 
 class VehicleImport implements ToModel,WithHeadingRow
 {
+    public $finance_company_name;
     /**
     * @param array $row
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
-
+    public function __construct($finance_company_name)
+    {
+     
+      $this->finance_company_name = $finance_company_name;
+    }
 
 
     public function model(array $row)
     {
-
 
             if(
                 isset($row['agreement_no']) &&
@@ -86,6 +90,7 @@ class VehicleImport implements ToModel,WithHeadingRow
                'dispatch_date' => $row['dispatch_date'],
                'letter_date' => $row['letter_date'],
                'valid_date' => $row['valid_date'],
+               'finance_company_name' => $this->finance_company_name
             ]);
         }
         else

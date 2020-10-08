@@ -32,9 +32,18 @@ Route::get('home', function () {
 Auth::routes();
 
 
+
+
 Route::group(['middleware' => 'auth'], function () {
 	
+Route::group(['middleware' => 'App\Http\Middleware\ExpiryCheck'], function()
+{
+
 	Route::get('/', 'HomeController@index')->name('home');
+
+	Route::get('home',function(){
+		return redirect('/');
+	});
 
 
 
@@ -43,6 +52,10 @@ Route::group(['middleware' => 'auth'], function () {
  Route::post('vehicle/datedelete', 'VehicleController@VehicleSelectedDateDelete')->name('vehicle.datedelete');
 
 	  Route::get('vehicle/import', 'VehicleController@import')->name('Vehicle.importpage');
+
+
+	Route::post('selected-vehicle-display','VehicleController@SelectedVehicle')->name('selected-vehicle-display');
+
 
 
 
@@ -82,8 +95,10 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::post('user/assigneds', 'UserAssignedController@store')->name('userassigneds.store');
 
-	Route::resource('headoffice', 'HeadOfficesController');
-	Route::get('/headoffice_search', 'HeadOfficesController@search_headoffice')->name('headoffice.search');
+
+
+	Route::resource('finance-office', 'HeadOfficesController');
+	Route::get('/headoffice_search', 'HeadOfficesController@search_headoffice')->name('finance-office.search');
 
 
 	Route::resource('agent-view-permission', 'AgentViewController');
@@ -99,6 +114,14 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::resource('assigned-Vehicle', 'AssignedVehicleController');
 	Route::post('assigned-vehicle-display','AssignedVehicleController@AssignedVehicle')->name('assigned-vehicle-display');
 
+ 	Route::resource('vehicle-searchlist', 'SearchVehicleController');
 	
+	Route::get('vehicle/map/{id}', 'SearchVehicleController@map')->name('vehicle.map');
+
+
+	Route::get('/dbchange', 'dbController@DBupdate')->name('db');
+
+	
+	});
 
 });

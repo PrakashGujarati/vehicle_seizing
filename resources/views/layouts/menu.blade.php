@@ -21,7 +21,7 @@
             <a href="{{ route('Vehicle.index') }}"><i class="fas fa-user menu-icon"></i>Vehicles</a>
         </li>
         <li  class="#">
-            <a href="{{ route('headoffice.index') }}"><i class="fas fa-user menu-icon"></i>Head Office</a>
+            <a href="{{ route('finance-office.index') }}"><i class="fas fa-user menu-icon"></i>Finance Office</a>
         </li>
         <li  class="#">
             <a href="{{ route('office.index') }}"><i class="fas fa-user menu-icon"></i>Office</a>
@@ -40,6 +40,9 @@
         </li>
         <li  class="#">
             <a href="{{ route('assigned-Vehicle.index') }}"><i class="fas fa-user menu-icon"></i>Assigned Vehicle</a>
+        </li>
+         <li  class="#">
+            <a href="{{ route('vehicle-searchlist.index') }}"><i class="fas fa-user menu-icon"></i>Vehicle Search List</a>
         </li>
         
        @endif

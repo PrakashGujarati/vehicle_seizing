@@ -74,7 +74,7 @@ class UserController extends Controller
         }
 
         
-
+ 
         if($data)
         {
             return redirect()->route('user.index');

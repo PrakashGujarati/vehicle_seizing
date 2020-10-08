@@ -24,6 +24,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('vehicle/search-number', 'Api\VehicleController@searchnumber');
     Route::post('vehicle/search', 'Api\VehicleController@vehicleSearch');
 
+    Route::post('vehicle/image-upload', 'Api\VehicleController@vehicleinformation');
     
 });
 

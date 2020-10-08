@@ -75,7 +75,7 @@
 	        	<div class="card">
 	        		<div class="card-body">
 	        			<center>
-	        				<a href="{{ route('headoffice.index') }}" >
+	        				<a href="{{ route('finance-office.index') }}" >
 	        					<i class="fa fa-building icon"></i><br>
 	        					<b>Total Head Office ({{ isset($HeadOfficeCount) ? $HeadOfficeCount:'0' }})</b>
 	        				</a>
@@ -89,11 +89,53 @@
 		
 	</div>
 </div>
+ @if( Auth::user()->name == "Admin")
+<div class="main-content mt-5">
+<h2>Agent List</h2>
+<hr>
 
+<div class="col-md-12">
+	<table class="table table-striped table-bordered"  cellspacing="0" width="100%" id="example">
+      <thead>
+         <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Contact</th>
+              <th>Role</th>
+              <th>Status</th>
+         </tr>
+         <tbody>
+         	@foreach ($Users as $user)
+        	 <tr>
+          		  <td>{{ isset($user->name) ? $user->name:'' }}</td>
+				  <td>{{ isset($user->email) ? $user->email:'' }}</td>
+				  <td>{{ isset($user->contact) ? $user->contact:'' }}</td>
+				  <td>{{ isset($user->role) ? $user->role:'' }}</td>
 
+			  <td>
+			    @if ($user->status=="Active")
+			        <span style="background:#0CC27E;color: white;padding: 2px;border-radius: 5px;padding: 5px">Active</span>
+			        @else
+			        <span style="background:#FF586B;padding: 2px;color: white;border-radius: 5px;padding: 5px">Inactive</span>
+			    @endif
+			</td>
+             </tr>
+         	@endforeach
+         
+        </tbody>
+      </thead>
+   </table>
+	
+</div>
+</div>
+@endif
   
 @endsection
 @section('onPageJs')
- 
+ <script type="text/javascript">
+ 	$(document).ready(function() {
+    $('#example').DataTable();
+} );
+ </script>
 
 @endsection

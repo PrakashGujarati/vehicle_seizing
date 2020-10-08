@@ -26,6 +26,29 @@ class AgentController extends Controller
             return $validator->errors();       
         }
 
+        $userCheck=User::where('email',$request->email)->first();
+        if($userCheck)
+        {
+          if(Hash::check($request->password,$userCheck->password))
+          {
+            $checkExpiry=UserSubscription::where('end_date','>=',date('Y-m-d'))->where('user_id',$userCheck->id)->first();
+
+            if($checkExpiry === null)
+            {
+                return response()->json(['Code'=>500,'message'=>'Your subscription is expired..']);
+            }    
+          }
+          else
+          {
+            return response()->json(['Code'=>500,'message'=>'invalid login credentials']);
+          }
+          
+        }
+        else
+        {
+          return response()->json(['Code'=>500,'message'=>'invalid login credentials']);
+        }
+
         $credentials = request(['email', 'password']);
         if(!Auth::attempt($credentials)){
             $error = "Unauthorized";
@@ -93,27 +116,8 @@ class AgentController extends Controller
 
       
 
-/*
-      	$GetUserSubscription = UserSubscription::where('user_id',$request->id)->first();
 
-      	$dateStart = $GetUserSubscription->start_date; 
-      	$dateEnd = $GetUserSubscription->end_date; 
-
-        $count = UserSubscription::where('user_id',$request->id)
-            ->where(function($query) use ($dateStart, $dateEnd){
-                $query->where([
-                    ['start_date', '<=', $dateStart],
-                    ['end_date', '>=', $dateStart]
-                ])
-                    ->orWhere([
-                        ['start_date', '<', $dateEnd],
-                        ['end_date', '>=', $dateEnd]
-                    ])
-                    ->orWhere([
-                        ['start_date', '>=', $dateStart],
-                        ['end_date', '<', $dateEnd]
-                    ]);
-            })->count();*/
+      
 
 
 

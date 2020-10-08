@@ -44,6 +44,7 @@ class CreateVehiclesTable extends Migration
             $table->string('valid_date')->nullable();
             $table->string('deleted')->nullable();
             $table->string('create_type')->nullable();
+            $table->string('finance_company_name')->nullable();
             $table->timestamps();
         });
     }

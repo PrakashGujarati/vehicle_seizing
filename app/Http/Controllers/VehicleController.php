@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Vehicle;
 use App\User;
 use App\UserAssigned;
+use App\HeadOffices;
+
 use Illuminate\Http\Request;
 use Session;
-
+ 
 class VehicleController extends Controller
 {
     /**
@@ -17,11 +19,12 @@ class VehicleController extends Controller
      */
     public function index()
     {
-        //return $vehicledata = Vehicle::all();
+        
+        $financeoffices = HeadOffices::all();
         $vehicledata = Vehicle::where('deleted' ,null)->paginate(12);
         //dd($vehicledata);
         $userdata = User::where('role','agent')->where('status','Active')->get();
-        return view('vehicle.table',compact('vehicledata','userdata'));
+        return view('vehicle.table',compact('vehicledata','userdata','financeoffices'));
 
         /*$allowancehtml = view('vehicle.dynamic_vehicle_table', compact('vehicledata'))->render();
 
@@ -126,7 +129,9 @@ class VehicleController extends Controller
     {
         //$vehicledata = Vehicle::all();
          $vehicledata = Vehicle::where('deleted' ,null)->get();
-        return view('vehicle.import',compact('vehicledata'));
+         $finance_offices = HeadOffices::all();
+
+        return view('vehicle.import',compact('vehicledata','finance_offices'));
     }
     
     public function VehicleSearch(Request $request)
@@ -161,6 +166,7 @@ class VehicleController extends Controller
                 $query->orwhere('dispatch_date','like','%'.$request->s.'%');
                 $query->orwhere('letter_date','like','%'.$request->s.'%');
                 $query->orwhere('valid_date','like','%'.$request->s.'%');
+                $query->orwhere('finance_company_name','like','%'.$request->s.'%');
             })->get();
         }
         else
@@ -206,6 +212,7 @@ class VehicleController extends Controller
                 $query->orwhere('letter_refernce','like','%'.$request->s.'%');
                 $query->orwhere('dispatch_date','like','%'.$request->s.'%');
                 $query->orwhere('valid_date','like','%'.$request->s.'%');
+                $query->orwhere('finance_company_name','like','%'.$request->s.'%');
             })->get();
         }
         else
@@ -286,9 +293,24 @@ class VehicleController extends Controller
             return Response()->json($data);
         }
        
+
+     }
+     public function SelectedVehicle(Request $request)
+     {
+
+        //dd($request->all());
+         $vehicledata = Vehicle::where('deleted' ,null)->where('finance_company_name',$request->company_name)->get();
        
-
-
+           if(count($vehicledata) > 0)
+            {
+                 $allowancehtml = view('vehicle.dynamic_vehicle_table', compact('vehicledata'))->render();
+                    $data=['data' => $allowancehtml];
+                    return Response()->json($data);      
+            }
+            else
+            {
+                $vehicledata = Vehicle::where('deleted' ,null)->get();
+            }
 
      }
 

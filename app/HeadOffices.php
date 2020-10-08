@@ -8,6 +8,6 @@ class HeadOffices extends Model
 {
     protected $table="head_offices";
 
-    protected $fillable = ['name','vendor_code','city','contact_person','address1','address2','contact','gst'];
+    protected $fillable = ['finance_company_name','branch_code','branch_address','city','manager_contact','branch_contact','gst','assigned_manager','manage_email','branch_email'];
     
 }

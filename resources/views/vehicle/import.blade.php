@@ -29,6 +29,13 @@
 
           <form id="submitData" action="{{ route('import.vehicle') }}" method="post" enctype="multipart/form-data"> 
          @csrf
+
+         <select name="finance_company_name">
+          <option value="" disabled="" selected="">Select Finance Companys</option>
+          @foreach ($finance_offices as $office)
+            <option value="{{$office->finance_company_name}}">{{$office->finance_company_name}}</option>
+          @endforeach
+         </select>
             <input type="file"  name="file" id="input-file-now" class="dropify " />
             <button type="submit" class="btn btn-info btn-sm addBtn">Submit</button>
          </form>

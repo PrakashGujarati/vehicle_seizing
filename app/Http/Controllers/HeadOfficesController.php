@@ -36,31 +36,38 @@ class HeadOfficesController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request->all());
          $request->validate([
-            'name' => 'required', 
-            'vendor_code' => 'required',
-            'address1' => 'required',
-            'address2' => 'required',
+            'finance_company_name' => 'required', 
+            'branch_code' => 'required',
+            'branch_address' => 'required',
             'city' => 'required',
-            'contact_person' => 'required|numeric',
-            'contact' => 'required|numeric',
+            'branch_contact' => 'required|numeric',
+            'manager_contact' => 'required|numeric',
             'gst' => 'required',
+            'assigned_manager' => 'required',
+            'manage_email' => 'required|email',
+            'branch_email' => 'required|email',
+
        ]
        );
 
         $add = new HeadOffices;
-        $add->name = $request->name;
-        $add->vendor_code = $request->vendor_code;
-        $add->address1 = $request->address1;
-        $add->address2 = $request->address2;
+        $add->finance_company_name = $request->finance_company_name;
+        $add->branch_code = $request->branch_code;
+        $add->branch_address = $request->branch_address;
+        $add->assigned_manager = $request->assigned_manager;
         $add->city = $request->city;
-        $add->contact_person = $request->contact_person;
-        $add->contact = $request->contact;
+        $add->branch_contact = $request->branch_contact;
         $add->gst = $request->gst;
+        $add->manage_email = $request->manage_email;
+        $add->manager_contact = $request->manager_contact;
+        $add->branch_email = $request->branch_email;
+
         $add->save();
         if($add)
         {
-            return redirect()->route('headoffice.index');
+            return redirect()->route('finance-office.index');
         }
     }
 
@@ -97,30 +104,35 @@ class HeadOfficesController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'name' => 'required', 
-            'vendor_code' => 'required',
-            'address1' => 'required',
-            'address2' => 'required',
+            'finance_company_name' => 'required', 
+            'branch_code' => 'required',
+            'branch_address' => 'required',
             'city' => 'required',
-            'contact_person' => 'required|numeric',
-            'contact' => 'required|numeric',
+            'branch_contact' => 'required|numeric',
+            'manager_contact' => 'required|numeric',
             'gst' => 'required',
+            'assigned_manager' => 'required',
+            'manage_email' => 'required|email',
+            'branch_email' => 'required|email',
+
        ]
        );
         
         $add = HeadOffices::find($request->hidden_id);
-        $add->name = $request->name;
-        $add->vendor_code = $request->vendor_code;
-        $add->address1 = $request->address1;
-        $add->address2 = $request->address2;
+         $add->finance_company_name = $request->finance_company_name;
+        $add->branch_code = $request->branch_code;
+        $add->branch_address = $request->branch_address;
+        $add->assigned_manager = $request->assigned_manager;
         $add->city = $request->city;
-        $add->contact_person = $request->contact_person;
-        $add->contact = $request->contact;
+        $add->branch_contact = $request->branch_contact;
         $add->gst = $request->gst;
+        $add->manage_email = $request->manage_email;
+        $add->manager_contact = $request->manager_contact;
+        $add->branch_email = $request->branch_email;
         $add->save();
         if($add)
         {
-            return redirect()->route('headoffice.index');
+            return redirect()->route('finance-office.index');
         }
     }
 
@@ -143,14 +155,17 @@ class HeadOfficesController extends Controller
     {
             if($request->has('s') && $request->s != ''){
             $headofficesdata = HeadOffices::where(function($query) use($request){
-                $query->orwhere('name','like','%'.$request->s.'%');
-                $query->orwhere('vendor_code','like','%'.$request->s.'%');
+                $query->orwhere('finance_company_name','like','%'.$request->s.'%');
+                $query->orwhere('branch_code','like','%'.$request->s.'%');
+                $query->orwhere('branch_address','like','%'.$request->s.'%');
+                $query->orwhere('branch_email','like','%'.$request->s.'%');
+                $query->orwhere('manage_email','like','%'.$request->s.'%');
+                $query->orwhere('manager_contact','like','%'.$request->s.'%');
+                $query->orwhere('branch_contact','like','%'.$request->s.'%');
+                $query->orwhere('assigned_manager','like','%'.$request->s.'%');
                 $query->orwhere('city','like','%'.$request->s.'%');
-                $query->orwhere('contact_person','like','%'.$request->s.'%');
-                $query->orwhere('address1','like','%'.$request->s.'%');
-                $query->orwhere('address2','like','%'.$request->s.'%');
-                $query->orwhere('contact','like','%'.$request->s.'%');
                 $query->orwhere('gst','like','%'.$request->s.'%');
+
             })->get();
         }
         else

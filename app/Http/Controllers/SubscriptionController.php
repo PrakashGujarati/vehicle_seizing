@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\subscription;
+use App\Subscription;
 use App\UserSubscription;
 use App\User;
 use Carbon\Carbon;
@@ -18,7 +18,7 @@ class SubscriptionController extends Controller
     public function index()
     {
 
-        $subscriptions = subscription::all();
+        $subscriptions = Subscription::all();
         return view('subscription.table',compact('subscriptions'));
     }
 
@@ -101,7 +101,7 @@ class SubscriptionController extends Controller
         }
 
         
-        $add= new subscription;
+        $add= new Subscription;
         $add->user_id = $request->user_id;
         $add->user_subscription_id = $get_user_subscription->id ;
         $add->days = $request->days;
@@ -126,7 +126,7 @@ class SubscriptionController extends Controller
      * @param  \App\subscription  $subscription
      * @return \Illuminate\Http\Response
      */
-    public function show(subscription $subscription)
+    public function show(Subscription $Subscription)
     {
         //
     }
@@ -139,7 +139,7 @@ class SubscriptionController extends Controller
      */
     public function edit($id)
     {
-         $subscriptionEdit = subscription::find($id);
+         $subscriptionEdit = Subscription::find($id);
         $users = User::where('role','agent')->where('status','Active')->get();
         return view('subscription.edit',compact('subscriptionEdit','users'));
     }
@@ -151,7 +151,7 @@ class SubscriptionController extends Controller
      * @param  \App\subscription  $subscription
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, subscription $subscription)
+    public function update(Request $request, Subscription $Subscription)
     {
         dd($request->all());
     }
@@ -162,7 +162,7 @@ class SubscriptionController extends Controller
      * @param  \App\subscription  $subscription
      * @return \Illuminate\Http\Response
      */
-    public function destroy(subscription $subscription)
+    public function destroy(Subscription $Subscription)
     {
         //
     }
@@ -170,7 +170,7 @@ class SubscriptionController extends Controller
      public function search_subscription(Request $request)
     {
             if($request->has('s') && $request->s != ''){
-            $subscriptions = subscription::where(function($query) use($request){
+            $subscriptions = Subscription::where(function($query) use($request){
                 $query->orwhere('user_id','like','%'.$request->s.'%');
                 $query->orwhere('days','like','%'.$request->s.'%');
                 $query->orwhere('amount','like','%'.$request->s.'%');
@@ -181,7 +181,7 @@ class SubscriptionController extends Controller
         }
         else
         {
-            $subscriptions = subscription::all();
+            $subscriptions = Subscription::all();
         }
         
         $allowancehtml = view('subscription.dynamic_subscription_table', compact('subscriptions'))->render();

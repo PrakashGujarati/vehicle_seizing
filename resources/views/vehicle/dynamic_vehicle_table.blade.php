@@ -4,7 +4,38 @@
                 
                  <td>
                   <div class="d-flex">
-                    <a title="View" href="{{route('Vehicle.show',$vehicle->id)}}"> 
+                   {{--  <a title="View" href="{{route('Vehicle.show',$vehicle->id)}}">  --}}
+                     <a title="View" class="view" href="#"                      
+                     data-customer_name="{{ isset($vehicle->customer_name) ? $vehicle->customer_name:'' }}"
+                     data-agreement_no="{{ isset($vehicle->agreement_no) ? $vehicle->agreement_no:'' }}"
+                      data-prod_n="{{ isset($vehicle->prod_n) ? $vehicle->prod_n:'' }}"
+                      data-region_area="{{ isset($vehicle->region_area) ? $vehicle->region_area:'' }}"
+                      data-office="{{ isset($vehicle->office) ? $vehicle->office:'' }}"
+                      data-branch="{{ isset($vehicle->branch) ? $vehicle->branch:'' }}"
+                      data-cycle="{{ isset($vehicle->cycle) ? $vehicle->cycle:'' }}"
+                      data-paymode="{{ isset($vehicle->paymode) ? $vehicle->paymode:'' }}"
+                      data-emi="{{ isset($vehicle->emi) ? $vehicle->emi:'' }}"
+                      data-tet="{{ isset($vehicle->tet) ? $vehicle->tet:'' }}"
+                      data-noi="{{ isset($vehicle->noi) ? $vehicle->noi:'' }}"
+                      data-allocation_month_grp="{{ isset($vehicle->allocation_month_grp) ? $vehicle->allocation_month_grp:'' }}"
+                      data-tenor_over="{{ isset($vehicle->tenor_over) ? $vehicle->tenor_over:'' }}"
+                      data-charges="{{ isset($vehicle->charges) ? $vehicle->charges:'' }}"
+                      data-gv="{{ isset($vehicle->gv) ? $vehicle->gv:'' }}"
+                      data-model="{{ isset($vehicle->model) ? $vehicle->model:'' }}"
+                      data-regd_num="{{ isset($vehicle->regd_num) ? $vehicle->regd_num:'' }}"
+                      data-chasis_num="{{ isset($vehicle->chasis_num) ? $vehicle->chasis_num:'' }}"
+                      data-engine_num="{{ isset($vehicle->engine_num) ? $vehicle->engine_num:'' }}"
+                      data-make="{{ isset($vehicle->make) ? $vehicle->make:'' }}"
+                      data-rrm_name_no="{{ isset($vehicle->rrm_name_no) ? $vehicle->rrm_name_no:'' }}"
+                      data-rrm_mail_id="{{ isset($vehicle->rrm_mail_id) ? $vehicle->rrm_mail_id:'' }}"
+                      data-coordinator_mail_id="{{ isset($vehicle->coordinator_mail_id) ? $vehicle->coordinator_mail_id:'' }}"
+                      data-letter_refernce="{{ isset($vehicle->letter_refernce) ? $vehicle->letter_refernce:'' }}"
+                      data-dispatch_date="{{ isset($vehicle->dispatch_date) ? $vehicle->dispatch_date:'' }}"
+                      data-letter_date="{{ isset($vehicle->letter_date) ? $vehicle->letter_date:'' }}"
+                      data-valid_date="{{ isset($vehicle->valid_date) ? $vehicle->valid_date:'' }}"
+                     
+                      data-finance_company_name="{{ isset($vehicle->finance_company_name) ? $vehicle->finance_company_name:'' }}"
+                     > 
                     <i class="fas fa-eye"> </i>
                     </a> &nbsp;
                     <a title="Edit" href="{{route('Vehicle.edit',$vehicle->id)}}"> 
@@ -22,7 +53,11 @@
                     </form>
                   </div>
                  </td>
-                 <td tabindex="0"> <a href="#" class="test" >{{ isset($vehicle->customer_name) ? $vehicle->customer_name:'' }}</a>
+                 <td tabindex="0">{{ isset($vehicle->regd_num) ? $vehicle->regd_num:'' }}
+                 </td>
+                 <td>{{ isset($vehicle->make) ? $vehicle->make:'' }}
+                 </td>
+                 <td> <a href="#" class="test" >{{ isset($vehicle->customer_name) ? $vehicle->customer_name:'' }}</a>
                     
                  </td>
                  <td>{{ isset($vehicle->agreement_no) ? $vehicle->agreement_no:'' }}
@@ -55,14 +90,12 @@
                  </td>
                  <td>{{ isset($vehicle->model) ? $vehicle->model:'' }}
                  </td>
-                 <td>{{ isset($vehicle->regd_num) ? $vehicle->regd_num:'' }}
-                 </td>
+                 
                  <td>{{ isset($vehicle->chasis_num) ? $vehicle->chasis_num:'' }}
                  </td>
                  <td>{{ isset($vehicle->engine_num) ? $vehicle->engine_num:'' }}
                  </td>
-                 <td>{{ isset($vehicle->make) ? $vehicle->make:'' }}
-                 </td>
+                 
                  <td>{{ isset($vehicle->rrm_name_no) ? $vehicle->rrm_name_no:'' }}
                  </td>
                  <td>{{ isset($vehicle->rrm_mail_id) ? $vehicle->rrm_mail_id:'' }}
@@ -76,6 +109,8 @@
                  <td>{{ isset($vehicle->letter_date) ? $vehicle->letter_date:'' }}
                  </td>
                   <td>{{ isset($vehicle->valid_date) ? $vehicle->valid_date:'' }}
+                 </td>
+                  <td>{{ isset($vehicle->finance_company_name) ? $vehicle->finance_company_name:'' }}
                  </td>
               </tr>   
            @endforeach

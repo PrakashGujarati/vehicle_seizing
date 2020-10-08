@@ -1,19 +1,25 @@
    @foreach ($headofficesdata as $headoffice)
          <tr>
-           <td>{{ isset($headoffice->name) ? $headoffice->name:'' }}</td>
-           <td>{{ isset($headoffice->vendor_code) ? $headoffice->vendor_code:'' }}</td>
+           <td>{{ isset($headoffice->finance_company_name) ? $headoffice->finance_company_name:'' }}</td>
+           <td>{{ isset($headoffice->branch_code) ? $headoffice->branch_code:'' }}</td>
+           <td>{{ isset($headoffice->assigned_manager) ? $headoffice->assigned_manager:'' }}</td>
+           <td>{{ isset($headoffice->branch_address) ? $headoffice->branch_address:'' }}</td>
+           <td>{{ isset($headoffice->branch_email) ? $headoffice->branch_email:'' }}</td>
            <td>{{ isset($headoffice->city) ? $headoffice->city:'' }}</td>
-           <td>{{ isset($headoffice->contact_person) ? $headoffice->contact_person:'' }}</td>
-           <td>{{ isset($headoffice->address1) ? $headoffice->address1:'' }}</td>
-           <td>{{ isset($headoffice->address2) ? $headoffice->address2:'' }}</td>
-           <td>{{ isset($headoffice->contact) ? $headoffice->contact:'' }}</td>
-           <td>{{ isset($headoffice->gst) ? $headoffice->gst:'' }}</td>
+           <td>{{ isset($headoffice->branch_contact) ? $headoffice->branch_contact:'' }}</td>
+           <td>{{ isset($headoffice->manage_email) ? $headoffice->manage_email:'' }}</td>
+           
+            <td>{{ isset($headoffice->manager_contact) ? $headoffice->manager_contact:'' }}</td>
+           
+            <td>{{ isset($headoffice->gst) ? $headoffice->gst:'' }}</td>
+
+
            <td>
             <div class="d-flex">
-            <a title="Edit" href="{{route('headoffice.edit',$headoffice->id)}}">
+            <a title="Edit" href="{{route('finance-office.edit',$headoffice->id)}}">
                 <i class="fas fa-edit"></i>
               </a>
-              <form action="{{URL::route('headoffice.destroy',$headoffice->id)}}" method="POST">
+              <form action="{{URL::route('finance-office.destroy',$headoffice->id)}}" method="POST">
                   <input type="hidden" name="_method" value="DELETE">
                   @csrf
                   <button style="background-color: Transparent;
