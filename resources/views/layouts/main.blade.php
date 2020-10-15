@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="{{  url(mix('css/app.css')) }}">    
     
     <link rel="stylesheet" href="{{ asset('css/AdminCustom.css') }}">    
+    <link rel="stylesheet" href="{{ asset('css/dataTables/jquery.dataTables.min.css') }}">    
+
     <style>
 .four-boot .dropdown .btn{
     
@@ -151,6 +153,10 @@
 <script  type="text/javascript" src="{{  url(mix('js/main.js')) }}"></script>
 <script  type="text/javascript" src="{{ asset('vendor/gantt-chart/js/modified_jquery.fn.gantt.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/jquery.validate.min.js') }}" ></script>
+<script type="text/javascript" src="{{ asset('js/dataTables/jquery.dataTables.min.js') }}" ></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.4.0/bootbox.min.js"></script>
+
+
 {{-- 
 {{ load_extended_files('admin_js') }} --}}
 <script type="text/javascript">  
@@ -165,54 +171,6 @@ function isNumberKey(evt){
  
 
 
-
-  accounting.settings = <?php echo json_encode(config('constants.money_format')) ?>;
-
-    $(function(){
-
-         <?php if($flash = session('message')) {?>
-            $.jGrowl("<?php echo $flash; ?>", { position: 'bottom-right'});
-        <?php } ?>
-
-        $('.currency_changed').change(function(){
-            $(this)
-        });
-    });
-  
-
-
-$(document).on('click','.change_task_status',function(e){
-
-        e.preventDefault();
-
-        var url       = $(this).attr("href");
-        var name      = $(this).data('name');
-        var id        = $(this).data('id');
-        var task_id   = $(this).data('task');
-
-
-        if(url)
-        {
-          $scope = this;
-          $.post(url , { "_token": global_config.csrf_token, task_id : task_id, status_id : id }).done(function( response ) {
-                      
-              if(response.status == 1)
-              {
-                $($scope).closest(".dropdown").find(".btn").text(name);
-              }
-              
-          });
-
-        }       
-
-    });
-
-$(document).ready(function() {
-  $(document).on('focus', ':input', function() {
-    $(this).attr('autocomplete', 'off');
-  });
-});
-
 </script>
 
 
@@ -220,6 +178,8 @@ $(document).ready(function() {
     <script src="https://js.pusher.com/4.3/pusher.min.js"></script> 
 
 <script  src="{{  url(mix('js/tinymce.js')) }}"></script>
+
+
 
 @yield('onPageJs')
  

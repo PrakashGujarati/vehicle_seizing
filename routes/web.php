@@ -40,6 +40,7 @@ Route::group(['middleware' => 'App\Http\Middleware\ExpiryCheck'], function()
 {
 
 	Route::get('/', 'HomeController@index')->name('home');
+	Route::get('Home/datatables', 'HomeController@agentList')->name('home.agentList');
 
 	Route::get('home',function(){
 		return redirect('/');
@@ -48,6 +49,10 @@ Route::group(['middleware' => 'App\Http\Middleware\ExpiryCheck'], function()
 
 
  Route::resource('Vehicle', 'VehicleController');
+
+
+
+
  Route::post('vehicle/unassigned', 'VehicleController@vehicleunassigned')->name('vehicle.unassigned');
  Route::post('vehicle/datedelete', 'VehicleController@VehicleSelectedDateDelete')->name('vehicle.datedelete');
 
@@ -56,7 +61,8 @@ Route::group(['middleware' => 'App\Http\Middleware\ExpiryCheck'], function()
 
 	Route::post('selected-vehicle-display','VehicleController@SelectedVehicle')->name('selected-vehicle-display');
 
-
+        Route::post('manageVehicle', 'VehicleController@manageVehicle')->name('manageVehicle');
+	
 
 
 	//blank excel
@@ -74,7 +80,14 @@ Route::group(['middleware' => 'App\Http\Middleware\ExpiryCheck'], function()
 
 	 
 	Route::resource('office', 'OfficeController');
-	Route::get('/office_search', 'OfficeController@search_Office')->name('office.search');
+
+
+	Route::get('office/datatables', 'OfficeController@datatables_office')->name('office.datatables');
+	
+/*	Route::get('get/datatables/delete/{id?}', 'OfficeController@destroy')->name('delete.office');*/
+
+
+
 
 
 	//Route::resource('role', 'RolesController');
@@ -98,8 +111,12 @@ Route::group(['middleware' => 'App\Http\Middleware\ExpiryCheck'], function()
 
 
 	Route::resource('finance-office', 'HeadOfficesController');
-	Route::get('/headoffice_search', 'HeadOfficesController@search_headoffice')->name('finance-office.search');
 
+	Route::get('financeoffice/datatables', 'HeadOfficesController@datatables_finance_office')->name('finance-office.datatables');
+
+	Route::get('get/financeoffice/delete/{id?}', 'HeadOfficesController@destroy')->name('delete.financeoffice');
+
+	
 
 	Route::resource('agent-view-permission', 'AgentViewController');
 	
@@ -111,7 +128,7 @@ Route::group(['middleware' => 'App\Http\Middleware\ExpiryCheck'], function()
 	Route::get('subscription_search', 'SubscriptionController@search_subscription')->name('subscription.search');
 
 
-	Route::resource('assigned-Vehicle', 'AssignedVehicleController');
+	Route::resource('assigned-Vehicle', 'AssignedVehicleController'); 
 	Route::post('assigned-vehicle-display','AssignedVehicleController@AssignedVehicle')->name('assigned-vehicle-display');
 
  	Route::resource('vehicle-searchlist', 'SearchVehicleController');

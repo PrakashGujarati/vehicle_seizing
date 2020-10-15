@@ -6,6 +6,7 @@ use App\Vehicle;
 use App\User;
 use App\UserAssigned;
 use App\HeadOffices;
+use DataTables;
 
 use Illuminate\Http\Request;
 use Session;
@@ -20,17 +21,79 @@ class VehicleController extends Controller
     public function index()
     {
         
-        $financeoffices = HeadOffices::all();
-        $vehicledata = Vehicle::where('deleted' ,null)->paginate(12);
-        //dd($vehicledata);
+        $financeoffices = HeadOffices::all(); 
+       // $vehicledata = Vehicle::where('deleted' ,null);
         $userdata = User::where('role','agent')->where('status','Active')->get();
-        return view('vehicle.table',compact('vehicledata','userdata','financeoffices'));
+        return view('vehicle.table',compact('userdata','financeoffices'));
 
-        /*$allowancehtml = view('vehicle.dynamic_vehicle_table', compact('vehicledata'))->render();
 
-        $data=['data' => $allowancehtml];
-        return Response()->json($data);*/
- 
+    }
+
+    public function manageVehicle()
+    {
+
+        $vehicledata = Vehicle::where('deleted' ,null);
+        
+
+
+        return DataTables::of($vehicledata)
+            ->addColumn('action',function($vehicledata)
+            {
+             return '<div  class="d-flex">
+             <a title="View" class="view" href="javascript:;"
+                data-customer_name="'.$vehicledata->customer_name .'"
+                data-agreement_no="'.$vehicledata->agreement_no .'"
+                data-prod_n="'.$vehicledata->prod_n .'"
+                data-region_area="'.$vehicledata->region_area .'"
+                data-office="'.$vehicledata->office .'"
+                data-branch="'.$vehicledata->branch .'"
+                data-cycle="'.$vehicledata->cycle .'"
+                data-paymode="'.$vehicledata->paymode .'"
+                data-emi="'.$vehicledata->emi .'"
+                data-tet="'.$vehicledata->tet .'"
+                data-noi="'.$vehicledata->noi .'"
+                data-allocation_month_grp="'.$vehicledata->allocation_month_grp .'"
+                data-tenor_over="'.$vehicledata->tenor_over .'"
+                data-charges="'.$vehicledata->charges .'"
+                data-gv="'.$vehicledata->gv .'"
+                data-model="'.$vehicledata->model .'"
+                data-regd_num="'.$vehicledata->regd_num .'"
+                data-chasis_num="'.$vehicledata->chasis_num .'"
+                data-engine_num="'.$vehicledata->engine_num .'"
+                data-make="'.$vehicledata->make .'"
+                data-rrm_name_no="'.$vehicledata->rrm_name_no .'"
+                data-rrm_mail_id="'.$vehicledata->rrm_mail_id .'"
+                data-coordinator_mail_id="'.$vehicledata->coordinator_mail_id .'"
+                data-letter_refernce="'.$vehicledata->letter_refernce .'"
+                data-dispatch_date="'.$vehicledata->dispatch_date .'"
+                data-letter_date="'.$vehicledata->letter_date .'"
+                data-valid_date="'.$vehicledata->valid_date .'"
+                data-finance_company_name="'.$vehicledata->finance_company_name .'"
+             >
+              <i class="fas fa-eye"> </i>
+             </a>
+             &nbsp;
+            <a title="Edit"  href="'. route('Vehicle.edit',$vehicledata->id) .'"> 
+                      <i class="fas fa-edit"></i>
+            </a>    
+              &nbsp;
+            <a title="Delete"  class="vehicleDelete text-danger" href="javascript:;" 
+                data-vehicleId="'.$vehicledata->id.'" >
+                      <i class="fas fa-trash"></i>
+            </a>
+
+             </div>';
+                
+            })
+            ->addColumn('checkbox',function($vehicledata)
+            {
+                return '<input type="checkbox"  name="vehicle_id" value="'.$vehicledata->id .'">';
+            })
+            /*->rawColumns(['action'],['checkbox'])*/
+             ->rawColumns(array("action", "checkbox"))
+            ->make(true);
+
+          
 
     }
 
@@ -299,7 +362,7 @@ class VehicleController extends Controller
      {
 
         //dd($request->all());
-         $vehicledata = Vehicle::where('deleted' ,null)->where('finance_company_name',$request->company_name)->get();
+         $vehicledata = Vehicle::where('deleted' ,null)->where('finance_company_name',$request->company_name)->paginate(12);;
        
            if(count($vehicledata) > 0)
             {

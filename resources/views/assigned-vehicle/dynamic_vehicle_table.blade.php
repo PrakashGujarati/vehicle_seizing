@@ -3,7 +3,7 @@
 
   
 <div class="table-responsive">
-     <table class="table table-striped table-bordered" cellspacing="0" width="100%" id="data">
+     <table class="table table-hover table-bordered table-striped datatable" cellspacing="0" width="100%" id="data">
         <thead>
            <tr> 
                 <th>Customer Name</th>
@@ -37,7 +37,7 @@
         </thead>
         <tbody>
 
-  @foreach ($vehicledata as $vehicle)
+{{--   @foreach ($vehicledata as $vehicle)
               <tr>
                  <td tabindex="0"> <a href="#" class="test" >{{ isset($vehicle->customer_name) ? $vehicle->customer_name:'' }}</a>
                     
@@ -95,7 +95,7 @@
                   <td>{{ isset($vehicle->valid_date) ? $vehicle->valid_date:'' }}
                  </td>
               </tr>   
-           @endforeach
+           @endforeach --}}
         
 
 

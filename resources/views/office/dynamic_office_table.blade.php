@@ -1,6 +1,6 @@
 @foreach ($Officedata as $Officedata)
          <tr>
-           <td>{{ isset($Officedata->headOfficesname->name) ? $Officedata->headOfficesname->name:'' }}</td>
+           <td>{{ isset($Officedata->headOfficesname->finance_company_name) ? $Officedata->headOfficesname->finance_company_name:'' }}</td>
            <td>{{ isset($Officedata->name) ? $Officedata->name:'' }}</td>
            <td>{{ isset($Officedata->contact_person) ? $Officedata->contact_person:'' }}</td>
            <td>{{ isset($Officedata->contact) ? $Officedata->contact:'' }}</td>

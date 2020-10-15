@@ -1,3 +1,41 @@
+<table class="table table-striped table-bordered" cellspacing="0" width="100%" id="data">
+            <thead>
+              <tr> 
+                <th><input id="checkAll" type="checkbox"  value="checkAll"></th>
+                <th>Action</th>
+                <th>Vehicle No</th>
+                <th>Make</th>
+                <th>Customer Name</th>
+                <th>Agreement No</th>
+                <th>Prod N</th>
+                <th>Region Area</th>
+                <th>Office</th>
+                <th>Branch</th>
+                <th>Cycle</th>
+                <th>Paymode</th>
+                <th>Emi</th>
+                <th>Tet</th>
+                <th>Noi</th>
+                <th>Allocation Month Grp</th>
+                <th>Tenor Over</th>
+                <th>Charges</th>
+                <th>Gv</th>
+                <th>Model</th>
+                <th>Chasis Num</th>
+                <th>Engine Num</th>
+                <th>Rrm Name No</th>
+                <th>Rrm Mail Id</th>
+                <th>Coordinator mail</th>
+                <th>Letter Refernce</th>
+                <th>Dispatch Date</th>
+                <th>Letter Date</th>
+                <th>Valid Date</th>
+                <th>Finance Companys</th>
+              </tr>
+            </thead>
+            <tbody>
+             
+@if(count($vehicledata) > 0)
     @foreach ($vehicledata as $vehicle)
               <tr>
                   <td><input type="checkbox"  name="vehicle_id" value="{{$vehicle->id}}"></td>
@@ -114,4 +152,6 @@
                  </td>
               </tr>   
            @endforeach
-           
+           @endif
+              </tbody>
+          </table>

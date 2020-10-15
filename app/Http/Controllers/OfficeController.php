@@ -6,6 +6,8 @@ use App\Office;
 use App\HeadOffices;
 use Illuminate\Http\Request;
 use Validator;
+use DataTables;
+use Session;
 class OfficeController extends Controller
 {
     /**
@@ -142,36 +144,36 @@ class OfficeController extends Controller
      * @param  \App\office  $office
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $data = Office::find($id)->delete();
-        if($data)
-        {
-            return redirect()->route('office.index');
-        }
+        $data = Office::find($request->id)->delete();
+       if($data)
+       {
+            $success = "Office Deleted successfully";
+            $data=['success'=>$success];
+            return Response()->json($data);
+       }
     }
-    public function search_Office(Request $request)
+    public function datatables_office(Request $request)
     {
-            if($request->has('s') && $request->s != ''){
-            $Officedata = Office::where(function($query) use($request){
-                $query->orwhere('head_office_id','like','%'.$request->s.'%');
-                $query->orwhere('name','like','%'.$request->s.'%');
-                $query->orwhere('contact_person','like','%'.$request->s.'%');
-                $query->orwhere('contact','like','%'.$request->s.'%');
-                $query->orwhere('address1','like','%'.$request->s.'%');
-                $query->orwhere('city','like','%'.$request->s.'%');
-                $query->orwhere('branch_code','like','%'.$request->s.'%');
-                $query->orwhere('branch','like','%'.$request->s.'%');
-            })->get();
-        }
-        else
-        {
-            $Officedata = Office::all();
-        }
+        dd("Adf");
+
+           /*  $Office = Office::all();
         
-        $allowancehtml = view('office.dynamic_office_table', compact('Officedata'))->render();
-        $data=['data' => $allowancehtml];
-        return Response()->json($data);
+
+            return DataTables::of($Office)
+            ->addColumn('action',function($Office)
+            {
+                return ' <a title="Edit"  href="'. route('office.edit',$Office->id) .'"> 
+                      <i class="fas fa-edit"></i>
+            </a> 
+             <a title="Delete"  class="vehicleDelete text-danger" href="javascript:;" 
+                data-OfficeId="'.$Office->id.'" >
+                      <i class="fas fa-trash"></i>
+            </a>';
+            })
+            ->rawColumns(['action'])
+            ->make(true);*/
 
      }
 }

@@ -18,31 +18,37 @@
 
         @if( Auth::user()->name == "Admin")
         <li  class="#">
-            <a href="{{ route('Vehicle.index') }}"><i class="fas fa-user menu-icon"></i>Vehicles</a>
+            <a href="{{ route('Vehicle.index') }}"><i class="fas fa-car menu-icon"></i>Vehicles</a>
         </li>
+
+
         <li  class="#">
-            <a href="{{ route('finance-office.index') }}"><i class="fas fa-user menu-icon"></i>Finance Office</a>
+
+             <a href="#salesSubmenu" data-toggle="collapse" aria-expanded="false">
+                <i class="fas fa-building menu-icon"></i>Finance</a>
+            <ul class="collapse list-unstyled" id="salesSubmenu">
+                <li  class=""><a href="{{ route('finance-office.index') }}">Finance Office</a></li>
+                <li  class=""><a href="{{ route('office.index') }}">Branch Office</a></li>
+            </ul>
         </li>
-        <li  class="#">
-            <a href="{{ route('office.index') }}"><i class="fas fa-user menu-icon"></i>Office</a>
-        </li>
+        
         <li  class="#">
             <a href="{{ route('role.get') }}"><i class="fas fa-user menu-icon"></i>Roles</a>
         </li>
         <li  class="#">
-            <a href="{{ route('user.index') }}"><i class="fas fa-user menu-icon"></i>User</a>
+            <a href="{{ route('user.index') }}"><i class="fas fa-user-plus menu-icon"></i>User</a>
         </li>
        <li  class="#">
-            <a href="{{ route('agent-view-permission.index') }}"><i class="fas fa-user menu-icon"></i>View Fields</a>
+            <a href="{{ route('agent-view-permission.index') }}"><i class="fas fa-filter menu-icon"></i>View Fields</a>
         </li>
         <li  class="#">
             <a href="{{ route('subscribers.index') }}"><i class="fas fa-user menu-icon"></i>Subscriptions</a>
         </li>
         <li  class="#">
-            <a href="{{ route('assigned-Vehicle.index') }}"><i class="fas fa-user menu-icon"></i>Assigned Vehicle</a>
+            <a href="{{ route('assigned-Vehicle.index') }}"><i class="fas fa-users menu-icon"></i>Assigned Vehicle</a>
         </li>
          <li  class="#">
-            <a href="{{ route('vehicle-searchlist.index') }}"><i class="fas fa-user menu-icon"></i>Vehicle Search List</a>
+            <a href="{{ route('vehicle-searchlist.index') }}"><i class="fas fa-search menu-icon"></i>Agent Search</a>
         </li>
         
        @endif
@@ -54,7 +60,7 @@
              Identify Five Vehicles</a>
         </li>
        @endif
-
+ 
 
     </ul>
     <ul class="list-unstyled CTAs">

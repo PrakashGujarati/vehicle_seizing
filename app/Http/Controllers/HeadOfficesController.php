@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\HeadOffices;
+use DataTables;
+use Session;
 use Illuminate\Http\Request;
 
 class HeadOfficesController extends Controller
@@ -142,40 +144,43 @@ class HeadOfficesController extends Controller
      * @param  \App\head_offices  $head_offices
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $data = HeadOffices::find($id)->delete();
-        if($data)
-        {
-            return redirect()->route('headoffice.index');
-        }
+
+       
+        $data = HeadOffices::find($request->id)->delete();
+       if($data)
+       {
+            $success = "Finance Office Deleted successfully";
+            $data=['success'=>$success];
+            return Response()->json($data);
+       }
+            
     }
 
-    public function search_headoffice(Request $request)
+    public function datatables_finance_office(Request $request)
     {
-            if($request->has('s') && $request->s != ''){
-            $headofficesdata = HeadOffices::where(function($query) use($request){
-                $query->orwhere('finance_company_name','like','%'.$request->s.'%');
-                $query->orwhere('branch_code','like','%'.$request->s.'%');
-                $query->orwhere('branch_address','like','%'.$request->s.'%');
-                $query->orwhere('branch_email','like','%'.$request->s.'%');
-                $query->orwhere('manage_email','like','%'.$request->s.'%');
-                $query->orwhere('manager_contact','like','%'.$request->s.'%');
-                $query->orwhere('branch_contact','like','%'.$request->s.'%');
-                $query->orwhere('assigned_manager','like','%'.$request->s.'%');
-                $query->orwhere('city','like','%'.$request->s.'%');
-                $query->orwhere('gst','like','%'.$request->s.'%');
-
-            })->get();
-        }
-        else
-        {
-            $headofficesdata = HeadOffices::all();
-        }
+       
+         $HeadOffices = HeadOffices::all();
         
-        $allowancehtml = view('headoffices.dynamic_headoffice_table', compact('headofficesdata'))->render();
-        $data=['data' => $allowancehtml];
-        return Response()->json($data);
+
+            return DataTables::of($HeadOffices)
+            ->addColumn('action',function($HeadOffices)
+            {
+                return ' <a title="Edit"  href="'. route('finance-office.edit',$HeadOffices->id) .'"> 
+                      <i class="fas fa-edit"></i>
+            </a> 
+             <a title="Delete"  class="vehicleDelete text-danger" href="javascript:;" 
+                data-HeadOfficesId="'.$HeadOffices->id.'" >
+                      <i class="fas fa-trash"></i>
+            </a>';
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+
+
+
+            
 
      }
 }

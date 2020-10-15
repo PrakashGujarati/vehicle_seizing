@@ -100,9 +100,10 @@
 					</div>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-md-12 my-5 text-center">
-					<input  class="btn cbtn btn-primary" type="submit" name="submit" value="Save">
+			<div class="row mt-5">
+				<div class="col-md-12">
+					<input  class="btn cbtn btn-info" type="submit" name="submit" value="Save">
+					<a href="{{ route('user.index') }}" class="btn cbtn btn-danger">cancel</a>
 				</div>
 			</div>	
 		</form>

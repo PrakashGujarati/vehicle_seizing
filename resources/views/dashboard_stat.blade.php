@@ -26,7 +26,7 @@
 				  </div>
 				</div>
 			</div>
-
+ 
 			<div class="col-md-4">
 				<div class="card">
 					<div class="card-body">
@@ -95,7 +95,7 @@
 <hr>
 
 <div class="col-md-12">
-	<table class="table table-striped table-bordered"  cellspacing="0" width="100%" id="example">
+	<table class="table table-striped table-bordered datatable"  cellspacing="0" width="100%" id="example">
       <thead>
          <tr>
               <th>Name</th>
@@ -104,25 +104,7 @@
               <th>Role</th>
               <th>Status</th>
          </tr>
-         <tbody>
-         	@foreach ($Users as $user)
-        	 <tr>
-          		  <td>{{ isset($user->name) ? $user->name:'' }}</td>
-				  <td>{{ isset($user->email) ? $user->email:'' }}</td>
-				  <td>{{ isset($user->contact) ? $user->contact:'' }}</td>
-				  <td>{{ isset($user->role) ? $user->role:'' }}</td>
-
-			  <td>
-			    @if ($user->status=="Active")
-			        <span style="background:#0CC27E;color: white;padding: 2px;border-radius: 5px;padding: 5px">Active</span>
-			        @else
-			        <span style="background:#FF586B;padding: 2px;color: white;border-radius: 5px;padding: 5px">Inactive</span>
-			    @endif
-			</td>
-             </tr>
-         	@endforeach
          
-        </tbody>
       </thead>
    </table>
 	
@@ -133,9 +115,29 @@
 @endsection
 @section('onPageJs')
  <script type="text/javascript">
- 	$(document).ready(function() {
-    $('#example').DataTable();
-} );
+
+$(document).ready(function() {
+   $('.datatable').DataTable({
+              processing: true,
+              serverSide: true,
+                "ajax": {
+                "url" : "{{ route('home.agentList') }}",
+                "type": "get",
+            },
+              columns: [
+                  
+                  {data: 'name', name: 'name'},
+                  {data: 'email', name: 'email'},
+                  {data: 'contact', name: 'contact'},
+                  {data: 'role', name: 'role'},
+                  {data: 'action', name: 'action'},
+                  
+                
+              ]
+          });
+
+        
+    });
  </script>
 
 @endsection

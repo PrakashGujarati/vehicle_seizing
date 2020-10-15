@@ -1,6 +1,8 @@
 @extends('layouts.main')
 @section('title', __('Vehicle List'))
 @section('css')
+<link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" rel="stylesheet">
+
 <style type="text/css" media="screen">
 .fill_details_table
 {
@@ -101,7 +103,7 @@ thead {
     <div class="row">
       <div class="col-md-6">
         <div class="table-responsive">
-          <table class="table table-striped table-bordered" cellspacing="0" width="100%" id="data">
+          <table class="table mdl-data-table" cellspacing="0" width="100%" id="data">
             <thead>
               <tr> 
                 <th><input id="checkAll" type="checkbox"  value="checkAll"></th>
@@ -136,11 +138,9 @@ thead {
                 <th>Finance Companys</th>
               </tr>
             </thead>
-            <tbody class="vehicle_table_dynamic TableCss">
-              @include('vehicle.dynamic_vehicle_table')
-            </tbody>
+            
           </table>
-          {{ $vehicledata->links() }}
+      
         </div>    
       </div>
       <div class="col-md-6">
@@ -276,8 +276,61 @@ thead {
   
 @endsection
 @section('onPageJs')
+ <script src="{{ asset('https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js') }} "></script>
  
 <script type="text/javascript">
+
+
+   $(document).ready(function() {
+        $('.mdl-data-table').DataTable({
+                    "processing": true,
+                    "serverSide": true,
+                    "ajax": {
+                        "url" : "{{ route('manageVehicle') }}",
+                        "type": "POST",
+                        'headers': {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        }
+                    },
+                    order: [[0, 'desc']],
+                    columns: [
+                                
+                                {data: 'checkbox', name: 'checkbox'},
+                                {data: 'action', name: 'action'},
+                                {data: 'regd_num', name: 'regd_num'},
+                                {data: 'make', name: 'make'},
+                                {data: 'customer_name', name: 'customer_name'},
+                                {data: 'agreement_no', name: 'agreement_no'},
+                                {data: 'prod_n', name: 'prod_n'},
+                                {data: 'region_area', name: 'region_area'},
+                                {data: 'office', name: 'office'},
+                                {data: 'branch', name: 'branch'},
+                                {data: 'cycle', name: 'cycle'},
+                                {data: 'paymode', name: 'paymode'},
+                                {data: 'emi', name: 'emi'},
+                                {data: 'tet', name: 'tet'},
+                                {data: 'noi', name: 'noi'},
+                                {data: 'allocation_month_grp', name: 'allocation_month_grp'},
+                                {data: 'tenor_over', name: 'tenor_over'},
+                                {data: 'charges', name: 'charges'},
+                                {data: 'gv', name: 'gv'},
+                                {data: 'model', name: 'model'},
+                                {data: 'chasis_num', name: 'chasis_num'},
+                                {data: 'engine_num', name: 'engine_num'},
+                                {data: 'rrm_name_no', name: 'rrm_name_no'},
+                                {data: 'rrm_mail_id', name: 'rrm_mail_id'},
+                                {data: 'coordinator_mail_id', name: 'coordinator_mail_id'},
+                                {data: 'letter_refernce', name: 'letter_refernce'},
+                                {data: 'dispatch_date', name: 'dispatch_date'},
+                                {data: 'letter_date', name: 'letter_date'},
+                                {data: 'valid_date', name: 'valid_date'},
+                                {data: 'finance_company_name', name: 'finance_company_name'},
+                               
+                            ],
+                             
+
+                });
+ });
 
 $(document).ready(function() {
         /*$('#myTable').DataTable();*/
