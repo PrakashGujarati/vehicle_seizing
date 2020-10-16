@@ -1,5 +1,4 @@
 /node_modules
-/storage/*.key
 /vendor
 /.vscode
 /.vagrant
@@ -21,8 +20,3 @@ id_rsa_github.pub
 /.idea
 temp_notes.php
 .env.temp.txt
-
-*.key
-/encrypted
-/vistaorna
-/vistaorna_encrypted
