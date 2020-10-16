@@ -376,6 +376,17 @@ class VehicleController extends Controller
             }
 
      }
+     public function manageVehicleimports(Request $request)
+     {
+
+        $vehicledata = Vehicle::where('deleted' ,null);
+        
+
+
+        return DataTables::of($vehicledata)->make(true);
+
+
+     }
 
 
     

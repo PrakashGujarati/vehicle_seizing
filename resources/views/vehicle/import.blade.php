@@ -46,21 +46,14 @@
    </div>
 
 
-   <hr>
-      <div class="row">
-      <div class="col-md-12">
-         <div class="float-md-right">
-          <div class="input-group ">
-               <input type="text" class="searchString form-control" name="s" id="search"  placeholder="Search..." id="myInput"  autocompelete="false"> 
-            </div><br>
-         </div>
-      </div>
-   </div>
+ <br>
 
    <div class="table-responsive">
-   <table class="table table-striped table-bordered" cellspacing="0" id="data">
+   <table class="table table-striped table-bordered mdl-data-table" cellspacing="0" id="data">
       <thead>
          <tr>
+                <th>Vehicle No</th>
+                <th>Make</th>
                 <th>Customer Name</th>
                 <th>Agreement No</th>
                 <th>Prod N</th>
@@ -77,10 +70,8 @@
                 <th>Charges</th>
                 <th>Gv</th>
                 <th>Model</th>
-                <th>Regd Num</th>
                 <th>Chasis Num</th>
                 <th>Engine Num</th>
-                <th>Make</th>
                 <th>Rrm Name No</th>
                 <th>Rrm Mail Id</th>
                 <th>Coordinator mail</th>
@@ -88,10 +79,11 @@
                 <th>Dispatch Date</th>
                 <th>Letter Date</th>
                 <th>Valid Date</th>
+                <th>Finance Companys</th>
          </tr>
-          <tbody class="import_vehicle_table_dynamic">
+         {{--  <tbody class="import_vehicle_table_dynamic">
              @include('vehicle.dynamic_import_vehicle_table')
-        </tbody>
+        </tbody> --}}
        
          
       </thead>
@@ -131,6 +123,57 @@ $('#search').on('keyup',function(){
     });
   })
 
+
+
+   $(document).ready(function() {
+        $('.mdl-data-table').DataTable({
+                    "processing": true,
+                    "serverSide": true,
+                    "ajax": {
+                        "url" : "{{ route('manageVehicleimports') }}",
+                        "type": "POST",
+                        'headers': {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        }
+                    },
+                    order: [[0, 'desc']],
+                    columns: [
+                                
+                              
+                                {data: 'regd_num', name: 'regd_num'},
+                                {data: 'make', name: 'make'},
+                                {data: 'customer_name', name: 'customer_name'},
+                                {data: 'agreement_no', name: 'agreement_no'},
+                                {data: 'prod_n', name: 'prod_n'},
+                                {data: 'region_area', name: 'region_area'},
+                                {data: 'office', name: 'office'},
+                                {data: 'branch', name: 'branch'},
+                                {data: 'cycle', name: 'cycle'},
+                                {data: 'paymode', name: 'paymode'},
+                                {data: 'emi', name: 'emi'},
+                                {data: 'tet', name: 'tet'},
+                                {data: 'noi', name: 'noi'},
+                                {data: 'allocation_month_grp', name: 'allocation_month_grp'},
+                                {data: 'tenor_over', name: 'tenor_over'},
+                                {data: 'charges', name: 'charges'},
+                                {data: 'gv', name: 'gv'},
+                                {data: 'model', name: 'model'},
+                                {data: 'chasis_num', name: 'chasis_num'},
+                                {data: 'engine_num', name: 'engine_num'},
+                                {data: 'rrm_name_no', name: 'rrm_name_no'},
+                                {data: 'rrm_mail_id', name: 'rrm_mail_id'},
+                                {data: 'coordinator_mail_id', name: 'coordinator_mail_id'},
+                                {data: 'letter_refernce', name: 'letter_refernce'},
+                                {data: 'dispatch_date', name: 'dispatch_date'},
+                                {data: 'letter_date', name: 'letter_date'},
+                                {data: 'valid_date', name: 'valid_date'},
+                                {data: 'finance_company_name', name: 'finance_company_name'},
+                               
+                            ],
+                             
+
+                });
+ });
 
 
 

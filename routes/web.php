@@ -63,6 +63,8 @@ Route::group(['middleware' => 'App\Http\Middleware\ExpiryCheck'], function()
 
         Route::post('manageVehicle', 'VehicleController@manageVehicle')->name('manageVehicle');
 	
+        Route::post('manageVehicleimports', 'VehicleController@manageVehicleimports')->name('manageVehicleimports');
+
 
 
 	//blank excel
