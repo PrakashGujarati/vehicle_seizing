@@ -14,18 +14,9 @@
    </div>
     <hr>
   
-  <div class="row">
-      <div class="col-md-12">
-         <div class="float-md-right">
-          <div class="input-group ">
-               <input type="text" class="searchString form-control" name="s" id="search"  placeholder="Search..." id="myInput"  autocompelete="false"> 
-            </div><br>
-         </div>
-      </div>
-   </div>
    
  
-   <table class="table table-striped table-bordered" cellspacing="0" width="100%" id="data">
+   <table class="table table-striped table-bordered datatable" cellspacing="0" width="100%" id="data">
       <thead>
          <tr>
               <th>User Name</th>
@@ -36,9 +27,6 @@
               <th>Notes</th>
              {{--  <th>Action</th> --}}
          </tr>
-         <tbody class="subscription_table_dynamic">
-            @include('subscription.dynamic_subscription_table')
-        </tbody>
       </thead>
    </table>
 </div>
@@ -48,20 +36,32 @@
  
 <script type="text/javascript">
   
-$('#search').on('keyup',function(){
-    var myInput=$(this).val();
-    $.ajax({
-      type : 'get',
-      url : '{{ route('subscription.search') }}',
-      data: {
-              "s":myInput,
+
+
+$(document).ready(function() {
+    $('.successmessage').css('display','none');
+     $('.dangermessage').css('display','none');
+     
+   $('.datatable').DataTable({
+              processing: true,
+              serverSide: true,
+                "ajax": {
+                "url" : "{{ route('subscribers.datatables') }}",
+                "type": "get",
             },
-      success:function(data){
-         $('.subscription_table_dynamic').html(data.data);
-              tableScript();
-      }
+              columns: [
+                  {data: 'user_id', name: 'user_id'},
+                  {data: 'days', name: 'days'},
+                  {data: 'amount', name: 'amount'},
+                  {data: 'payment_status', name: 'payment_status'},
+                  {data: 'payment_mode', name: 'payment_mode'},
+                  {data: 'notes', name: 'notes'},
+                 
+              ]
+          });
+
+        
     });
-  })
 </script>
 
 @endsection

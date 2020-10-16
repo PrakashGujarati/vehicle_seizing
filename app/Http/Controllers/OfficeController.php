@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Office;
 use App\HeadOffices;
+use DataTables;
 use Illuminate\Http\Request;
 use Validator;
-use DataTables;
 use Session;
 class OfficeController extends Controller
 {
@@ -149,17 +149,16 @@ class OfficeController extends Controller
         $data = Office::find($request->id)->delete();
        if($data)
        {
-            $success = "Office Deleted successfully";
+            $success = "Branch Office Deleted successfully";
             $data=['success'=>$success];
             return Response()->json($data);
        }
     }
     public function datatables_office(Request $request)
     {
-        dd("Adf");
-
-           /*  $Office = Office::all();
         
+
+             $Office = Office::all();
 
             return DataTables::of($Office)
             ->addColumn('action',function($Office)
@@ -167,13 +166,16 @@ class OfficeController extends Controller
                 return ' <a title="Edit"  href="'. route('office.edit',$Office->id) .'"> 
                       <i class="fas fa-edit"></i>
             </a> 
-             <a title="Delete"  class="vehicleDelete text-danger" href="javascript:;" 
+             <a title="Delete"  class="OfficeDelete text-danger" href="javascript:;" 
                 data-OfficeId="'.$Office->id.'" >
                       <i class="fas fa-trash"></i>
             </a>';
             })
+            ->editColumn('head_office_id', function ($Office) {
+               return ''.$Office->headOfficesname->finance_company_name.'';
+            })
             ->rawColumns(['action'])
-            ->make(true);*/
+            ->make(true);
 
      }
 }

@@ -17,7 +17,7 @@
 
    
  
-   <table id="example" class="table table-striped table-bordered"  cellspacing="0" width="100%" id="data">
+   <table id="example" class="table table-striped table-bordered datatable"   cellspacing="0" width="100%" id="data">
       <thead>
          <tr>
               <th>Agent Name</th>
@@ -25,42 +25,42 @@
               <th>image</th>
               <th>Action</th>
          </tr>
-         <tbody>
-           @foreach ($Vehicles as $Vehicle)
-           <tr>
-             <td>
-                  {{ isset($Vehicle->agentname->name) ? $Vehicle->agentname->name:'' }}
-             </td>
-             <td>
-              {{ isset($Vehicle->regd_num) ? $Vehicle->regd_num:'' }}
-             </td>
-             <td>
-              @if($Vehicle->image)
-                 <center>
-                    <img src="{{asset('uploads/vehicle')}}/{{$Vehicle->image}}" style="height:50px;">
-                </center>
-              @endif
-             </td>
-             <td>
-              <a title="Edit" href="{{ route('vehicle.map',$Vehicle->id) }}">
-                <i class="fa fa-map-marker"></i>
-              </a>
-            </td>
-
-          </tr>
-         @endforeach
-        </tbody>
-      </thead>
+        
    </table>
 </div>
+
+<input type="text" name="id" value="{{$GetID}}">
   
 @endsection
 @section('onPageJs')
  
 <script type="text/javascript">
-  $(document).ready(function() {
-    $('#example').DataTable();
-} );
+ 
+$(document).ready(function() {
+var id = {{$GetID}};
+ 
+    $('.successmessage').css('display','none');
+     $('.dangermessage').css('display','none');
+     
+   $('.datatable').DataTable({
+              processing: true,
+              serverSide: true,
+                "ajax": {
+                "url" : "{{ route('VehicleSearchlistShow.datatables') }}",
+                "type": "get",
+                "data": {user_id: id},
+            },
+              columns: [
+                  
+                  {data: 'user_id', name: 'user_id'},
+                  {data: 'regd_num', name: 'regd_num'},
+                  {data: 'map', name: 'map'},
+                  {data: 'image', name: 'image'},
+              ]
+          });
+
+        
+    });
   
 </script>
 

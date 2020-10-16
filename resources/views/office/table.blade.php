@@ -1,6 +1,8 @@
 @extends('layouts.main')
 @section('title', __('Office'))
 @section('content')
+<div class="alert alert-success successmessage"></div>
+
 <div class="main-content">
    <div class="row">
       <div class="col-md-6">
@@ -57,7 +59,13 @@ $(document).ready(function() {
             },
               columns: [
                   {data: 'head_office_id', name: 'head_office_id'},
-                 
+                  {data: 'name', name: 'name'},
+                  {data: 'contact_person', name: 'contact_person'},
+                  {data: 'contact', name: 'contact'},
+                  {data: 'address1', name: 'address1'},
+                  {data: 'city', name: 'city'},
+                  {data: 'branch_code', name: 'branch_code'},
+                  {data: 'branch', name: 'branch'},
                   {data: 'action', name: 'action'},
               ]
           });
@@ -66,12 +74,12 @@ $(document).ready(function() {
     });
 
 
-   $(document).on('click','.vehicleDelete',function(){
+   $(document).on('click','.OfficeDelete',function(){
+    var id=$(this).data('officeid');
     
-    var id=$(this).data('headofficesid');
 
     bootbox.confirm({
-    message: "Are you sure you want to delete this Finance Office?",
+    message: "Are you sure you want to delete this Branch Office?",
     buttons: {
         confirm: {
             label: 'Yes',
@@ -88,14 +96,13 @@ $(document).ready(function() {
                     $.ajax({
                         type: "GET",
                         headers: {'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')},
-                        url: "{{ route('delete.financeoffice') }}",
+                        url: "{{ route('delete.office') }}",
                         data: {
                             "id":id,
                             "_method":'DELETE'
                         },              
                         success: function (data)
                         {     
-                          alert("asdf");
                            $('.successmessage').css('display','block');
                             $('.successmessage').html(data.success);
                             $('.successmessage').delay(5000).fadeOut(800);

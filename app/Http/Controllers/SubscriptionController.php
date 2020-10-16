@@ -7,6 +7,7 @@ use App\UserSubscription;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use DataTables;
 
 class SubscriptionController extends Controller
 {
@@ -167,26 +168,17 @@ class SubscriptionController extends Controller
         //
     }
 
-     public function search_subscription(Request $request)
+     public function datatables_subscribers(Request $request)
     {
-            if($request->has('s') && $request->s != ''){
-            $subscriptions = Subscription::where(function($query) use($request){
-                $query->orwhere('user_id','like','%'.$request->s.'%');
-                $query->orwhere('days','like','%'.$request->s.'%');
-                $query->orwhere('amount','like','%'.$request->s.'%');
-                $query->orwhere('payment_status','like','%'.$request->s.'%');
-                $query->orwhere('payment_mode','like','%'.$request->s.'%');
-                $query->orwhere('notes','like','%'.$request->s.'%');
-            })->get();
-        }
-        else
-        {
-            $subscriptions = Subscription::all();
-        }
-        
-        $allowancehtml = view('subscription.dynamic_subscription_table', compact('subscriptions'))->render();
-        $data=['data' => $allowancehtml];
-        return Response()->json($data);
+           
+             $Subscription = Subscription::all();
+
+            return DataTables::of($Subscription)
+            ->editColumn('user_id', function ($Subscription) {
+               return ''.$Subscription->Username->name.'';
+            })
+            ->rawColumns(['user_id'])
+            ->make(true);
 
      }
 }

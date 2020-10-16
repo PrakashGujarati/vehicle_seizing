@@ -12,29 +12,13 @@
 
    
  
-   <table id="example" class="table table-striped table-bordered"  cellspacing="0" width="100%" id="data">
+   <table id="example" class="table table-striped table-bordered datatable"  cellspacing="0" width="100%" id="data">
       <thead>
          <tr>
               <th>Name</th>
               <th>Action</th>
          </tr>
-         <tbody>
-           @foreach ($userdata as $user)
-           <tr>
-             <td>
-                <a title="Vehicle Search List" href="{{ route('vehicle-searchlist.show',$user->id) }}">
-                  {{ isset($user->name) ? $user->name:'' }}
-                </a>
-             </td>
-             <td>
-              <a title="Vehicle Search List" href="{{ route('vehicle-searchlist.show',$user->id) }}">
-                <i class="fas fa-eye"></i>
-              </a>
-            </td>
-
-          </tr>
-         @endforeach
-        </tbody>
+        
       </thead>
    </table>
 </div>
@@ -43,10 +27,32 @@
 @section('onPageJs')
  
 <script type="text/javascript">
-  $(document).ready(function() {
-    $('#example').DataTable();
-} );
+
+
+$(document).ready(function() {
+    $('.successmessage').css('display','none');
+     $('.dangermessage').css('display','none');
+     
+   $('.datatable').DataTable({
+              processing: true,
+              serverSide: true,
+                "ajax": {
+                "url" : "{{ route('VehicleSearchlist.datatables') }}",
+                "type": "get",
+            },
+              columns: [
+                  
+                  {data: 'name', name: 'name'},
+                  {data: 'action', name: 'action'},
+              ]
+          });
+
+        
+    });
+
   
 </script>
+
+
 
 @endsection

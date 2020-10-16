@@ -82,7 +82,9 @@ Route::group(['middleware' => 'App\Http\Middleware\ExpiryCheck'], function()
 	Route::resource('office', 'OfficeController');
 
 
-	Route::get('office/datatables', 'OfficeController@datatables_office')->name('office.datatables');
+	Route::get('office-datatables', 'OfficeController@datatables_office')->name('office.datatables');
+	Route::get('get/office/delete/{id?}', 'OfficeController@destroy')->name('delete.office');
+
 	
 /*	Route::get('get/datatables/delete/{id?}', 'OfficeController@destroy')->name('delete.office');*/
 
@@ -125,13 +127,20 @@ Route::group(['middleware' => 'App\Http\Middleware\ExpiryCheck'], function()
 	Route::get('agent_vehicle_search','AgentViewController@AgentVehicleSearch')->name('AgentVehicle.search');
 
 	Route::resource('subscribers', 'SubscriptionController');
-	Route::get('subscription_search', 'SubscriptionController@search_subscription')->name('subscription.search');
+	
+	Route::get('subscribers-datatables', 'SubscriptionController@datatables_subscribers')->name('subscribers.datatables');
+
 
 
 	Route::resource('assigned-Vehicle', 'AssignedVehicleController'); 
 	Route::post('assigned-vehicle-display','AssignedVehicleController@AssignedVehicle')->name('assigned-vehicle-display');
 
  	Route::resource('vehicle-searchlist', 'SearchVehicleController');
+	Route::get('VehicleSearchlist-datatables', 'SearchVehicleController@datatables_VehicleSearchlist')->name('VehicleSearchlist.datatables');
+
+	Route::get('VehicleSearchlistShow-datatables', 'SearchVehicleController@datatables_VehicleSearchlistShow')->name('VehicleSearchlistShow.datatables');
+
+
 	
 	Route::get('vehicle/map/{id}', 'SearchVehicleController@map')->name('vehicle.map');
 
