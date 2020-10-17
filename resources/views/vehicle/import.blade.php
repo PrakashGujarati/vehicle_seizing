@@ -21,29 +21,45 @@
 
    <div class="row">
       <div class="col-md-6">
-         <h5>Imports Vehicle</h5>
+           <h5>Imports Vehicle</h5>
       </div>
-      <div class="col-md-6 d-flex flex-row-reverse">
-
-         <a href="{{route('vehicle.download_blank') }}" class="btn btn-success btn-sm">Simple</a>&nbsp
-
-          <form id="submitData" action="{{ route('import.vehicle') }}" method="post" enctype="multipart/form-data"> 
-         @csrf
-
-         <select name="finance_company_name">
-          <option value="" disabled="" selected="">Select Finance Companys</option>
+      <div class="col-md-6">
+        
+      
+      <form class="d-flex" id="submitData"  action="{{ route('import.vehicle') }}" method="post" enctype="multipart/form-data"> 
+        @csrf
+      <div class="col-md-4">
+        <select name="finance_company_name" class="form-control" required="">
+          <option value="" disabled=""  selected="">Select Finance Companys</option>
           @foreach ($finance_offices as $office)
             <option value="{{$office->finance_company_name}}">{{$office->finance_company_name}}</option>
           @endforeach
          </select>
-            <input type="file"  name="file" id="input-file-now" class="dropify " />
-            <button type="submit" class="btn btn-info btn-sm addBtn">Submit</button>
-         </form>
       </div>
-      {{-- <div class="col-md-1" style="text-align: right;">
-        
+
+      <div class="col-md-5  d-flex">
+         
+         
+            <input type="file" style="width: 200px" name="file" id="input-file-now" class="dropify " />
+            &nbsp   
+            <button type="submit" class="btn btn-info btn-sm addBtn">Submit</button>
+         
+         &nbsp
+         <a  style="" href="{{route('vehicle.download_blank') }}" class="btn btn-success btn-sm">Simple</a>
+
+      </div>
+      </form>
+      </div>
+    {{--   <div class="col-md-4 text-right d-flex">
+        <form class="d-flex" method="POST" action="{{ route('vehicle.unassigned') }}">
+          @csrf
+          <input type="date" class="form-control" id="date" name="date" >&nbsp;
+          <button class="btn btn-info btn-sm" type="submit" name="submit">        
+        Unassign</button>&nbsp;
+        </form>
+        <button id="deleterecord" class="btn btn-danger btn-sm"> Delete</button>       
       </div> --}}
-   </div>
+    </div>
 
 
  <br>

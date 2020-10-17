@@ -126,7 +126,7 @@ Route::group(['middleware' => 'App\Http\Middleware\ExpiryCheck'], function()
 	
 
 	Route::get('agentview', 'AgentViewController@agent_index')->name('agentview.index');
-	Route::get('agent_vehicle_search','AgentViewController@AgentVehicleSearch')->name('AgentVehicle.search');
+	Route::get('agentview-datatables','AgentViewController@AgentVehicledatatables')->name('agentview.datatables');
 
 	Route::resource('subscribers', 'SubscriptionController');
 	

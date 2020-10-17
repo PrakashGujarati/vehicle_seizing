@@ -9,6 +9,8 @@ use App\UserAssigned;
 use Illuminate\Http\Request;
 use Auth;
 use DB;
+use DataTables;
+
 class AgentViewController extends Controller
 {
     /**
@@ -146,51 +148,38 @@ class AgentViewController extends Controller
 
         return view('agent-permission.table',compact('vehicledata','agentviewdata'));
     }
-     public function AgentVehicleSearch(Request $request)
+   
+     public function AgentVehicledatatables(Request $request)
     {
-            if($request->has('s') && $request->s != ''){
-            $vehicledata = Vehicle::where(function($query) use($request){
-                $query->orwhere('customer_name','like','%'.$request->s.'%');
-                $query->orwhere('agreement_no','like','%'.$request->s.'%');
-                $query->orwhere('prod_n','like','%'.$request->s.'%');
-                $query->orwhere('region_area','like','%'.$request->s.'%');
-                $query->orwhere('office','like','%'.$request->s.'%');
-                $query->orwhere('branch','like','%'.$request->s.'%');
-                $query->orwhere('customer_name','like','%'.$request->s.'%');
-                $query->orwhere('cycle','like','%'.$request->s.'%');
-                $query->orwhere('paymode','like','%'.$request->s.'%');
-                $query->orwhere('emi','like','%'.$request->s.'%');
-                $query->orwhere('tet','like','%'.$request->s.'%');
-                $query->orwhere('noi','like','%'.$request->s.'%');
-                $query->orwhere('allocation_month_grp','like','%'.$request->s.'%');
-                $query->orwhere('tenor_over','like','%'.$request->s.'%');
-                $query->orwhere('charges','like','%'.$request->s.'%');
-                $query->orwhere('gv','like','%'.$request->s.'%');
-                $query->orwhere('model','like','%'.$request->s.'%');
-                $query->orwhere('regd_num','like','%'.$request->s.'%');
-                $query->orwhere('chasis_num','like','%'.$request->s.'%');
-                $query->orwhere('engine_num','like','%'.$request->s.'%');
-                $query->orwhere('make','like','%'.$request->s.'%');
-                $query->orwhere('rrm_name_no','like','%'.$request->s.'%');
-                $query->orwhere('rrm_mail_id','like','%'.$request->s.'%');
-                $query->orwhere('coordinator_mail_id','like','%'.$request->s.'%');
-                $query->orwhere('letter_refernce','like','%'.$request->s.'%');
-                $query->orwhere('dispatch_date','like','%'.$request->s.'%');
-                $query->orwhere('letter_date','like','%'.$request->s.'%');
-                $query->orwhere('valid_date','like','%'.$request->s.'%');
-            })->get();
-            $agentviewdata = AgentView::where('id',1)->first();
-
-        }
-        else
-        {
-            $vehicledata = Vehicle::all();
-            $agentviewdata = AgentView::where('id',1)->first();
-
-        }
+      
+           $agentviewdata = AgentView::where('id',1)->first();
+         
+          $vehicledata = DB::table('vehicles')
+        ->join('user_assigneds', 'vehicles.id', '=', 'user_assigneds.vehicle_id')
+        ->where('user_assigneds.user_id',Auth::user()->id );
         
-        $allowancehtml = view('agent-permission.dynamic_vehicle_table', compact('vehicledata','agentviewdata'))->render();
-        $data=['data' => $allowancehtml];
-        return Response()->json($data);
+            return DataTables::of($vehicledata)
+            ->addColumn('action',function($vehicledata)
+            {
+                return ' <a title="View"  href="'. route('agent-view-permission.show',$vehicledata->id) .'"> 
+                      <i class="fas fa-eye"></i>
+            </a>';
+            })
+             
+            ->addColumn('coordinator_mail_id',function($vehicledata)
+            {  
+                 /*if($agentviewdata->coordinator_mail_id == 'coordinator_mail_id')
+                 {*/
+                    return ''.$vehicledata->coordinator_mail_id.'';
+               /* }
+                else
+                {
+                    return '';
+                }*/
+                
+               
+            })
+             ->rawColumns(array("action", "coordinator_mail_id"))
+            ->make(true);
     }
 }

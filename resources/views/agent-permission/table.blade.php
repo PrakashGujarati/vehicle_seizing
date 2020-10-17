@@ -25,7 +25,7 @@
     </div><br>
     
     <div class="table-responsive">
-     <table class="table table-striped table-bordered" cellspacing="0" width="100%" id="data">
+     <table class="table table-striped table-bordered datatable" cellspacing="0" width="100%" id="data">
         <thead>
            <tr> 
                 <th>Action</th>
@@ -114,9 +114,7 @@
                 @endif
            </tr>
         </thead>
-        <tbody class="vehicle_table_dynamic">
-             @include('agent-permission.dynamic_vehicle_table')
-        </tbody>
+        
      </table>
    </div>
 </div>
@@ -126,25 +124,29 @@
  
 <script type="text/javascript">
 
+
+
 $(document).ready(function() {
-        /*$('#myTable').DataTable();*/
-        $('.successmessage').css('display','none');
-        $('.dangermessage').css('display','none');
-    });
-$('#search').on('keyup',function(){
-    var myInput=$(this).val();
-    $.ajax({
-      type : 'get',
-      url : '{{ route('AgentVehicle.search') }}',
-      data: {
-              "s":myInput,
+    $('.successmessage').css('display','none');
+     $('.dangermessage').css('display','none');
+   $('.datatable').DataTable({
+              processing: true,
+              serverSide: true,
+                "ajax": {
+                "url" : "{{ route('agentview.datatables') }}",
+                "type": "get",
             },
-      success:function(data){
-         $('.vehicle_table_dynamic').html(data.data);
-              tableScript();
-      }
+              columns: [
+                  {data: 'action', name: 'action'},
+                  {data: 'agreement_no', name: 'agreement_no'},
+                  {data: 'coordinator_mail_id', name: 'coordinator_mail_id'},
+                 
+              ]
+          });
+
+        
     });
-  })
+
 
 
 
