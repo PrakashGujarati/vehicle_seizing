@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.2.5",
+        "dipenparmar12/importcsv": "dev-main",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^6.3",
@@ -21,6 +22,7 @@
         "yajra/laravel-datatables-oracle": "^9.11"
     },
     "require-dev": {
+        "roave/security-advisories": "dev-master",
         "facade/ignition": "^2.0",
         "fzaninotto/faker": "^1.9.1",
         "mockery/mockery": "^1.3",
@@ -64,5 +66,14 @@
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
         ]
+    },
+    "repositories": {
+        "dipenparmar12/importcsv": {
+            "type": "path",
+            "url": "./packages/Dipenparmar12/ImportCsv",
+            "options": {
+                "symlink": true
+            }
+        }
     }
 }
