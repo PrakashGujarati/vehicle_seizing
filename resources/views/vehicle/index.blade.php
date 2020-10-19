@@ -2,7 +2,7 @@
 @section('title', __('Vehicle List'))
 
 @section('css')
-  <style type="text/css">
+  <style>
       tbody {
           display: block;
           overflow-y: scroll !important;
@@ -16,6 +16,13 @@
           background: none;
       }
   </style>
+  <link rel="stylesheet" href="{{  asset('vendor/dataTables.checkboxes.css') }}">
+@endsection
+
+@section('js')
+  <script src="{{  asset('vendor/dataTables.checkboxes.min.js') }}"></script>
+  {{--  <script src="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.10/js/dataTables.checkboxes.min.js"></script>--}}
+  {{--  DOC:: https://jsfiddle.net/gyrocode/snqw56dw/--}}
 @endsection
 
 @section('content')
@@ -54,45 +61,53 @@
       </div>
 
       <div class="col-12">
-        <div class="table-responsive">
-          <table class="table  <!--table-bordered-->" id="vehicles-table">
-            <thead>
-            <tr style="position:sticky;">
-              <th>Status</th>
-              <th>Action</th>
-              <th>Id</th>
-              <th>Vehicle No</th>
-              <th>Make</th>
-              <th>Customer Name</th>
-              <th>Agreement No</th>
-              <th>Prod N</th>
-              <th>Region Area</th>
-              <th>Office</th>
-              <th>Branch</th>
-              <th>Cycle</th>
-              <th>Paymode</th>
-              <th>Emi</th>
-              <th>Tet</th>
-              <th>Noi</th>
-              <th>Allocation Month Grp</th>
-              <th>Tenor Over</th>
-              <th>Charges</th>
-              <th>Gv</th>
-              <th>Model</th>
-              <th>Chasis Num</th>
-              <th>Engine Num</th>
-              <th>Rrm Name No</th>
-              <th>Rrm Mail Id</th>
-              <th>Coordinator mail</th>
-              <th>Letter Refernce</th>
-              <th>Dispatch Date</th>
-              <th>Letter Date</th>
-              <th>Valid Date</th>
-              <th>Finance Companys</th>
-            </tr>
-            </thead>
-          </table>
-        </div>
+        <form id="frm-example" action="/" method="POST">
+          <div class="table-responsive">
+            <table class="table  <!--table-bordered-->" id="vehicles-table">
+              <thead>
+              <tr style="position:sticky;">
+                <th>#</th>
+                <th>Action</th>
+                <th>Status</th>
+                <th>Id</th>
+                <th>Vehicle No</th>
+                <th>Make</th>
+                <th>Customer Name</th>
+                <th>Agreement No</th>
+                <th>Prod N</th>
+                <th>Region Area</th>
+                <th>Office</th>
+                <th>Branch</th>
+                <th>Cycle</th>
+                <th>Paymode</th>
+                <th>Emi</th>
+                <th>Tet</th>
+                <th>Noi</th>
+                <th>Allocation Month Grp</th>
+                <th>Tenor Over</th>
+                <th>Charges</th>
+                <th>Gv</th>
+                <th>Model</th>
+                <th>Chasis Num</th>
+                <th>Engine Num</th>
+                <th>Rrm Name No</th>
+                <th>Rrm Mail Id</th>
+                <th>Coordinator mail</th>
+                <th>Letter Refernce</th>
+                <th>Dispatch Date</th>
+                <th>Letter Date</th>
+                <th>Valid Date</th>
+                <th>Finance Companys</th>
+              </tr>
+              </thead>
+            </table>
+          </div>
+          <input type="submit" value="Submit">
+          <p><b>Selected rows data:</b></p>
+          <pre id="example-console-rows"></pre>
+          <p><b>Form data as submitted to the server:</b></p>
+          <pre id="example-console-form"></pre>
+        </form>
       </div>
     </div>
   </div>
@@ -104,7 +119,6 @@
 @endsection
 
 @section('onPageJs')
-  {{--  <script src="{{ asset('https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js') }} "></script>--}}
   <script type="text/javascript">
     $(function () {
       let $vehicles_table = $('#vehicles-table').DataTable({
@@ -120,8 +134,9 @@
           }
         },
         columns: [
-          {data: 'action', name: 'action', orderable: false, searchable: false},
+          {data: 'id', name: 'id', orderable: false, searchable: false},
           {data: 'id', name: 'id'},
+          {data: 'action', name: 'action', orderable: false, searchable: false},
           {data: 'status', name: 'status'},
           {data: 'finance_company_name', name: 'finance_company_name'},
           {data: 'regd_num', name: 'regd_num'},
@@ -151,15 +166,56 @@
           {data: 'dispatch_date', name: 'dispatch_date'},
           {data: 'letter_date', name: 'letter_date'},
           {data: 'valid_date', name: 'valid_date'},
-        ]
+        ],
+        'columnDefs': [
+          {
+            'targets': 0,
+            'checkboxes': {
+              'selectRow': true
+            }
+          }
+        ],
+        'select': {
+          'style': 'multi'
+        },
       });
-
 
       $(".finance_office").on('change', function (e) {
         console.log("finance_office changed")
         $vehicles_table.draw();
         e.preventDefault();
       });
+
+
+      // Handle form submission event
+      $('#frm-example').on('submit', function (e) {
+        var form = this;
+        var rows_selected = $vehicles_table.column(0).checkboxes.selected();
+
+        // Iterate over all selected checkboxes
+        $.each(rows_selected, function (index, rowId) {
+          // Create a hidden element
+          $(form).append(
+              $('<input>')
+                  .attr('type', 'hidden')
+                  .attr('name', 'id[]')
+                  .val(rowId)
+          );
+        });
+
+        // Output form data to a console
+        $('#example-console-rows').text(rows_selected.join(","));
+
+        // Output form data to a console
+        // $('#example-console-form').text($(form).serialize());
+
+        // Remove added elements
+        $('input[name="id\[\]"]', form).remove();
+
+        // Prevent actual form submission
+        e.preventDefault();
+      });
+
 
       $(document).on('click', '.select_row', function (event) {
         let $model = $("#model_data");
@@ -172,7 +228,6 @@
           let $th = $td.closest('table').find('th').eq($td.index());
           $ul_list += `<li class='list-group-item'> <span style="font-weight: bold">${$th.html()}</span> : ${$td.text()}</li> `;
         }
-
         $ul_list += `</ul>`
 
         //CLEARING THE PREFILLED DATA
@@ -182,24 +237,23 @@
         // console.log($row)
       });
 
-
-      // TODO::DELETE via ajax
-      /*$('body').on('click', '.deleteProduct', function () {
-        var product_id = $(this).data("id");
-        confirm("Are You sure want to delete !");
-        $.ajax({
-          type: "DELETE",
-{{--          url: "{{ route('api.vehicles.destroy', id) }}"+'/'+product_id,--}}
-      success: function (data) {
-        table.draw();
-      },
-      error: function (data) {
-        console.log('Error:', data);
-      }
-    });
-  });*/
-
     }); //// Document load()
 
   </script>
 @endsection
+
+{{--// TODO::DELETE via ajax--}}
+{{--/*$('body').on('click', '.deleteProduct', function () {--}}
+{{--var product_id = $(this).data("id");--}}
+{{--confirm("Are You sure want to delete !");--}}
+{{--$.ajax({--}}
+{{--type: "DELETE",--}}
+{{-- url: "{{ route('api.vehicles.destroy', id) }}"+'/'+product_id,--}}
+{{--success: function (data) {--}}
+{{--table.draw();--}}
+{{--},--}}
+{{--error: function (data) {--}}
+{{--console.log('Error:', data);--}}
+{{--}--}}
+{{--});--}}
+{{--});*/--}}

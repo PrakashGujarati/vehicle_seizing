@@ -180,9 +180,8 @@
 {{--<script src="https://js.pusher.com/4.3/pusher.min.js"></script>--}}
 <script src="{{  url(mix('js/tinymce.js')) }}"></script>
 
-
 @yield('onPageJs')
-
+@yield('js')
 
 </body>
 
