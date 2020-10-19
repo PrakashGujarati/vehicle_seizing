@@ -110,7 +110,7 @@ class VehicleApiController extends Controller
         $agent_id = $request->get('agent_id');
 
         foreach ($vehicle_ids as $vehicle_id) {
-            UserAssigned::create([
+            UserAssigned::updateOrCreate([
                 'user_id' => $agent_id,
                 'vehicle_id' => $vehicle_id,
             ]);
