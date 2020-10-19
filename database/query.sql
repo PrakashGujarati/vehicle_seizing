@@ -1,0 +1,1 @@
+create index vehicles_regd_num_index on vehicles (regd_num);

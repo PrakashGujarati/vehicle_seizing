@@ -10,6 +10,7 @@ use Yajra\DataTables\DataTables;
 
 class VehicleApiController extends Controller
 {
+
     public function index_datatable(Request $request)
     {
         $vehicles = Vehicle::query();
@@ -37,8 +38,14 @@ class VehicleApiController extends Controller
                 if ($request->has('finance_office') and $request->get('finance_office') !== null) {
                     $instance->where('finance_company_name', $request->get('finance_office'));
                 }
-            }, true)
 
+                if ($request->has('search') and $request->get('search') !== null) {
+                    $instance->where(function ($q) use ($request) {
+                        $q->orWhere('customer_name', 'like', $request->get('search') . '%');
+                        $q->orWhere('regd_num', 'like', $request->get('search') . '%');
+                    });
+                }
+            })
             ->rawColumns(['action', 'status'])
             ->toJson();
     }
