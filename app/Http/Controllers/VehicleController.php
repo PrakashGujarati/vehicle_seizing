@@ -362,7 +362,7 @@ class VehicleController extends Controller
      {
 
         //dd($request->all());
-         $vehicledata = Vehicle::where('deleted' ,null)->where('finance_company_name',$request->company_name)->paginate(12);;
+         $vehicledata = Vehicle::where('deleted' ,null)->where('finance_company_name',$request->company_name)->paginate(12);
        
            if(count($vehicledata) > 0)
             {
