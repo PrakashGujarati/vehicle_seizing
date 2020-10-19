@@ -1,29 +1,8 @@
 @extends('layouts.main')
 @section('title', __('Vehicle List'))
 
-@section('css')
-  <style>
-      tbody {
-          display: block;
-          overflow-y: scroll !important;
-      }
-
-      thead {
-          display: block;
-      }
-
-      .sorting, .sorting_asc, .sorting_desc {
-          background: none;
-      }
-  </style>
-  <link rel="stylesheet" href="{{  asset('vendor/dataTables.checkboxes.css') }}">
-@endsection
-
-@section('js')
-  <script src="{{  asset('vendor/dataTables.checkboxes.min.js') }}"></script>
-  {{--  <script src="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.10/js/dataTables.checkboxes.min.js"></script>--}}
-  {{--  DOC:: https://jsfiddle.net/gyrocode/snqw56dw/--}}
-@endsection
+{{-- Css --}}
+@includeIf('vehicle._partials.style')
 
 @section('content')
   <div class="main-content">
@@ -45,8 +24,9 @@
       </div>
     </div>
     <br>
+
     <div class="row">
-      <div class="col-12">
+      <div class="col-12 form-inline">
         <div class="form-group">
           <label><strong>Finance Company :</strong></label>
           <label>
@@ -58,10 +38,16 @@
             </select>
           </label>
         </div>
+
+        <div class="form-group ml-4">
+          <a type="button" href="#" class="btn btn-sm btn-outline-success assign_vehicle_btn"
+             data-toggle='modal' data-target='#assign_vehicle'>
+            <i class=""> </i> + Assign Vehicles
+          </a>
+        </div>
       </div>
 
       <div class="col-12">
-        <form id="frm-example" action="/" method="POST">
           <div class="table-responsive">
             <table class="table  <!--table-bordered-->" id="vehicles-table">
               <thead>
@@ -102,158 +88,16 @@
               </thead>
             </table>
           </div>
-          <input type="submit" value="Submit">
-          <p><b>Selected rows data:</b></p>
-          <pre id="example-console-rows"></pre>
-          <p><b>Form data as submitted to the server:</b></p>
-          <pre id="example-console-form"></pre>
-        </form>
       </div>
     </div>
   </div>
 
-  @includeIf('_partial.html_modal', ['modal_title'=> "Detail",]);
+  {{-- Modals --}}
+  @includeIf('vehicle._partials.vehicle_show_modal', ['modal_title'=> "Detail",]);
+  @includeIf('vehicle._partials.csv_import_modal', ['modal_title'=> "Import bulk data",]);
+  @includeIf('vehicle._partials.assign_vehicle', ['modal_title'=> " Assign Vehicles",]);
 
-  @includeIf('vehicle.csv_import_modal', ['modal_title'=> "Detail",]);
+  {{-- Script  --}}
+  @includeIf('vehicle._partials.javascript');
 
 @endsection
-
-@section('onPageJs')
-  <script type="text/javascript">
-    $(function () {
-      let $vehicles_table = $('#vehicles-table').DataTable({
-        processing: true,
-        serverSide: true,
-        {{--ajax: '{!! route('api.vehicles.get') !!}',--}}
-        ajax: {
-          'url': '{!! route('api.vehicles.get') !!}',
-          data: function (d) {
-            d.search = $('input[type="search"]').val()
-            d.finance_office = $('.finance_office').val()
-            return d;
-          }
-        },
-        columns: [
-          {data: 'id', name: 'id', orderable: false, searchable: false},
-          {data: 'id', name: 'id'},
-          {data: 'action', name: 'action', orderable: false, searchable: false},
-          {data: 'status', name: 'status'},
-          {data: 'finance_company_name', name: 'finance_company_name'},
-          {data: 'regd_num', name: 'regd_num'},
-          {data: 'make', name: 'make'},
-          {data: 'customer_name', name: 'customer_name'},
-          {data: 'agreement_no', name: 'agreement_no'},
-          {data: 'prod_n', name: 'prod_n'},
-          {data: 'region_area', name: 'region_area'},
-          {data: 'office', name: 'office'},
-          {data: 'branch', name: 'branch'},
-          {data: 'cycle', name: 'cycle'},
-          {data: 'paymode', name: 'paymode'},
-          {data: 'emi', name: 'emi'},
-          {data: 'tet', name: 'tet'},
-          {data: 'noi', name: 'noi'},
-          {data: 'allocation_month_grp', name: 'allocation_month_grp'},
-          {data: 'tenor_over', name: 'tenor_over'},
-          {data: 'charges', name: 'charges'},
-          {data: 'gv', name: 'gv'},
-          {data: 'model', name: 'model'},
-          {data: 'chasis_num', name: 'chasis_num'},
-          {data: 'engine_num', name: 'engine_num'},
-          {data: 'rrm_name_no', name: 'rrm_name_no'},
-          {data: 'rrm_mail_id', name: 'rrm_mail_id'},
-          {data: 'coordinator_mail_id', name: 'coordinator_mail_id'},
-          {data: 'letter_refernce', name: 'letter_refernce'},
-          {data: 'dispatch_date', name: 'dispatch_date'},
-          {data: 'letter_date', name: 'letter_date'},
-          {data: 'valid_date', name: 'valid_date'},
-        ],
-        'columnDefs': [
-          {
-            'targets': 0,
-            'checkboxes': {
-              'selectRow': true
-            }
-          }
-        ],
-        'select': {
-          'style': 'multi'
-        },
-      });
-
-      $(".finance_office").on('change', function (e) {
-        console.log("finance_office changed")
-        $vehicles_table.draw();
-        e.preventDefault();
-      });
-
-
-      // Handle form submission event
-      $('#frm-example').on('submit', function (e) {
-        var form = this;
-        var rows_selected = $vehicles_table.column(0).checkboxes.selected();
-
-        // Iterate over all selected checkboxes
-        $.each(rows_selected, function (index, rowId) {
-          // Create a hidden element
-          $(form).append(
-              $('<input>')
-                  .attr('type', 'hidden')
-                  .attr('name', 'id[]')
-                  .val(rowId)
-          );
-        });
-
-        // Output form data to a console
-        $('#example-console-rows').text(rows_selected.join(","));
-
-        // Output form data to a console
-        // $('#example-console-form').text($(form).serialize());
-
-        // Remove added elements
-        $('input[name="id\[\]"]', form).remove();
-
-        // Prevent actual form submission
-        e.preventDefault();
-      });
-
-
-      $(document).on('click', '.select_row', function (event) {
-        let $model = $("#model_data");
-        let $currentRow = $(this).closest("tr");
-        let $table_heading_count = $("table > tbody > tr:first > td").length
-        let $ul_list = `<ul class='list-group'>`;
-
-        for (let i = 1; i < $table_heading_count; i++) {
-          let $td = $currentRow.find(`td:eq(${i})`);
-          let $th = $td.closest('table').find('th').eq($td.index());
-          $ul_list += `<li class='list-group-item'> <span style="font-weight: bold">${$th.html()}</span> : ${$td.text()}</li> `;
-        }
-        $ul_list += `</ul>`
-
-        //CLEARING THE PREFILLED DATA
-        $model.empty();
-        //WRITING THE DATA ON MODEL
-        $model.append($ul_list);
-        // console.log($row)
-      });
-
-    }); //// Document load()
-
-  </script>
-@endsection
-
-{{--// TODO::DELETE via ajax--}}
-{{--/*$('body').on('click', '.deleteProduct', function () {--}}
-{{--var product_id = $(this).data("id");--}}
-{{--confirm("Are You sure want to delete !");--}}
-{{--$.ajax({--}}
-{{--type: "DELETE",--}}
-{{-- url: "{{ route('api.vehicles.destroy', id) }}"+'/'+product_id,--}}
-{{--success: function (data) {--}}
-{{--table.draw();--}}
-{{--},--}}
-{{--error: function (data) {--}}
-{{--console.log('Error:', data);--}}
-{{--}--}}
-{{--});--}}
-{{--});*/--}}

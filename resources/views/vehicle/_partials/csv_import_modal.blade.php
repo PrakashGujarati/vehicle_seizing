@@ -3,7 +3,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <!-- MODEL TITLE -->
-        <h2 class="modal-title"> Import bulk data </h2>
+        <h2 class="modal-title">  {{ @$modal_title  }} </h2>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true"> × </span>
         </button>

@@ -138,8 +138,9 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 
+Route::get('api/vehicles', [VehicleApiController::class, 'index_datatable'])->name('api.vehicles.get');
 Route::get('vehicles', [VehicleController::class, 'vehicles']);
 Route::get('vehicles/create', [VehicleApiController::class, 'create'])->name('vehicles.create');
+Route::post('vehicles_assign', [VehicleApiController::class, 'vehicles_assign'])->name('vehicles.assign');
 Route::post('vehicles/{id}', [VehicleApiController::class, 'destroy'])->name('api.vehicles.destroy');
-Route::get('api/vehicles', [VehicleApiController::class, 'index_datatable'])->name('api.vehicles.get');
 Route::post('/csv_import', [CsvImportController::class, "store"])->name('csv.import.store');

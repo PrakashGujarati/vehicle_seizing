@@ -15,8 +15,12 @@ class VehicleController extends Controller
 {
     public function vehicles()
     {
-        $financeoffices = HeadOffices::get();
-        return view('vehicle.index')->with(['finance_offices' => $financeoffices]);
+        $finance_offices = HeadOffices::get();
+        $agents = User::select(['id', 'name'])->where('role', 'agent')->where('status', 'Active')->get();
+        return view('vehicle.index')->with([
+            'finance_offices' => $finance_offices,
+            'agents' => $agents,
+        ]);
     }
 
     /**
@@ -39,7 +43,7 @@ class VehicleController extends Controller
     {
 
         $vehicledata = Vehicle::where('deleted', null);
-        
+
         return DataTables::of($vehicledata)
             ->addColumn('action', function ($vehicledata) {
                 return '<div  class="d-flex">
