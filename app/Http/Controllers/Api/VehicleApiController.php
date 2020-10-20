@@ -33,6 +33,11 @@ class VehicleApiController extends Controller
             /*->setRowClass(function ($vehicle) {
                 return random_int(1, 10) % $vehicle->id == 0 ? 'alert-danger' : '';
             })*/
+            ->setRowAttr([
+                'data-id' => function($row) {
+                    return $row->id;
+                },
+            ])
             ->addColumn('status', function ($row) {
                 if ($row->tenor_over === "YES") {
                     return '<span class="badge badge-primary">Yes</span>';
@@ -148,6 +153,10 @@ class VehicleApiController extends Controller
         ])
         ->setRowAttr([
             'color' => 'red',
+        ])->setRowAttr([
+            'color' => function($user) {
+                return $user->color;
+            },
         ])
  *
  * */

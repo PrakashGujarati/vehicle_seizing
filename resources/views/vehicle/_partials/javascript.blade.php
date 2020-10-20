@@ -82,6 +82,25 @@
         });
       });
 
+      //// Show Vehicle details/info by row click event
+      $('#vehicles-table tbody').on('click', 'td', function (e) {
+        const $tr = e.target.closest('tr')
+        let $vehicle_id = $tr.getAttribute('data-id')
+        let $table_body = $("#show_vehicle_tbody");
+        $.get(`{{ route('api.vehicle.get') }}/ ${$vehicle_id}`, function (data, status) {
+          // console.log(data)
+          if (data) {
+            $table_body.empty();
+            for (var prop of Object.keys(data)) {
+              if (data.hasOwnProperty(prop)) {
+                value = data[prop] ? data[prop] : "";
+                prop = prop.replaceAll("_", " ")
+                $table_body.append(`<tr> <td> ${prop} </td> <td> ${value} </td> </tr>`)
+              }
+            }
+          }
+        });
+      })
     }); //// Document load()
 
   </script>
