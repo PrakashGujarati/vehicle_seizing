@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserAssigned extends Model
 {
-    protected $table="user_assigneds";
+    protected $table = "user_assigneds";
 
-     protected $fillable = [
+    protected $fillable = [
         'user_id', 'vehicle_id'];
 }

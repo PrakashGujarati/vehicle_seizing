@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Vehicle;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Yajra\DataTables\DataTables;
 
@@ -110,8 +111,15 @@ class VehicleApiController extends Controller
             'agent_id' => "required|exists:users,id",
         ]);
 
-        return $request->all();
+        $agent_id = $request->get('agent_id');
+        $result_bool = DB::statement("insert into user_assigneds (user_id,vehicle_id) SELECT '$agent_id', id from vehicles");
+        if ($result_bool) {
+            return redirect()->back()->with(["success" => "Vehicles assigned successfully."]);
+        }
 
+        return redirect()->back()->with(["error" => "Something went wrong."]);
+
+//      /*  return $request->all();
 //        $vehicle_ids = explode(',', $request->get('vehicles'));
 //        $agent_id = $request->get('agent_id');
 //        foreach ($vehicle_ids as $vehicle_id) {
@@ -119,9 +127,7 @@ class VehicleApiController extends Controller
 //                'user_id' => $agent_id,
 //                'vehicle_id' => $vehicle_id,
 //            ]);
-//        }
-
-        return redirect()->back()->with(["success" => "Vehicles assigned successfully."]);
+//        }*/
     }
 }
 
