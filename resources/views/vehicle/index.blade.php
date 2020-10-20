@@ -26,7 +26,7 @@
     <br>
 
     <div class="row">
-      <div class="col-12 form-inline">
+      <div class="col-12 form-inline mb-4">
         <div class="form-group">
           <label><strong>Finance Company :</strong></label>
           <label>
@@ -39,63 +39,104 @@
           </label>
         </div>
 
-        <div class="form-group ml-4">
+        <div class="form-group ml-2">
+          <form action="{{route('vehicles.assign')}}" method="post" enctype="multipart/form-data" id="assign_vehicle_form">
+            @csrf
+            <label class="col-12">
+              <select class="form-control" name="agent_id">
+                @if(@$agents)
+                  <option value=""> Select Agent</option>
+                  @foreach($agents as $i)
+                    <option value="{{ $i->id }}">
+                      {{ $i->name }}
+                    </option>
+                  @endforeach
+                @endif
+              </select>
+            </label>
+          </form>
+        </div>
+        <div class="ml-2">
           <a type="button" href="#" class="btn btn-sm btn-outline-success assign_vehicle_btn"
-             data-toggle='modal' data-target='#assign_vehicle'>
-            <i class=""> </i> + Assign Vehicles
+             onclick="event.preventDefault(); document.getElementById('assign_vehicle_form').submit();"
+          >
+            <i class=""> </i> + Assign
           </a>
         </div>
       </div>
 
-      <div class="col-12">
-          <div class="table-responsive">
-            <table class="table  <!--table-bordered-->" id="vehicles-table">
-              <thead>
-              <tr style="position:sticky;">
-                <th>#</th>
-                <th>Action</th>
-                <th>Status</th>
-                <th>Id</th>
-                <th>Vehicle No</th>
-                <th>Make</th>
-                <th>Customer Name</th>
-                <th>Agreement No</th>
-                <th>Prod N</th>
-                <th>Region Area</th>
-                <th>Office</th>
-                <th>Branch</th>
-                <th>Cycle</th>
-                <th>Paymode</th>
-                <th>Emi</th>
-                <th>Tet</th>
-                <th>Noi</th>
-                <th>Allocation Month Grp</th>
-                <th>Tenor Over</th>
-                <th>Charges</th>
-                <th>Gv</th>
-                <th>Model</th>
-                <th>Chasis Num</th>
-                <th>Engine Num</th>
-                <th>Rrm Name No</th>
-                <th>Rrm Mail Id</th>
-                <th>Coordinator mail</th>
-                <th>Letter Refernce</th>
-                <th>Dispatch Date</th>
-                <th>Letter Date</th>
-                <th>Valid Date</th>
-                <th>Finance Companys</th>
-              </tr>
-              </thead>
-            </table>
-          </div>
+      <br>
+
+      <div class="col-6">
+        <div class="table-responsive">
+          <table class="table  <!--table-bordered-->" id="vehicles-table">
+            <thead>
+            <tr style="position:sticky;">
+              <th>#</th>
+              <th></th>
+              <th>Fin_company</th>
+              <th>Reg_no</th>
+              <th>Make</th>
+              <th>Vehicle No</th>
+              <th>Make</th>
+              <th>Customer Name</th>
+              <th>Agreement No</th>
+              <th>Prod N</th>
+              <th>Region Area</th>
+              <th>Office</th>
+              <th>Branch</th>
+              <th>Cycle</th>
+              <th>Paymode</th>
+              <th>Emi</th>
+              <th>Tet</th>
+              <th>Noi</th>
+              <th>Allocation Month Grp</th>
+              <th>Tenor Over</th>
+              <th>Charges</th>
+              <th>Gv</th>
+              <th>Model</th>
+              <th>Chasis Num</th>
+              <th>Engine Num</th>
+              <th>Rrm Name No</th>
+              <th>Rrm Mail Id</th>
+              <th>Coordinator mail</th>
+              <th>Letter Refernce</th>
+              <th>Dispatch Date</th>
+              <th>Letter Date</th>
+              <th>Valid Date</th>
+            </tr>
+            </thead>
+          </table>
+        </div>
       </div>
+
+      <div class="col-6">
+        <table class="table" id="show_vehicle_details">
+          <thead style="width: 100%">
+          <tr>
+            <th style="width: 100% ">Vehicle info</th>
+            <th style="width: 100% "></th>
+          </tr>
+          </thead>
+          <tbody style="width: 100%" class="fill_details_table" id="show_vehicle_tbody">
+          </tbody>
+
+          <tfoot>
+          <tr>
+            <td style="width: 100%"></td>
+            <td style="width: 100%"></td>
+          </tr>
+          </tfoot>
+        </table>
+      </div>
+
     </div>
   </div>
 
   {{-- Modals --}}
-  @includeIf('vehicle._partials.vehicle_show_modal', ['modal_title'=> "Detail",]);
   @includeIf('vehicle._partials.csv_import_modal', ['modal_title'=> "Import bulk data",]);
-  @includeIf('vehicle._partials.assign_vehicle', ['modal_title'=> " Assign Vehicles",]);
+  {{--  @includeIf('vehicle._partials.vehicle_show_modal', ['modal_title'=> "Detail",]);--}}
+  {{--  @includeIf('vehicle._partials.assign_vehicle', ['modal_title'=> " Assign Vehicles",]);--}}
 
   {{-- Script  --}}
   @includeIf('vehicle._partials.javascript');

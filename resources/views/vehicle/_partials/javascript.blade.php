@@ -63,59 +63,23 @@
         e.preventDefault();
       });
 
-      //// Toggle Table Row (check, uncheck)
-      $('#vehicles-table tbody').on('click', 'td', function (e) {
-        const $tr = e.target.closest('tr')
-        const $dt_row = $vehicles_table.row(this);
-        $tr.classList.toggle("selected_row");
-
-        if ($tr.classList.contains("selected_row")) {
-          $tr.setAttribute("data-selected_row", $dt_row.data().id);
-        } else {
-          $tr.removeAttribute("data-selected_row");
-        }
-        // console.log($dt_row.data(), $dt_row.data().id)
-        // console.log( $vehicles_table.cell( this ).data());
-        // $vehicles_table.column( this ).data();
-      })
-
-      // View Assign agent Form (POP Modal)
-      $("a.assign_vehicle_btn").click(function (e) {
-        let $input_select_vehicles = document.getElementById("input_vehicles");
-        let $ul = document.getElementById("ul_selected_rows");
-        let $selected_rows = document.getElementsByClassName('selected_row')
-        $ul.innerHTML = "";
-        let $vehicles_ids = []
-        for (const $row of $selected_rows) {
-          let $td_value = `ID#${$row.cells[0].textContent}. ${$row.cells[4].textContent}, ${$row.cells[7].textContent}`;
-          $vehicles_ids.push($row.cells[0].textContent);
-          let li = document.createElement("li");
-          li.classList.add("list-group-item");
-          li.appendChild(document.createTextNode($td_value));
-          $ul.appendChild(li);
-        }
-        $input_select_vehicles.value = $vehicles_ids;
-      });
-
-      //// View Vehicle data in POP modal
-      $(document).on('click', '.select_row', function (event) {
-        let $model = $("#model_data");
-        let $currentRow = $(this).closest("tr");
-        let $table_heading_length = $("table > tbody > tr:first > td").length
-        let $ul_list = `<ul class='list-group'>`;
-
-        for (let i = 1; i < $table_heading_length; i++) {
-          let $td = $currentRow.find(`td:eq(${i})`);
-          let $th = $td.closest('table').find('th').eq($td.index());
-          $ul_list += `<li class='list-group-item'> <span style="font-weight: bold">${$th.html()}</span> : ${$td.text()}</li> `;
-        }
-        $ul_list += `</ul>`
-
-        //CLEARING THE PREFILLED DATA
-        $model.empty();
-        //WRITING THE DATA ON MODEL
-        $model.append($ul_list);
-        // console.log($row)
+      $('table').on('click', 'a.vehicle_view_btn', function (e) {
+        // console.log(e)
+        let $vehicle_id = $(this).data('id');
+        let $table_body = $("#show_vehicle_tbody");
+        $.get(`{{ route('api.vehicle.get') }}/ ${$vehicle_id}`, function (data, status) {
+          // console.log(data)
+          if (data) {
+            $table_body.empty();
+            for (var prop of Object.keys(data)) {
+              if (data.hasOwnProperty(prop)) {
+                value = data[prop] ? data[prop] : "";
+                prop = prop.replaceAll("_", " ")
+                $table_body.append(`<tr> <td> ${prop} </td> <td> ${value} </td> </tr>`)
+              }
+            }
+          }
+        });
       });
 
     }); //// Document load()

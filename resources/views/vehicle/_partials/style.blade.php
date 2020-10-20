@@ -14,13 +14,15 @@
           background: none;
       }
 
-      td {
-          cursor: pointer;
-      }
-
       .selected_row {
           background-color: #d0ffd8 !important;
       }
+
+      #show_vehicle_tbody tr td {
+          width: 100%;
+          text-transform: capitalize;
+      }
+
   </style>
 
 @endsection

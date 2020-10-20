@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\UserAssigned;
 use App\Vehicle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -11,6 +10,12 @@ use Yajra\DataTables\DataTables;
 
 class VehicleApiController extends Controller
 {
+    public function get_vehicle(Request $request, $id = null)
+    {
+        $vehicle = Vehicle::find($id);
+        return ($vehicle) ? $vehicle : false;
+    }
+
     public function index_datatable(Request $request)
     {
         $vehicles = Vehicle::query();
@@ -29,15 +34,14 @@ class VehicleApiController extends Controller
             })*/
             ->addColumn('status', function ($row) {
                 if ($row->tenor_over === "YES") {
-                    return '<span class="badge badge-danger">Deactivate</span>';
+                    return '<span class="badge badge-primary">Yes</span>';
                 }
-                return "<span class='badge badge-primary'>Active</span>";
+                return "<span class='badge badge-danger'>No</span>";
             })
             ->filter(function ($instance) use ($request) {
                 if ($request->has('finance_office') and $request->get('finance_office') !== null) {
                     $instance->where('finance_company_name', $request->get('finance_office'));
                 }
-
                 if ($request->has('search') and $request->get('search') !== null) {
                     $instance->where(function ($q) use ($request) {
                         $q->orWhere('customer_name', 'like', $request->get('search') . '%');
@@ -53,8 +57,9 @@ class VehicleApiController extends Controller
     {
         return
             "<a href='#view-$id'  
-                data-toggle='modal' data-target='#vehicle_show_modal'
-                class='select_row' 
+                data-id='$id'
+                data-toggle='modal' data-target='#'
+                class='select_row m-1 vehicle_view_btn'
                 >
               <i class='fas fa-eye'></i>
             </a> ";
@@ -63,7 +68,7 @@ class VehicleApiController extends Controller
     public function btn_edit_datatable($id): string
     {
         return
-            "<a href='#edit-$id' class='text-warning'>
+            "<a href='#edit-$id' class='text-warning m-1'>
               <i class='fas fa-edit'></i>
             </a> ";
     }
@@ -78,7 +83,7 @@ class VehicleApiController extends Controller
         return
             "<form id='$form_id' action='$action' method='post'>
                  $csrf
-                <a href='#' class='text-danger' onclick='document.getElementById(\"$form_id\").submit();'>
+                <a href='#' class='text-danger m-1' onclick='document.getElementById(\"$form_id\").submit();'>
                   <i class='fas fa-trash'></i>  
                 </a>
             </form> ";
@@ -103,18 +108,18 @@ class VehicleApiController extends Controller
     {
         $request->validate([
             'agent_id' => "required|exists:users,id",
-            'vehicles' => "required",
         ]);
 
-        $vehicle_ids = explode(',', $request->get('vehicles'));
-        $agent_id = $request->get('agent_id');
+        return $request->all();
 
-        foreach ($vehicle_ids as $vehicle_id) {
-            UserAssigned::updateOrCreate([
-                'user_id' => $agent_id,
-                'vehicle_id' => $vehicle_id,
-            ]);
-        }
+//        $vehicle_ids = explode(',', $request->get('vehicles'));
+//        $agent_id = $request->get('agent_id');
+//        foreach ($vehicle_ids as $vehicle_id) {
+//            UserAssigned::create([
+//                'user_id' => $agent_id,
+//                'vehicle_id' => $vehicle_id,
+//            ]);
+//        }
 
         return redirect()->back()->with(["success" => "Vehicles assigned successfully."]);
     }

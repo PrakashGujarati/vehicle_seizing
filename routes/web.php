@@ -139,8 +139,14 @@ Route::group(['middleware' => 'auth'], function () {
 
 
 Route::get('api/vehicles', [VehicleApiController::class, 'index_datatable'])->name('api.vehicles.get');
+Route::get('api/vehicles/{id?}', [VehicleApiController::class, 'get_vehicle'])->name('api.vehicle.get');
 Route::get('vehicles', [VehicleController::class, 'vehicles']);
 Route::get('vehicles/create', [VehicleApiController::class, 'create'])->name('vehicles.create');
 Route::post('vehicles_assign', [VehicleApiController::class, 'vehicles_assign'])->name('vehicles.assign');
 Route::post('vehicles/{id}', [VehicleApiController::class, 'destroy'])->name('api.vehicles.destroy');
 Route::post('/csv_import', [CsvImportController::class, "store"])->name('csv.import.store');
+//https://stackoverflow.com/questions/43464593/posttoolargeexception-in-laravel
+
+Route::get('test', function () {
+//    DB::table('vehicles')->update(['created_at' => now()]);
+});

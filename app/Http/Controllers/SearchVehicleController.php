@@ -54,14 +54,6 @@ class SearchVehicleController extends Controller
                           <i class="fas fa-eye"></i>
                       </a>';
             })
-//            ->filter(function ($instance) use ($request) {
-//                if ($request->has('search') && $request->get('search') !== null) {
-//                    $instance->where(function ($q) use ($request) {
-//                        $q->orWhere('name', 'like', $request->get('search') . '%');
-//                        $q->orWhere('email', 'like', $request->get('search') . '%');
-//                    });
-//                }
-//            })
             ->rawColumns(['action'])
             ->make(true);
     }

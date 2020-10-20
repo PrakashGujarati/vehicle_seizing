@@ -27,7 +27,7 @@ class CsvLoadFileCommand extends Command
                     {path : Csv file, absolute path}
                     {table : Table name}
                     {--field_terminated_by=, : Fields Terminated}
-                    {--line_terminated_by= : Line Terminated}
+                    {--line_terminated_by=\r\n : Line Terminated}
                     {--truncate :  Truncate table before inserting new records.}
                     {--ignore_lines=1 : Ignore number of lines before import. (if we want to ignore csv headers)}
                     {--file_extension :  file_extension.}
@@ -78,6 +78,7 @@ class CsvLoadFileCommand extends Command
                 DB::table($this->table_name)->truncate();
             }
 
+            DB::statement("set global local_infile = 1;");
             $import_query = sprintf(
                 "
                     LOAD DATA LOCAL INFILE '%s' INTO TABLE `%s`
@@ -90,7 +91,7 @@ class CsvLoadFileCommand extends Command
             );
 
             $db = DB::connection()->getpdo();
-            $db->exec($import_query);
+            /*dump*/($db->exec($import_query));
             return 1;
         }
 
@@ -119,3 +120,5 @@ class CsvLoadFileCommand extends Command
         DB::statement("set global local_infile = 0;");
     }
 }
+
+// DB::statement("update vehicles set created_at=now(), updated_at=now() where created_at=0 or created_at is null");

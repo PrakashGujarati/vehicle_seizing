@@ -23,7 +23,7 @@ class LargeCsvLoadCommand extends Command
      */
     protected $signature = 'csv:load 
                     {--field_terminated_by=, : Fields Terminated}
-                    {--line_terminated_by= : Line Terminated}
+                    {--line_terminated_by=\n : Line Terminated}
                     {--truncate :  Truncate table before inserting new records.}
                     {--ignore_lines : Ignore number of lines before import. (if we want to ignore csv headers)}
                     {--csv_dir= :  Csv directory.}
@@ -37,16 +37,6 @@ class LargeCsvLoadCommand extends Command
      */
     protected $description = 'Import millions of record in few seconds with csv files, Filename should be same as Database table name.';
 
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-        DB::statement("set global local_infile = 1;");
-    }
 
     /**
      * Execute the console command.
@@ -89,7 +79,7 @@ class LargeCsvLoadCommand extends Command
                 }
 
                 DB::statement("SET FOREIGN_KEY_CHECKS = 0");
-
+                DB::statement("set global local_infile = 1;");
                 $import_query = sprintf(
                     "
                         LOAD DATA LOCAL INFILE '%s' INTO TABLE `%s`
