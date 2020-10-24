@@ -239,7 +239,7 @@ input[type="text"]:focus {
 		</div>
 		<div class="card-footer">
     		<button type="submit" class="btn btn-primary">Submit</button>
-		<a href="{{ route('Vehicle.index') }}" class="btn btn-danger">cancel</a>
+		<a href="{{ url('vehicles') }}" class="btn btn-danger">cancel</a>
     </div>
     </div> 
      

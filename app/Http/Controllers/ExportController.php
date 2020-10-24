@@ -17,6 +17,7 @@ class ExportController extends Controller
     }
     public function vehicleExport()
     {
+    	
     	 return Excel::download(new VehicleExport, 'vehicle.xlsx');
    	}
     
