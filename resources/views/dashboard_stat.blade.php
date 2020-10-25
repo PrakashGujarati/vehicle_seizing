@@ -84,7 +84,13 @@
 	        	</div>
 	        </div>
 			@endif
+<<<<<<< HEAD
 			 @if( Auth::user()->name == "Admin")
+=======
+		</div>
+		<div class="row mt-3">
+	        @if( Auth::user()->name == "Admin")
+>>>>>>> de60939c0116694bb11ebdd6d0318632f5e17f1b
 	        <div class="col-md-4">
 	        	<div class="card">
 	        		<div class="card-body">

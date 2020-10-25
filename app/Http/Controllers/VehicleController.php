@@ -126,7 +126,7 @@ class VehicleController extends Controller
         $data = Vehicle::create($request->all());
 
         if ($data) {
-            return redirect()->route('Vehicle.index');
+           return redirect()->route('vehicles.view');
         }
 
 
@@ -171,7 +171,7 @@ class VehicleController extends Controller
         //dd($request->all());
         $update = Vehicle::find($request->hidden_id)->update($request->all());
         if ($update) {
-            return redirect()->route('Vehicle.index');
+            return redirect()->route('vehicles.view');
         }
 
     }

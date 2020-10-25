@@ -17,11 +17,12 @@ class VehicleExport implements FromCollection,WithHeadings,ShouldAutoSize, WithE
     */
     public function collection()
     {
-        return Vehicle::select(['agreement_no','prod_n','region_area','office','branch','customer_name','cycle','paymode','emi','tet','noi','allocation_month_grp','tenor_over','charges','gv','model','regd_num','chasis_num','engine_num','make','rrm_name_no','rrm_mail_id','coordinator_mail_id','letter_refernce','dispatch_date','letter_date','valid_date'])->get();
+        return Vehicle::select(['agreement_no','prod_n','region_area','office','branch','customer_name','cycle','paymode','emi','tet','noi','allocation_month_grp','tenor_over','charges','gv','model','regd_num','chasis_num','engine_num','make','rrm_name_no','rrm_mail_id','coordinator_mail_id','letter_refernce','dispatch_date','letter_date','valid_date','finance_company_name'])->get();
     }
 
     public function headings(): array
     {
+        
         return [
         	"AGREEMENT NO",
             "PROD N",
@@ -50,6 +51,7 @@ class VehicleExport implements FromCollection,WithHeadings,ShouldAutoSize, WithE
             "Dispatch Date",
             "LETTER DATE",
             "VALID DATE",
+            "Finance Company Name",
         	
         ];
     }

@@ -4,6 +4,7 @@
 @section('content')
 
 <div class="alert alert-success successmessage"></div>
+<div class="alert alert-danger dangermessage"></div>
 
 
 <div class="main-content">
@@ -110,11 +111,21 @@ $(document).ready(function() {
                             "_method":'DELETE'
                         },              
                         success: function (data)
-                        {     
-                          alert("asdf");
-                           $('.successmessage').css('display','block');
+                        {
+                          if(data.success)
+                          {
+                            $('.successmessage').css('display','block');
                             $('.successmessage').html(data.success);
                             $('.successmessage').delay(5000).fadeOut(800);
+                          }
+                          else
+                          {
+                            
+                            $('.dangermessage').css('display','block');
+                            $('.dangermessage').html(data.error);
+                            $('.dangermessage').delay(5000).fadeOut(800);
+                          }
+                            
                             //location.reload();
                          $('.datatable').DataTable().draw();
 

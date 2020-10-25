@@ -1,5 +1,7 @@
 /node_modules
+/storage/*.key
 /vendor
+.idea
 /.vscode
 /.vagrant
 Homestead.json
@@ -13,10 +15,13 @@ yarn-error.log
 fields_sample.json
 .phpintel
 /.phpintel
+.vscode
 _ignore
 *.php-tmp
 id_rsa_github
 id_rsa_github.pub
-/.idea
+.idea
 temp_notes.php
 .env.temp.txt
+
+.idea

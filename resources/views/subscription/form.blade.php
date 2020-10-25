@@ -2,7 +2,18 @@
 @section('title', __('Subscription Add'))
 @section('css')
 <style type="text/css">
-
+#user_id
+{
+	color:#494949!important;
+}
+#payment_mode
+{
+	color:#494949!important;
+}
+#payment_status
+{
+	color:#494949!important;
+}
 </style>
 @endsection
 @section('content')
@@ -11,7 +22,7 @@
 	<div class="card">
 		<div class="card-header">Subscription Add</div>
 		<div class="card-body">
-			<form method="post" action="{{ route('subscribers.store') }}">
+			<form method="post" id="subscription_form" action="{{ route('subscribers.store') }}">
     		@csrf
 			<div class="row">
 				<div class="col-md-4">
@@ -34,7 +45,7 @@
 				<div class="col-md-4">
 					<div class="field-group">
 						<label for="email">Days</label> *<br>				
-						<input class="form-control" placeholder="Enter Days"  class="strlo" name="days" id="days" type="text">	
+						<input class="form-control" placeholder="Enter Days" maxlength="3"  onkeypress="return isNumberKey(event)" class="strlo" name="days" id="days" type="text">	
 						@error('days')
                             <span style="color:#dc3545">
                                 <strong>{{ $message }}</strong>
@@ -42,20 +53,6 @@
                          @enderror
 					</div>
 				</div>
-{{-- 
-				<div class="col-md-4">
-					<div class="field-group">
-						<label for="email">Amount</label> *<br>				
-						<input class="form-control" placeholder="Amount Days"  class="strlo" name="amount" id="amount" type="text">	
-						@error('amount')
-                            <span style="color:#dc3545">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                         @enderror
-					</div>
-				</div> --}}
-			</div>
-			<div class="row">
 				<div class="col-md-4">
 					<div class="field-group">
 						<label for="User_status">Payment</label> *<br>				
@@ -71,6 +68,9 @@
                          @enderror
 					</div>
 				</div>
+			</div>
+			<div class="row">
+				
 				<div class="col-md-4">
 					<div class="field-group">
 						<label for="User_status">Payment Mode</label> *<br>				
@@ -100,12 +100,12 @@
 					</div>
 				</div>
 			</div>
-
 			<div class="row">
-				<div class="col-md-12 my-5 text-center">
-					<input  class="btn cbtn btn-primary" type="submit" name="submit" value="Create">
-				</div>
-			</div>	
+					<div class="col-md-12 mt-4">
+						<input  class="btn cbtn btn-info" type="submit" name="submit" value="Save">
+						<a href="{{ route('subscribers.index') }}" class="btn cbtn btn-danger"> Cancel </a>
+					</div>
+				</div>	
 		</form>
 		</div> 
 	</div>
@@ -118,10 +118,48 @@
 @endsection
 
 
+
 @section('onPageJs')
-		
+
+
 <script type="text/javascript">
-	
-</script>			
+
+	$("#subscription_form").validate({
+			rules: {
+			user_id: {
+				required: true,
+			},
+			days: {
+				required: true,
+			},
+			payment_mode:{
+				required: true,
+			},
+			payment_status:{
+				required: true,
+			}
+
+		},
+		messages: {
+		
+			user_id: {
+				required: "User Name is a required field",
+			},
+			Days: {
+				required: "days is a required field",
+			},
+			payment_mode:{
+				required: "Payment Mode is a required field",
+			},
+			payment_status:{
+				required: "Payment Status is a required field",
+
+			}
+
+		}
+	});
+
+</script>
+
 
 @endsection

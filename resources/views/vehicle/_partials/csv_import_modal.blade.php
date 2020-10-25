@@ -20,13 +20,13 @@
               <input type="file" class="form-control-file" id="csv_file" name="csv_file">
             </div>
 
-            <div class="form-group">
+            {{-- <div class="form-group">
               <label>
                 <select class="form-control" name="table_name">
                   <option value="vehicles" selected>Vehicles</option>
                 </select>
               </label>
-            </div>
+            </div> --}}
 
           </div>
           <div class="modal-footer">

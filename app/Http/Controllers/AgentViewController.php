@@ -9,6 +9,8 @@ use App\UserAssigned;
 use Illuminate\Http\Request;
 use Auth;
 use DB;
+use DataTables;
+
 class AgentViewController extends Controller
 {
     /**
@@ -134,22 +136,27 @@ class AgentViewController extends Controller
     public function agent_index()
     {
         
-
         $assigneddata = UserAssigned::where('user_id',Auth::user()->id)->get();
 
         $vehicledata = DB::table('vehicles')
         ->join('user_assigneds', 'vehicles.id', '=', 'user_assigneds.vehicle_id')
-        ->where('user_assigneds.user_id',Auth::user()->id )
-        ->get();
+        ->where('user_assigneds.user_id',Auth::user()->id )->paginate(10);
 
         $agentviewdata = AgentView::where('id',1)->first();
 
         return view('agent-permission.table',compact('vehicledata','agentviewdata'));
     }
-     public function AgentVehicleSearch(Request $request)
+   
+   public function AgentVehicleSearch(Request $request)
     {
+
+
             if($request->has('s') && $request->s != ''){
-            $vehicledata = Vehicle::where(function($query) use($request){
+
+            $vehicledata = DB::table('vehicles')
+        ->join('user_assigneds', 'vehicles.id', '=', 'user_assigneds.vehicle_id')
+        ->where('user_assigneds.user_id',Auth::user()->id )->
+            where(function($query) use($request){
                 $query->orwhere('customer_name','like','%'.$request->s.'%');
                 $query->orwhere('agreement_no','like','%'.$request->s.'%');
                 $query->orwhere('prod_n','like','%'.$request->s.'%');
@@ -184,7 +191,10 @@ class AgentViewController extends Controller
         }
         else
         {
-            $vehicledata = Vehicle::all();
+            $vehicledata =  DB::table('vehicles')
+                ->join('user_assigneds', 'vehicles.id', '=', 'user_assigneds.vehicle_id')
+                ->where('user_assigneds.user_id',Auth::user()->id )
+                ->get();
             $agentviewdata = AgentView::where('id',1)->first();
 
         }

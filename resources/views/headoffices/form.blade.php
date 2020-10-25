@@ -2,7 +2,25 @@
 @section('title', __('Finance Office Add'))
 @section('css')
 <style type="text/css">
+#branch_email
+{
+	color:#494949!important;
+}
+#branch_contact
+{
+	color:#494949!important;
 
+}
+#manager_contact
+{
+	color:#494949!important;
+
+}
+#manage_email
+{
+	color:#494949!important;
+
+}
 </style>
 @endsection
 @section('content')
@@ -11,13 +29,13 @@
 	<div class="card">
 		<div class="card-header">Finance Office</div>
 		<div class="card-body">
-			<form method="post" action="{{ route('finance-office.store') }}">
+			<form method="post" id="finance_Office" action="{{ route('finance-office.store') }}">
 				@csrf
 				<div class="row">
 					<div class="col-md-4">
 						<div class="form-group">
 							<label for="finance_company_name">Finance Company Name</label>*				
-							<input placeholder="Enter head office name" maxlength="100" class="form-control" name="finance_company_name" value="{{ old('finance_company_name') }}" id="finance_company_name"
+							<input placeholder="Enter head office name" maxlength="100" class="form-control" onKeyPress="return ValidateAlpha(event);" name="finance_company_name" value="{{ old('finance_company_name') }}" id="finance_company_name"
 							type="text">
 							@error('finance_company_name')
 							<span style="color:#dc3545">
@@ -53,7 +71,7 @@
 					<div class="col-md-4">
 						<div class="form-group">
 							<label for="branch_email">Branch Email</label>
-							<input type="text" class="form-control" placeholder="Enter Branch Email" maxlength="200" name="branch_email" value="{{ old('branch_email') }}" id="branch_email">	
+							<input type="email" class="form-control" placeholder="Enter Branch Email" maxlength="200" name="branch_email" value="{{ old('branch_email') }}" id="branch_email">	
 							@error('branch_email')
 							<span style="color:#dc3545">
 								<strong>{{ $message }}</strong>
@@ -112,7 +130,7 @@
 					<div class="col-md-4">
 						<div class="form-group">
 							<label for="manage_email">Manage Email</label> *
-							<input class="form-control" placeholder="Enter Manage Email" maxlength="50" name="manage_email" id="manage_email" value="{{ old('manage_email') }}" type="text">
+							<input class="form-control" placeholder="Enter Manage Email" maxlength="50" name="manage_email" id="manage_email" value="{{ old('manage_email') }}" type="email">
 							@error('manage_email')
 							<span style="color:#dc3545">
 								<strong>{{ $message }}</strong>
@@ -151,7 +169,101 @@
 @endsection
 
 
-@section('innerPageJS')
+@section('onPageJs')
+
+
+<script type="text/javascript">
+
+	$("#finance_Office").validate({
+			rules: {
+			finance_company_name: {
+				required: true,
+
+			},
+			contact_person: {
+				required: true,
+				minlength: 10,
+				maxlength: 10
+			},
+			branch_code:{
+				required: true	
+			},
+			branch_contact: {
+				minlength: 10,
+				maxlength: 10,
+				required: true
+			},
+			branch_email :{
+				required: true,
+	            	email: true
+			},
+			city:{
+				required: true	
+			},
+			branch_address:{
+				required: true
+			},
+			assigned_manager:{
+				required :true
+			},
+			manager_contact: {
+				minlength: 10,
+				maxlength: 10,
+				required: true
+			},
+			manage_email :{
+				required:true,
+				email: true
+			},
+			gst :{
+				required:true,
+			},
+
+
+		},
+		messages: {
+		
+			finance_company_name: {
+				required: "Finance Company Name is a required field",
+			},
+			contact_person: {
+				required: "Person Contact is a required field"
+			},
+			branch_code: {
+				required: "Branch Code is a required field"
+			},
+			branch_contact: {
+				required: "Contact is a required field"
+			},
+			branch_email:
+			{
+				required: "Branch Email is a required field",
+				email: "Improper email format"
+			},
+			city:{
+				required: "City is a required field"
+			},
+			branch_address: {
+				required: "Branch Address is a required field"
+			},
+			assigned_manager :{
+				required: "Assigned Manager is a required field"
+			},
+			manager_contact: {
+				required: "Manager Contact is a required field"
+			},
+			manage_email : {
+				required: "Manage Email is a required field",
+				email: "Improper email format"
+			},
+			gst : {
+				required: "Gst is a required field"
+			}
+
+		}
+	});
+
+</script>
 
 
 @endsection

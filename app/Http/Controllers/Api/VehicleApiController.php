@@ -74,7 +74,7 @@ class VehicleApiController extends Controller
     public function btn_edit_datatable($id): string
     {
         return
-            "<a href='#edit-$id' class='text-warning m-1'>
+            "<a href='".route('Vehicle.edit', $id)."' class='text-warning m-1'>
               <i class='fas fa-edit'></i>
             </a> ";
     }

@@ -13,7 +13,11 @@
       <div class="col-md-6">
         <div class="float-md-right">
           <a href="{{ route('Vehicle.create') }}" class="btn btn-sm text-success"> +Add </a>
+<<<<<<< HEAD
           <a type="button" href="{{ route('csv.export') }}" class="btn btn-sm btn-outline-primary <!--rounded-pill-->">
+=======
+          <a type="button" href="{{ route('export.vehicle') }}" class="btn btn-sm btn-outline-primary <!--rounded-pill-->">
+>>>>>>> ee54438a931ea94e625743ff1259373456bd6b3f
             <i class=""> </i> Export
           </a>
           <a type="button" href="#" class="btn btn-sm btn-outline-warning {{--rounded-pill--}}"
