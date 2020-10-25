@@ -13,11 +13,8 @@
       <div class="col-md-6">
         <div class="float-md-right">
           <a href="{{ route('Vehicle.create') }}" class="btn btn-sm text-success"> +Add </a>
-<<<<<<< HEAD
-          <a type="button" href="{{ route('csv.export') }}" class="btn btn-sm btn-outline-primary <!--rounded-pill-->">
-=======
-          <a type="button" href="{{ route('export.vehicle') }}" class="btn btn-sm btn-outline-primary <!--rounded-pill-->">
->>>>>>> ee54438a931ea94e625743ff1259373456bd6b3f
+          {{-- <a type="button" href="{{ route('csv.export') }}" class="btn btn-sm btn-outline-primary"> --}}
+          <a type="button" href="{{ route('export.vehicle') }}" class="btn btn-sm btn-outline-primary">
             <i class=""> </i> Export
           </a>
           <a type="button" href="#" class="btn btn-sm btn-outline-warning {{--rounded-pill--}}"
@@ -32,10 +29,9 @@
     <div class="row">
       <div class="col-12 form-inline mb-4">
         <div class="form-group">
-          <label><strong>Finance Company :</strong></label>
-          <label>
+          <label><strong>Finance Company : </strong>
             <select id="finance_office" class="form-control finance_office">
-              <option value="">--Select Finance--</option>
+              <option value="">All Company</option>
               @foreach (@$finance_offices as $office)
                 <option value="{{$office->finance_company_name}}">{{$office->finance_company_name}}</option>
               @endforeach
@@ -49,7 +45,7 @@
             <label class="col-12">
               <select class="form-control" name="agent_id">
                 @if(@$agents)
-                  <option value=""> Select Agent</option>
+                  <option value="">All Agent</option>
                   @foreach($agents as $i)
                     <option value="{{ $i->id }}">
                       {{ $i->name }}
@@ -78,19 +74,19 @@
 
       <br>
 
-      <div class="col-6">
+      <div class="col-7 border p-2" style="border: 1px solid #777!important;">
         <div class="table-responsive">
           <table class="table  <!--table-bordered-->" id="vehicles-table">
             <thead>
             <tr style="position:sticky;">
-              <th>#</th>
-              <th></th>
-              <th>Fin_company</th>
+              <th>#</th>              
               <th>Reg_no</th>
-              <th>Make</th>
-              <th>Vehicle No</th>
+              <th>Chasis Num</th>
+              <th>Engine Num</th>
               <th>Make</th>
               <th>Customer Name</th>
+              <th>FinCompany</th>
+              <th>Vehicle No</th>              
               <th>Agreement No</th>
               <th>Prod N</th>
               <th>Region Area</th>
@@ -105,9 +101,7 @@
               <th>Tenor Over</th>
               <th>Charges</th>
               <th>Gv</th>
-              <th>Model</th>
-              <th>Chasis Num</th>
-              <th>Engine Num</th>
+              <th>Model</th>              
               <th>Rrm Name No</th>
               <th>Rrm Mail Id</th>
               <th>Coordinator mail</th>
@@ -121,12 +115,22 @@
         </div>
       </div>
 
-      <div class="col-6">
+      <div class="col-5 border p-2" style="border: 1px solid #777!important;">
         <table class="table" id="show_vehicle_details">
           <thead style="width: 100%">
           <tr>
             <th style="width: 100% ">Vehicle info</th>
-            <th style="width: 100% "></th>
+            <th style="width: 100% ">
+              <div class="d-flex">
+              </a> <a href="#edit-1" class="text-warning mr-1"><i class="fas fa-edit"></i></a> 
+              <form id="destroy-form-1" action="http://poniyaagency.co.in/vehicles/1" method="post">
+                  <input type="hidden" name="_token" id="csrf-token" value="22PJfU6qCJDwC0XKcpDLRAf2lQWMxPanI8NZRaDu">
+                  <a href="#" class="text-danger" onclick="document.getElementById('destroy-form-1').submit();">
+                    <i class="fas fa-trash"></i>  
+                  </a>
+              </form> 
+              </div>
+            </th>
           </tr>
           </thead>
           <tbody style="width: 100%" class="fill_details_table" id="show_vehicle_tbody">

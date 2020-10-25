@@ -22,7 +22,7 @@ class VehicleApiController extends Controller
         $vehicles = Vehicle::query();
 
         return DataTables::of($vehicles)
-            ->addColumn('action', function ($vehicle) {
+            /*->addColumn('action', function ($vehicle) {
                 return
                     "<div class='d-flex'>" .
                     $this->btn_view_datatable($vehicle->id) .
