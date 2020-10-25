@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\VehicleApiController;
 use App\Http\Controllers\CsvImportController;
 use App\Http\Controllers\VehicleController;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -145,8 +146,8 @@ Route::get('vehicles/create', [VehicleApiController::class, 'create'])->name('ve
 Route::post('vehicles_assign', [VehicleApiController::class, 'vehicles_assign'])->name('vehicles.assign');
 Route::post('vehicles/{id}', [VehicleApiController::class, 'destroy'])->name('api.vehicles.destroy');
 Route::post('/csv_import', [CsvImportController::class, "store"])->name('csv.import.store');
+Route::get('/csv_export', [\App\Http\Controllers\ExportController::class, "export_vehicles"])->name('csv.export');
 //https://stackoverflow.com/questions/43464593/posttoolargeexception-in-laravel
 
 Route::get('test', function () {
-//    DB::table('vehicles')->update(['created_at' => now()]);
 });
