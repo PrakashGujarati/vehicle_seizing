@@ -2,7 +2,18 @@
 @section('title', __('Office Add'))
 @section('css')
 <style type="text/css">
-
+#head_office_id
+{
+	color:#494949!important;
+}
+#contact
+{
+	color:#494949!important;
+}	
+#contact_person
+{
+	color:#494949!important;
+}
 </style>
 @endsection
 @section('content')
@@ -62,7 +73,7 @@
 					<div class="col-md-4">
 							<div class="form-group">
 							<label for="contact">Contact</label>				
-							<input type="text"  class="form-control" placeholder="Enter contact"  rows="4" name="contact" value="{{ $OfficeEdit->contact }}" id="contact" onkeypress="return isNumberKey(event)">
+							<input type="text" maxlength="10" class="form-control" placeholder="Enter contact"  rows="4" name="contact" value="{{ $OfficeEdit->contact }}" id="contact" onkeypress="return isNumberKey(event)">
 							@error('contact')
 							<span class="validation-msg">
 								{{ $message }}
@@ -74,7 +85,7 @@
 					<div class="col-md-4">
 							<div class="form-group">
 							<label for="contact_person">Contact Person</label> *				
-							<input class="form-control" placeholder="Enter contact person"  name="contact_person" value="{{ $OfficeEdit->contact_person }}" id="contact_person" type="text" onkeypress="return isNumberKey(event)">
+							<input class="form-control" placeholder="Enter contact person"  name="contact_person" maxlength="10" value="{{ $OfficeEdit->contact_person }}" id="contact_person" type="text" onkeypress="return isNumberKey(event)">
 							@error('contact_person')
 							<span class="validation-msg">
 								{{ $message }}
@@ -147,68 +158,67 @@
 
 
 <script type="text/javascript">
-	$(function() {
-		$("#Officeform").validate({
-			rules: {
-				name: {
-					required: true
-				},
-				contact_person: {
-					  required: true,
-					  minlength: 10,
-		     		  maxlength: 10
-				},
-				contact: {
-					minlength: 10,
-		     		maxlength: 10,
-					required: true
-				},
-				address1:{
-					required: true
-				},
-				city:{
-					required: true	
-				},
-				
-				branch_code:{
-					required: true	
-				},
-				branch :{
-					required: true	
-				},
-				head_office_id:{
-					required: true	
-				}
-
+	$("#Officeform").validate({
+		rules: {
+			name: {
+				required: true
 			},
-			messages: {
-				name: {
-					required: "Name is a required field"
-				},
-				contact_person: {
-					required: "Person Contact is a required field"
-					
-				},
-				contact: {
-					required: "Contact is a required field"
-				},
-				address1: {
-					required: "Address is a required field"
-				},
-				city:{
-					required: "City is a required field"
-				},
-				branch_code: {
-					required: "Branch Code is a required field"
-				},
-				branch:{
-					required: "Branch is a required field"
-				}
-				head_office_id:{
-					required: "Head Office Name is a required field"
-				}
+			contact_person: {
+				required: true,
+				minlength: 10,
+				maxlength: 10
+			},
+			head_office_id:{
+				required: true	
+			},
+			branch_code:{
+				required: true	
+			},
+			contact: {
+				minlength: 10,
+				maxlength: 10,
+				required: true
+			},
+			city:{
+				required: true	
+			},
+			branch :{
+				required: true	
+			},
+			address1:{
+				required: true
 			}
-		});
+
+		},
+		messages: {
+			name: {
+				required: "Enter your username",
+			},
+			contact_person: {
+				required: "Person Contact is a required field"
+			},
+			head_office_id:{
+				required: "Head Office Name is a required field"
+			},
+			branch_code: {
+				required: "Branch Code is a required field"
+			},
+			contact: {
+				required: "Contact is a required field"
+			},
+			city:{
+				required: "City is a required field"
+			},
+			branch:{
+				required: "Branch is a required field"
+			},
+
+			address1: {
+				required: "Address is a required field"
+			},
+
+
+		}
 	});
 </script>
 

@@ -20,7 +20,7 @@
    <table class="table table-striped table-bordered datatable" cellspacing="0" width="100%" id="data">
       <thead>
          <tr>
-              <th>Head Office Name</th>
+              <th>Finance Office Name</th>
               <th>Name</th>
               <th>Contact Person</th>
               <th>Contact</th>

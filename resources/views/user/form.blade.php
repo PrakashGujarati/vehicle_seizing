@@ -2,7 +2,22 @@
 @section('title', __('User Add'))
 @section('css')
 <style type="text/css">
-
+#email
+{
+	color:#494949!important;
+}
+#contact
+{
+	color:#494949!important;
+}
+#status
+{
+	color:#494949!important;
+}
+#role
+{
+	color:#494949!important;
+}
 </style>
 @endsection
 @section('content')
@@ -11,13 +26,13 @@
 	<div class="card">
 		<div class="card-header">User Add</div>
 		<div class="card-body">
-			<form method="post" action="{{ route('user.store') }}">
+			<form method="post" id="user_form" action="{{ route('user.store') }}">
     		@csrf
 			<div class="row">
 				<div class="col-md-4">
 					<div class="field-group">
 						<label for="name">Name</label> *<br>				
-						<input class="form-control" placeholder="Enter name" maxlength="30" name="name" id="name" type="text">				
+						<input class="form-control" onKeyPress="return ValidateAlpha(event);" placeholder="Enter name" maxlength="30" name="name" id="name" type="text">				
 						@error('name')
                             <span style="color:#dc3545">
                                 <strong>{{ $message }}</strong>
@@ -57,7 +72,7 @@
 				<div class="col-md-4">
 					<div class="field-group">
 						<label for="contact">Contact</label><br>				
-						<input type="text" class="form-control" name="contact" id="contact" placeholder="Enter contact" >
+						<input type="text" class="form-control" maxlength="10" name="contact" id="contact" placeholder="Enter contact" >
 						<div class="err"><div class="errorMessage" id="User_contact_em_" style="display:none"></div></div>
 						@error('contact')
                             <span style="color:#dc3545">
@@ -84,7 +99,7 @@
 				<div class="col-md-4">
 					<div class="field-group">
 						<label for="User_status">Role</label> *<br>				
-						<select class="form-control" name="role" id="role" required="">
+						<select class="form-control" name="role" id="role" >
 							<option value="" disabled="" selected="">Select Role</option>
 							<option value="agent">Agent</option>
 						</select>				<div class="err"><div class="errorMessage" id="User_status_em_" style="display:none"></div></div>
@@ -131,6 +146,59 @@
 			}
 			
 		});
+	});
+
+
+	$("#user_form").validate({
+		rules: {
+			name: {
+				required: true
+			},
+			email :{
+				required: true,
+	            	email: true
+			},
+			password:{
+				required: true
+			},
+			contact: {
+				minlength: 10,
+				maxlength: 10,
+				required: true
+			},
+			status :{
+				required:true,
+			},
+			role :{
+				required:true,
+			},
+
+
+		},
+		messages: {
+			name: {
+				required: "Enter your username",
+			},
+			email:
+			{
+				required: "Email is a required field",
+				email: "Improper email format"
+			},
+			password :{
+				required: "Password is a required field",
+			},
+			contact: {
+				required: "Manager Contact is a required field"
+			},
+			status :{
+				required: "Status is a required field"
+			},
+			role :{
+				required: "Status is a required field"
+			}
+
+
+		}
 	});
 </script>			
 

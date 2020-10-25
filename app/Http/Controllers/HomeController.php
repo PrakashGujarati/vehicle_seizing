@@ -6,10 +6,12 @@ use Illuminate\Http\Request;
 use App\Vehicle;
 use App\User;
 use App\HeadOffices;
+use App\Office;
 use Auth;
 use DB;
 use App\UserAssigned;
 use DataTables;
+
 
 
 class HomeController extends Controller
@@ -49,8 +51,11 @@ class HomeController extends Controller
 
         $UserInactiveCount = User::where('role','agent')->where('status','Inactive')->count();
         $HeadOfficeCount = HeadOffices::all()->count();
+        
+        $BranchOffice = Office::all()->count();
+        
 
-        return view('dashboard_stat',compact('VehicleCount','UserActiveCount','HeadOfficeCount','UserInactiveCount','Users'));
+        return view('dashboard_stat',compact('VehicleCount','UserActiveCount','HeadOfficeCount','UserInactiveCount','Users','BranchOffice'));
     }
     public function agentList()
     {
