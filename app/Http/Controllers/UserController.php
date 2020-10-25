@@ -5,7 +5,7 @@ use App\User;
 use App\UserSubscription;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
-
+use DataTables;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -130,6 +130,7 @@ class UserController extends Controller
         $add->contact = $request->contact;
         $add->role = $request->role;
         $add->status = $request->status;
+        $add->imei = $request->imei;
         $add->save();
         if($add)
         {
@@ -147,25 +148,34 @@ class UserController extends Controller
     {
         //
     }
-     public function search_user(Request $request)
+     public function datatables_User(Request $request)
     {
-            if($request->has('s') && $request->s != ''){
-            $userdata = User::where(function($query) use($request){
-                $query->orwhere('name','like','%'.$request->s.'%');
-                $query->orwhere('email','like','%'.$request->s.'%');
-                $query->orwhere('contact','like','%'.$request->s.'%');
-                $query->orwhere('role','like','%'.$request->s.'%');
-                $query->orwhere('status','like','%'.$request->s.'%');
-            })->get();
-        }
-        else
-        {
-            $userdata = User::all();
-        }
+           $Users = User::all();
         
-        $allowancehtml = view('user.dynamic_user_table', compact('userdata'))->render();
-        $data=['data' => $allowancehtml];
-        return Response()->json($data);
+
+            return DataTables::of($Users)
+            ->addColumn('action',function($Users)
+            {
+                return ' <a title="Edit"  href="'. route('user.edit',$Users->id) .'"> 
+                      <i class="fas fa-edit"></i>
+            </a> 
+            ';
+            })
+            ->addColumn('status',function($Users)
+            {
+
+                  if ($Users->status == "Active") {
+                       return '<span style="background:#0CC27E;color: white;padding: 2px;border-radius: 5px;padding: 5px">Active</span>';
+                   }
+                   else
+                   {
+                        return '<span style="background:#FF586B;padding: 2px;color: white;border-radius: 5px;padding: 5px">Inactive</span>';
+                   }
+
+               
+            })
+            ->rawColumns(array("action", "status"))
+            ->make(true);
 
      }
 }

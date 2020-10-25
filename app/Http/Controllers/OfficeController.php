@@ -41,31 +41,34 @@ class OfficeController extends Controller
      */
     public function store(Request $request)
     {
-          $request->validate([
+          $request->validate([ 
             'head_office_id' => 'required', 
-            'name' => 'required',
-            'contact_person' => 'required',
-            'contact' => 'required',
-            'address1' => 'required',
-            'city' => 'required',
             'branch_code' => 'required',
-            'branch' => 'required',
+            'branch_address' => 'required',
+            'city' => 'required',
+            'branch_contact' => 'required|numeric',
+            'manager_contact' => 'required|numeric',
+            'gst' => 'required',
+            'assigned_manager' => 'required',
+            'manage_email' => 'required|email',
+            'branch_email' => 'required|email',
        ],
-       [
-            'address1.required'=>"The address field is required.",
+       [    
             'head_office_id.required'=>"The head office name field is required."
        ]
        );
        
         $add = new Office;
         $add->head_office_id = $request->head_office_id;
-        $add->name = $request->name;
-        $add->contact_person = $request->contact_person;
-        $add->contact = $request->contact;
-        $add->address1 = $request->address1;
-        $add->city = $request->city;
         $add->branch_code = $request->branch_code;
-        $add->branch = $request->branch;
+        $add->branch_address = $request->branch_address;
+        $add->assigned_manager = $request->assigned_manager;
+        $add->city = $request->city;
+        $add->branch_contact = $request->branch_contact;
+        $add->gst = $request->gst;
+        $add->manage_email = $request->manage_email;
+        $add->manager_contact = $request->manager_contact;
+        $add->branch_email = $request->branch_email;
         $add->save();
         if($add)
         {
@@ -106,31 +109,34 @@ class OfficeController extends Controller
      */
     public function update(Request $request, office $office)
     {
-        $request->validate([
+          $request->validate([ 
             'head_office_id' => 'required', 
-            'name' => 'required',
-            'contact_person' => 'required',
-            'contact' => 'required',
-            'address1' => 'required',
-            'city' => 'required',
             'branch_code' => 'required',
-            'branch' => 'required',
+            'branch_address' => 'required',
+            'city' => 'required',
+            'branch_contact' => 'required|numeric',
+            'manager_contact' => 'required|numeric',
+            'gst' => 'required',
+            'assigned_manager' => 'required',
+            'manage_email' => 'required|email',
+            'branch_email' => 'required|email',
        ],
-       [
-            'address1.required'=>"The address field is required.",
+       [    
             'head_office_id.required'=>"The head office name field is required."
        ]
        );
         
         $add = Office::find($request->hidden_id);
         $add->head_office_id = $request->head_office_id;
-        $add->name = $request->name;
-        $add->contact_person = $request->contact_person;
-        $add->contact = $request->contact;
-        $add->address1 = $request->address1;
-        $add->city = $request->city;
         $add->branch_code = $request->branch_code;
-        $add->branch = $request->branch;
+        $add->branch_address = $request->branch_address;
+        $add->assigned_manager = $request->assigned_manager;
+        $add->city = $request->city;
+        $add->branch_contact = $request->branch_contact;
+        $add->gst = $request->gst;
+        $add->manage_email = $request->manage_email;
+        $add->manager_contact = $request->manager_contact;
+        $add->branch_email = $request->branch_email;
         $add->save();
         if($add)
         {

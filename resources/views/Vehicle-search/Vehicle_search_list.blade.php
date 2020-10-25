@@ -29,7 +29,7 @@
    </table>
 </div>
 
-<input type="text" name="id" value="{{$GetID}}">
+<input type="hidden" name="id" value="{{$GetID}}">
   
 @endsection
 @section('onPageJs')

@@ -21,13 +21,15 @@
       <thead>
          <tr>
               <th>Head Office Name</th>
-              <th>Name</th>
-              <th>Contact Person</th>
-              <th>Contact</th>
-              <th>Address</th>
-              <th>City</th>
-              <th>Branch Code</th>
-              <th>Branch</th>
+               <th>Branch Code</th>
+              <th>Assigned Manager</th>
+              <th>Branch Address</th>
+              <th>Branch Email</th>
+              <th>city</th>
+              <th>Branch Contact</th>
+              <th>Manage Email</th>
+              <th>Manager Contact</th>
+              <th>Gst</th>
               <th>Action</th>
          </tr>
          
@@ -59,13 +61,15 @@ $(document).ready(function() {
             },
               columns: [
                   {data: 'head_office_id', name: 'head_office_id'},
-                  {data: 'name', name: 'name'},
-                  {data: 'contact_person', name: 'contact_person'},
-                  {data: 'contact', name: 'contact'},
-                  {data: 'address1', name: 'address1'},
-                  {data: 'city', name: 'city'},
                   {data: 'branch_code', name: 'branch_code'},
-                  {data: 'branch', name: 'branch'},
+                  {data: 'assigned_manager', name: 'assigned_manager'},
+                  {data: 'branch_address', name: 'branch_address'},
+                  {data: 'branch_email', name: 'branch_email'},
+                  {data: 'city', name: 'city'},
+                  {data: 'branch_contact', name: 'branch_contact'},
+                  {data: 'manage_email', name: 'manage_email'},
+                  {data: 'manager_contact', name: 'manager_contact'},
+                  {data: 'gst', name: 'gst'},
                   {data: 'action', name: 'action'},
               ]
           });

@@ -80,7 +80,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('get/office/delete/{id?}', 'OfficeController@destroy')->name('delete.office');
 
 
-        /*	Route::get('get/datatables/delete/{id?}', 'OfficeController@destroy')->name('delete.office');*/
+        /*  Route::get('get/datatables/delete/{id?}', 'OfficeController@destroy')->name('delete.office');*/
 
 
         //Route::resource('role', 'RolesController');
@@ -99,6 +99,11 @@ Route::group(['middleware' => 'auth'], function () {
 
 
         Route::post('user/assigneds', 'UserAssignedController@store')->name('userassigneds.store');
+
+
+
+
+    Route::get('user-datatables','UserController@datatables_User')->name('user.datatables');
 
 
         Route::resource('finance-office', 'HeadOfficesController');
@@ -141,7 +146,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 Route::get('api/vehicles', [VehicleApiController::class, 'index_datatable'])->name('api.vehicles.get');
 Route::get('api/vehicles/{id?}', [VehicleApiController::class, 'get_vehicle'])->name('api.vehicle.get');
-Route::get('vehicles', [VehicleController::class, 'vehicles']);
+Route::get('vehicles', [VehicleController::class, 'vehicles'])->name('vehicles.view');
 Route::get('vehicles/create', [VehicleApiController::class, 'create'])->name('vehicles.create');
 Route::post('vehicles_assign', [VehicleApiController::class, 'vehicles_assign'])->name('vehicles.assign');
 Route::delete('vehicles_unassign', [VehicleApiController::class, 'vehicles_unassign'])->name('vehicles.unassign');

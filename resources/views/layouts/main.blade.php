@@ -98,7 +98,7 @@
 <nav class="navbar navbar-expand navbar-dark bg-dark flex-md-nowrap">
   <a class="navbar-brand navbar-brand col-md-1 mr-0 d-none d-sm-block" href="#">
     <div>
-      Swotsiz
+      Swotsizz
     </div>
   </a>
   <div class="collapse navbar-collapse" id="navbarsExample02">
@@ -106,9 +106,14 @@
       <li class="nav-item active">
         <a href="#" id="sidebarCollapse"><i class="fa fa-bars"></i></a>
       </li>
+      <li  class="nav-item" style="text-align:center;">
+      <p>
+        <img src="{{asset('images/slogo.png')}}" height="25px;">
+      </p>
+     </li>
     </ul>
-    <ul class="navbar-nav ml-auto">
-      {{--  @include('notification_bell') --}}
+    
+    <ul class="navbar-nav ml-auto">     
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> {{-- <img class="mr-2 staff-profile-image-small" src="#"> --}} {{Auth::user()->name}}</a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown01" style="min-width: 300px; font-size: 14px;">
@@ -143,6 +148,15 @@
         </div>
       </div>
     </div>
+  </div>
+</div>
+<div class="nk-footer">
+  <div class="container-fluid">
+      <div class="nk-footer-wrap text-left">
+          <div class="nk-footer-copyright" style="text-align: right;"> <a href="
+            {{ url('/') }}" >@ Swotsizz</a>
+          </div>
+      </div>
   </div>
 </div>
 <script type="text/javascript">

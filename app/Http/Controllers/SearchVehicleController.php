@@ -67,7 +67,7 @@ class SearchVehicleController extends Controller
 
         return DataTables::of($Vehicles)
             ->editColumn('map', function ($Vehicles) {
-                return '<a title="Map"  href="' . route('vehicle.map', $Vehicles->id) . '"> 
+                return '<a title="location"  href="' . route('vehicle.map', $Vehicles->id) . '"> 
                       <i class="fa fa-map-marker"></i>
             </a>    ';
             })
@@ -76,7 +76,7 @@ class SearchVehicleController extends Controller
             })
             ->editColumn('image', function ($Vehicles) {
                 if ($Vehicles->image) {
-                    return '<img src="' . asset('uploads/vehicle') . '/' . $Vehicles->image . ' " style="height:50px;">';
+                    return '<a href="' . asset('uploads/vehicle') . '/' . $Vehicles->image . ' " target="_blank"><img title="uploaded image"  src="' . asset('uploads/vehicle') . '/' . $Vehicles->image . ' " style="height:50px;"></a>';
                 }
             })
             ->rawColumns(array("map", "user_id", "image"))

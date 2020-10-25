@@ -16,13 +16,15 @@ class CreateOfficesTable extends Migration
         Schema::create('offices', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('head_office_id')->nullable();
-            $table->string('name')->nullable();
-            $table->string('contact_person')->nullable();
-            $table->string('contact')->nullable();
-            $table->text('address1')->nullable();
+            $table->unsignedBigInteger('branch_code')->nullable();
+            $table->text('branch_address')->nullable();
+            $table->string('branch_email')->nullable();
+            $table->string('manage_email')->nullable();
+            $table->string('manager_contact')->nullable();
+            $table->string('branch_contact')->nullable();
+            $table->string('assigned_manager')->nullable();
             $table->string('city')->nullable();
-            $table->string('branch_code')->nullable();
-            $table->string('branch')->nullable();
+            $table->string('gst')->nullable();
             $table->timestamps();
         });
     }

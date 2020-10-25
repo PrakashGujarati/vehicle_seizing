@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('contact');
             $table->string('role')->nullable();
+            $table->string('imei')->nullable();
             $table->enum('status', ['Active','Inactive','Deleted']);
             $table->timestamp('last_login')->nullable();
             $table->timestamps();

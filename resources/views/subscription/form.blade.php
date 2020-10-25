@@ -30,11 +30,14 @@
                          @enderror
 					</div>
 				</div>
-
+				@php
+					$maxDays=date('t');
+					$currentDayOfMonth=date('j');
+				@endphp
 				<div class="col-md-4">
 					<div class="field-group">
-						<label for="email">Days</label> *<br>				
-						<input class="form-control" placeholder="Enter Days"  class="strlo" name="days" id="days" type="text">	
+						<label for="email">Month</label> *<br>				
+						<input class="form-control" placeholder="Enter Days"  class="strlo" name="days" value="{{$maxDays}}" id="days" type="text">	
 						@error('days')
                             <span style="color:#dc3545">
                                 <strong>{{ $message }}</strong>

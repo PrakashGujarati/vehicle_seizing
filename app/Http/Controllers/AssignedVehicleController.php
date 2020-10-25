@@ -89,54 +89,21 @@ class AssignedVehicleController extends Controller
         //
     }
     public function AssignedVehicle(Request $request)
-    {
+    {   
 
-       // dd($request->all());
+        //dd($request->user_id);
 
-        /*if($request->user_id)
-        {*/
-            //$vehicledata = Vehicle::select(['agreement_no','prod_n']);
-             $vehicledata = \App\Vehicle::select('vehicles.agreement_no','vehicles.prod_n')->join('user_assigneds', 'vehicles.id', '=', 'user_assigneds.vehicle_id')
-            ->where('user_assigneds.user_id', $request->user_id)
-            ->where('vehicles.deleted',null);
-           
-           //dd($vehicledata);
-
-            return Datatables::of($vehicledata)->addIndexColumn()->make(true);
-
-
-
-        /*}*/
-        
-
-
-            
-            //return DataTables::queryBuilder($vehicledata)->toJson();
-
-
-
-              
-
-
-
-
-            //return DataTables::of($vehicledata)->toJson();
-
-
-       // return Datatables::of(User::query())->make(true);
-
-     
-
-
-
-        /*  $vehicledata = DB::table('vehicles')
+          $vehicledata = DB::table('vehicles')
             ->join('user_assigneds', 'vehicles.id', '=', 'user_assigneds.vehicle_id')
             ->where('user_assigneds.user_id', $request->user_id)
-            ->where('vehicles.deleted',null)    
-            ->get();*/
+            /*->where('vehicles.deleted',null)*/    
+            ->paginate('10');
+
+            //dd($vehicledata);
 
 
-         /*   if(count($vehicledata) > 0)
+
+            if(count($vehicledata) > 0)
             {
                  $allowancehtml = view('assigned-vehicle.dynamic_vehicle_table', compact('vehicledata'))->render();
                   $data=['data' => $allowancehtml];
@@ -152,7 +119,7 @@ class AssignedVehicleController extends Controller
 
                 return Response()->json($data);        
 
-            }*/
+            }
         
         
     }

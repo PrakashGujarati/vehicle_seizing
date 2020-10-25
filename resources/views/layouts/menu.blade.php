@@ -32,23 +32,32 @@
             </ul>
         </li>
         
+
+        <li  class="#">
+             <a href="#salesSubmenu2" data-toggle="collapse" aria-expanded="false">
+                <i class="fas fa-user-plus menu-icon"></i>Agent</a>
+            <ul class="collapse list-unstyled" id="salesSubmenu2">
+                <li  class=""><a href="{{ route('user.index') }}">User</a></li>
+                <li  class=""><a href="{{ route('subscribers.index') }}">Subscriptions</a></li>
+            </ul>
+        </li>
+
         <li  class="#">
             <a href="{{ route('role.get') }}"><i class="fas fa-user menu-icon"></i>Roles</a>
         </li>
-        <li  class="#">
-            <a href="{{ route('user.index') }}"><i class="fas fa-user-plus menu-icon"></i>User</a>
-        </li>
-       <li  class="#">
-            <a href="{{ route('agent-view-permission.index') }}"><i class="fas fa-filter menu-icon"></i>View Fields</a>
-        </li>
-        <li  class="#">
+      
+    
+      {{--   <li  class="#">
             <a href="{{ route('subscribers.index') }}"><i class="fas fa-user menu-icon"></i>Subscriptions</a>
-        </li>
+        </li> --}}
         <li  class="#">
             <a href="{{ route('assigned-Vehicle.index') }}"><i class="fas fa-users menu-icon"></i>Assigned Vehicle</a>
         </li>
          <li  class="#">
             <a href="{{ route('vehicle-searchlist.index') }}"><i class="fas fa-search menu-icon"></i>Agent Search</a>
+        </li>
+           <li  class="#">
+            <a href="{{ route('agent-view-permission.index') }}"><i class="fa fa-cog menu-icon"></i>Setting</a>
         </li>
         
        @endif
@@ -68,3 +77,5 @@
     </ul>
     </div>
 </nav>
+
+
