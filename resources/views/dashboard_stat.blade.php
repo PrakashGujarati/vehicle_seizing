@@ -77,7 +77,21 @@
 	        			<center>
 	        				<a href="{{ route('finance-office.index') }}" >
 	        					<i class="fa fa-building icon"></i><br>
-	        					<b>Total Head Office ({{ isset($HeadOfficeCount) ? $HeadOfficeCount:'0' }})</b>
+	        					<b>Total Finance Office ({{ isset($HeadOfficeCount) ? $HeadOfficeCount:'0' }})</b>
+	        				</a>
+	        			</center>
+	        		</div>
+	        	</div>
+	        </div>
+			@endif
+			 @if( Auth::user()->name == "Admin")
+	        <div class="col-md-4">
+	        	<div class="card">
+	        		<div class="card-body">
+	        			<center>
+	        				<a href="{{ route('office.index') }}" >
+	        					<i class="fa fa-building icon"></i><br>
+	        					<b>Total Branch Office ({{ isset($BranchOffice) ? $BranchOffice:'0' }})</b>
 	        				</a>
 	        			</center>
 	        		</div>

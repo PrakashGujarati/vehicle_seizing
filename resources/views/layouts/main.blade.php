@@ -98,7 +98,7 @@
 <nav class="navbar navbar-expand navbar-dark bg-dark flex-md-nowrap">
   <a class="navbar-brand navbar-brand col-md-1 mr-0 d-none d-sm-block" href="#">
     <div>
-      Swotsiz
+      Swotsizz
     </div>
   </a>
   <div class="collapse navbar-collapse" id="navbarsExample02">
@@ -107,8 +107,16 @@
         <a href="#" id="sidebarCollapse"><i class="fa fa-bars"></i></a>
       </li>
     </ul>
-    <ul class="navbar-nav ml-auto">
-      {{--  @include('notification_bell') --}}
+    <ul class="navbar-nav mx-auto">
+    <li  class="nav-item" style="text-align:center;">
+      <p class="m-0 text-white">        
+        <i class="fa fa-globe" aria-hidden="true"></i> www.swotbiz.com
+        <img src="{{asset('images/slogo.png')}}" height="25px;"> 
+        <i class="fa fa-phone" aria-hidden="true"></i> +91 8490079720
+      </p>
+     </li>
+     </ul>
+    <ul class="navbar-nav ml-auto">     
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> {{-- <img class="mr-2 staff-profile-image-small" src="#"> --}} {{Auth::user()->name}}</a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown01" style="min-width: 300px; font-size: 14px;">
