@@ -62,6 +62,13 @@
           >
             <i class=""> </i> + Assign
           </a>
+
+          <a type="button" href="#" class="btn btn-sm btn-outline-danger assign_vehicle_btn ml-3"
+             onclick="event.preventDefault()"
+          >
+            <i class=""> </i> UnAssign
+
+          </a>
         </div>
       </div>
 

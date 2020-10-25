@@ -144,6 +144,7 @@ Route::get('api/vehicles/{id?}', [VehicleApiController::class, 'get_vehicle'])->
 Route::get('vehicles', [VehicleController::class, 'vehicles']);
 Route::get('vehicles/create', [VehicleApiController::class, 'create'])->name('vehicles.create');
 Route::post('vehicles_assign', [VehicleApiController::class, 'vehicles_assign'])->name('vehicles.assign');
+Route::delete('vehicles_unassign', [VehicleApiController::class, 'vehicles_unassign'])->name('vehicles.unassign');
 Route::post('vehicles/{id}', [VehicleApiController::class, 'destroy'])->name('api.vehicles.destroy');
 Route::post('/csv_import', [CsvImportController::class, "store"])->name('csv.import.store');
 Route::get('/csv_export', [\App\Http\Controllers\ExportController::class, "export_vehicles"])->name('csv.export');

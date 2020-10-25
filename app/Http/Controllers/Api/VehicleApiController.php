@@ -34,7 +34,7 @@ class VehicleApiController extends Controller
                 return random_int(1, 10) % $vehicle->id == 0 ? 'alert-danger' : '';
             })*/
             ->setRowAttr([
-                'data-id' => function($row) {
+                'data-id' => function ($row) {
                     return $row->id;
                 },
             ])
@@ -123,16 +123,22 @@ class VehicleApiController extends Controller
         }
 
         return redirect()->back()->with(["error" => "Something went wrong."]);
+    }
 
-//      /*  return $request->all();
-//        $vehicle_ids = explode(',', $request->get('vehicles'));
-//        $agent_id = $request->get('agent_id');
-//        foreach ($vehicle_ids as $vehicle_id) {
-//            UserAssigned::create([
-//                'user_id' => $agent_id,
-//                'vehicle_id' => $vehicle_id,
-//            ]);
-//        }*/
+    public function vehicles_unassign(Request $request)
+    {
+        $request->validate([
+            'agent_id' => "required|exists:users,id",
+        ]);
+
+        $agent_id = $request->get('agent_id');
+
+        $query = "DELETE FROM `user_assigneds` WHERE user_id = $agent_id";
+        $result_bool = DB::statement($query);
+        if ($result_bool) {
+            return redirect()->back()->with(["success" => "Vehicles unassigned successfully."]);
+        }
+        return redirect()->back()->with(["error" => "Something went wrong."]);
     }
 }
 
