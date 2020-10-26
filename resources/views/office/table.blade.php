@@ -30,6 +30,14 @@
               <th>Manage Email</th>
               <th>Manager Contact</th>
               <th>Gst</th>
+              <th>Finance Office Name</th>
+              <th>Name</th>
+              <th>Contact Person</th>
+              <th>Contact</th>
+              <th>Address</th>
+              <th>City</th>
+              <th>Branch Code</th>
+              <th>Branch</th>
               <th>Action</th>
          </tr>
          

@@ -112,7 +112,15 @@
       </p>
      </li>
     </ul>
-    
+    <ul class="navbar-nav mx-auto">
+    <li  class="nav-item" style="text-align:center;">
+      <p class="m-0 text-white">        
+        <i class="fa fa-globe" aria-hidden="true"></i> www.swotbiz.com
+        <img src="{{asset('images/slogo.png')}}" height="25px;"> 
+        <i class="fa fa-phone" aria-hidden="true"></i> +91 8490079720
+      </p>
+     </li>
+     </ul>
     <ul class="navbar-nav ml-auto">     
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> {{-- <img class="mr-2 staff-profile-image-small" src="#"> --}} {{Auth::user()->name}}</a>

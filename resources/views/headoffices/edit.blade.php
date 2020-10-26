@@ -2,7 +2,25 @@
 @section('title', __('Finance Office Edit'))
 @section('css')
 <style type="text/css">
+#branch_email
+{
+	color:#494949!important;
+}
+#branch_contact
+{
+	color:#494949!important;
 
+}
+#manager_contact
+{
+	color:#494949!important;
+
+}
+#manage_email
+{
+	color:#494949!important;
+
+}
 
 </style>
 @endsection
@@ -12,7 +30,7 @@
 	<div class="card">
 		<div class="card-header">Finance Office Edit</div>
 		<div class="card-body">
-			<form method="post" action="{{ route('finance-office.update',$headofficeEdit->id) }}">
+			<form method="post" id="finance_Office" action="{{ route('finance-office.update',$headofficeEdit->id) }}">
 			@csrf
 			@method('PUT')
 		    	<input type="hidden" name="hidden_id" value="{{$headofficeEdit->id}}" placeholder="">
@@ -20,7 +38,7 @@
 					<div class="col-md-4">
 						<div class="form-group">
 							<label for="finance_company_name">Finance Company Name</label>*				
-							<input placeholder="Enter head office name" maxlength="100" class="form-control" name="finance_company_name" value="{{ $headofficeEdit->finance_company_name }}" id="finance_company_name"
+							<input placeholder="Enter head office name" maxlength="100" class="form-control" onKeyPress="return ValidateAlpha(event);" name="finance_company_name" value="{{ $headofficeEdit->finance_company_name }}" id="finance_company_name"
 							type="text">
 							@error('finance_company_name')
 							<span style="color:#dc3545">
@@ -154,7 +172,102 @@
 @endsection
 
 
-@section('innerPageJS')
+
+@section('onPageJs')
+
+
+<script type="text/javascript">
+
+	$("#finance_Office").validate({
+			rules: {
+			finance_company_name: {
+				required: true,
+
+			},
+			contact_person: {
+				required: true,
+				minlength: 10,
+				maxlength: 10
+			},
+			branch_code:{
+				required: true	
+			},
+			branch_contact: {
+				minlength: 10,
+				maxlength: 10,
+				required: true
+			},
+			branch_email :{
+				required: true,
+	            	email: true
+			},
+			city:{
+				required: true	
+			},
+			branch_address:{
+				required: true
+			},
+			assigned_manager:{
+				required :true
+			},
+			manager_contact: {
+				minlength: 10,
+				maxlength: 10,
+				required: true
+			},
+			manage_email :{
+				required:true,
+				email: true
+			},
+			gst :{
+				required:true,
+			},
+
+
+		},
+		messages: {
+		
+			finance_company_name: {
+				required: "Finance Company Name is a required field",
+			},
+			contact_person: {
+				required: "Person Contact is a required field"
+			},
+			branch_code: {
+				required: "Branch Code is a required field"
+			},
+			branch_contact: {
+				required: "Contact is a required field"
+			},
+			branch_email:
+			{
+				required: "Branch Email is a required field",
+				email: "Improper email format"
+			},
+			city:{
+				required: "City is a required field"
+			},
+			branch_address: {
+				required: "Branch Address is a required field"
+			},
+			assigned_manager :{
+				required: "Assigned Manager is a required field"
+			},
+			manager_contact: {
+				required: "Manager Contact is a required field"
+			},
+			manage_email : {
+				required: "Manage Email is a required field",
+				email: "Improper email format"
+			},
+			gst : {
+				required: "Gst is a required field"
+			}
+
+		}
+	});
+
+</script>
 
 
 @endsection

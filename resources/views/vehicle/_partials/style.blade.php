@@ -25,7 +25,6 @@
       tr:hover {
           background-color: #d0ffd84a !important;
       }
-
       #show_vehicle_tbody tr td {
           width: 100%;
           text-transform: capitalize;

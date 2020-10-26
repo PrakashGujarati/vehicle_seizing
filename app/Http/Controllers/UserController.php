@@ -148,7 +148,8 @@ class UserController extends Controller
     {
         //
     }
-     public function datatables_User(Request $request)
+
+     public function UserController(Request $request)
     {
            $Users = User::all();
         

@@ -103,7 +103,8 @@ Route::group(['middleware' => 'auth'], function () {
 
 
 
-    Route::get('user-datatables','UserController@datatables_User')->name('user.datatables');
+		Route::get('user-datatables','UserController@UserController')->name('user.datatables');
+
 
 
         Route::resource('finance-office', 'HeadOfficesController');

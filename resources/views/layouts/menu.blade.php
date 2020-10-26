@@ -18,7 +18,7 @@
 
         @if( Auth::user()->name == "Admin")
         <li  class="#">
-            <a href="{{ route('Vehicle.index') }}"><i class="fas fa-car menu-icon"></i>Vehicles</a>
+            <a href="{{ url('vehicles') }}"><i class="fas fa-car menu-icon"></i>Vehicles</a>
         </li>
 
 

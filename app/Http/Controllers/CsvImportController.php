@@ -22,7 +22,7 @@ class CsvImportController extends Controller
                 "required", "file", "max:100000",
                 "mimes:csv,txt,text/csv,text/anytext,text/plain,csv,application/csv,application/excel,text,text/x-c,",
             ],
-            "table_name" => "required|string|in:users,vehicles"
+            /*"table_name" => "required|string|in:users,vehicles"*/
         ]);
 
         if ($validator->fails()) {
@@ -35,7 +35,7 @@ class CsvImportController extends Controller
             $csv_path = $file->move(storage_path("csv"), $file_name);
             Artisan::call('csv:load:file', [
                 'path' => $csv_path,
-                'table' => $request->get('table_name')
+                'table' => 'vehicles'
             ]);
 
             DB::table('vehicles')

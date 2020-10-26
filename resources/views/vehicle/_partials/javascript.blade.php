@@ -23,12 +23,13 @@
         },
         columns: [
           {data: 'id', name: 'id'},
-          {data: 'action', name: 'action', orderable: false, searchable: false},
-          {data: 'finance_company_name', name: 'finance_company_name'},
+          {{--{data: 'action', name: 'action', orderable: false, searchable: false},--}}
           {data: 'regd_num', name: 'regd_num'},
-          {data: 'make', name: 'make'},
-          {data: 'status', name: 'status'},
+          {data: 'chasis_num', name: 'chasis_num'},
+          {data: 'engine_num', name: 'engine_num'},
+          {data: 'make', name: 'make'},          
           {data: 'customer_name', name: 'customer_name'},
+          {data: 'finance_company_name', name: 'finance_company_name'},          
           {data: 'agreement_no', name: 'agreement_no'},
           {data: 'prod_n', name: 'prod_n'},
           {data: 'region_area', name: 'region_area'},
@@ -43,9 +44,7 @@
           {data: 'tenor_over', name: 'tenor_over'},
           {data: 'charges', name: 'charges'},
           {data: 'gv', name: 'gv'},
-          {data: 'model', name: 'model'},
-          {data: 'chasis_num', name: 'chasis_num'},
-          {data: 'engine_num', name: 'engine_num'},
+          {data: 'model', name: 'model'},          
           {data: 'rrm_name_no', name: 'rrm_name_no'},
           {data: 'rrm_mail_id', name: 'rrm_mail_id'},
           {data: 'coordinator_mail_id', name: 'coordinator_mail_id'},
@@ -53,7 +52,9 @@
           {data: 'dispatch_date', name: 'dispatch_date'},
           {data: 'letter_date', name: 'letter_date'},
           {data: 'valid_date', name: 'valid_date'},
+          {data: 'status', name: 'status'},
         ],
+        
       });
 
       /// Filter results from option menu

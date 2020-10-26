@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\HeadOffices;
 use DataTables;
 use Session;
+use App\Office;
 use Illuminate\Http\Request;
 
 class HeadOfficesController extends Controller
@@ -147,14 +148,22 @@ class HeadOfficesController extends Controller
     public function destroy(Request $request)
     {
 
+      $checkid = Office::where('head_office_id',$request->id)->first();   
+
+       if(is_null($checkid))
+        {
+               $data = HeadOffices::find($request->id)->delete();
+               $success = "Finance Office Deleted successfully";
+                $data=['success'=>$success];
+                return Response()->json($data);
+        }
+        else
+        {
+               $error = "The Record Already Exists in Branch Office";
+                $data=['error'=>$error];
+                return Response()->json($data);
+        }
        
-        $data = HeadOffices::find($request->id)->delete();
-       if($data)
-       {
-            $success = "Finance Office Deleted successfully";
-            $data=['success'=>$success];
-            return Response()->json($data);
-       }
             
     }
 

@@ -118,6 +118,7 @@
              @include('agent-permission.dynamic_vehicle_table')
         </tbody>
      </table>
+     {{$vehicledata->links()}}
    </div>
 </div>
   
@@ -126,11 +127,15 @@
  
 <script type="text/javascript">
 
+
 $(document).ready(function() {
         /*$('#myTable').DataTable();*/
         $('.successmessage').css('display','none');
         $('.dangermessage').css('display','none');
     });
+
+   
+
 $('#search').on('keyup',function(){
     var myInput=$(this).val();
     $.ajax({
@@ -145,6 +150,7 @@ $('#search').on('keyup',function(){
       }
     });
   })
+
 
 
 
