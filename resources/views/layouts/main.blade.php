@@ -86,6 +86,16 @@
           border-radius: 2px;
 
       }
+      .footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        height:30px;
+        width: 100%;
+        background-color: #e4e4e4;
+        color: black;
+        text-align: center;
+      }
   </style>
   @yield('css')
 
@@ -105,12 +115,7 @@
     <ul class="navbar-nav">
       <li class="nav-item active">
         <a href="#" id="sidebarCollapse"><i class="fa fa-bars"></i></a>
-      </li>
-      <li  class="nav-item" style="text-align:center;">
-      <p>
-        <img src="{{asset('images/slogo.png')}}" height="25px;">
-      </p>
-     </li>
+      </li>      
     </ul>
     <ul class="navbar-nav mx-auto">
     <li  class="nav-item" style="text-align:center;">
@@ -157,16 +162,17 @@
       </div>
     </div>
   </div>
-</div>
-<div class="nk-footer">
-  <div class="container-fluid">
-      <div class="nk-footer-wrap text-left">
-          <div class="nk-footer-copyright" style="text-align: right;"> <a href="
-            {{ url('/') }}" >@ Swotsizz</a>
-          </div>
+  <footer class="footer">
+      <div class="container">
+        <p class="pt-1">
+        <span class="text-muted">	&#169; Swotbix Infinity | <i class="fa fa-globe" aria-hidden="true"></i> www.swotbiz.com
+        |
+        <i class="fa fa-phone" aria-hidden="true"></i> +91 8490079720</span>
+        </p>
       </div>
-  </div>
+    </footer>
 </div>
+
 <script type="text/javascript">
 
 

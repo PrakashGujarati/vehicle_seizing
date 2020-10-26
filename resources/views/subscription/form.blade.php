@@ -47,7 +47,7 @@
 				@endphp
 				<div class="col-md-4">
 					<div class="field-group">
-						<label for="email">Month({{date('m')}})</label> *<br>				
+						<label for="email">Month({{date('M')}})</label> *<br>				
 						<input class="form-control" placeholder="Enter Days"  class="strlo" name="days" value="{{$maxDays}}" id="days" type="text">	
 						@error('days')
                             <span style="color:#dc3545">
@@ -72,8 +72,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="row">
-				
+			<div class="row mt-3">				
 				<div class="col-md-4">
 					<div class="field-group">
 						<label for="User_status">Payment Mode</label> *<br>				

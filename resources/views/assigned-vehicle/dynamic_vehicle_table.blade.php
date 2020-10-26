@@ -97,7 +97,7 @@
               </tr>   
            @endforeach
         
- {{--  {{ $vehicledata->links()  }} --}}
+ {{--{{ $vehicledata->links()  }} --}}
 
 </table>
       

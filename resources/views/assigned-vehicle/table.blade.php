@@ -77,7 +77,7 @@ $('.user_id').change(function() {
           {
                 $.ajax({
                   url: "{{ route('assigned-vehicle-display') }}",
-                  type:"POST",
+                  type:"GET",
                   headers: {
                       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                   },

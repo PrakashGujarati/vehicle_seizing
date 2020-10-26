@@ -92,12 +92,11 @@ class AssignedVehicleController extends Controller
     {   
 
         //dd($request->user_id);
-
+        
           $vehicledata = DB::table('vehicles')
             ->join('user_assigneds', 'vehicles.id', '=', 'user_assigneds.vehicle_id')
-            ->where('user_assigneds.user_id', $request->user_id)
-            /*->where('vehicles.deleted',null)*/    
-            ->paginate('10');
+            ->where('user_assigneds.user_id', $request->user_id)            
+            ->paginate(30);
 
             //dd($vehicledata);
 

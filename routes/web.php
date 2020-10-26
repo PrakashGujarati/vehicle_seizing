@@ -126,7 +126,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 
         Route::resource('assigned-Vehicle', 'AssignedVehicleController');
-        Route::post('assigned-vehicle-display', 'AssignedVehicleController@AssignedVehicle')->name('assigned-vehicle-display');
+        Route::get('assigned-vehicle-display', 'AssignedVehicleController@AssignedVehicle')->name('assigned-vehicle-display');
 
         Route::resource('vehicle-searchlist', 'SearchVehicleController');
         Route::get('VehicleSearchlist-datatables', 'SearchVehicleController@datatables_VehicleSearchlist')->name('VehicleSearchlist.datatables');
