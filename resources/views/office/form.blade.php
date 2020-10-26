@@ -6,14 +6,24 @@
 {
 	color:#494949!important;
 }
-#contact
+#branch_email
 {
 	color:#494949!important;
-}	
-#contact_person
+}
+#branch_contact
 {
 	color:#494949!important;
-	
+
+}
+#manager_contact
+{
+	color:#494949!important;
+
+}
+#manage_email
+{
+	color:#494949!important;
+
 }
 </style>
 @endsection
@@ -30,7 +40,7 @@
 					<div class="col-md-4">
 						<div class="form-group">
 							<label for="contact_person">Finance Office Name</label> *	
-							<select class="form-control"  name="head_office_id" id="head_office_id" >
+							<select class="form-control" name="head_office_id" id="head_office_id" >
 								<option value="" disabled="" selected="">Select head Office</option>
 								@foreach ($headOfficesname as $hOfficesname)
 								<option value="{{$hOfficesname->id}}">{{$hOfficesname->finance_company_name}} Branch Code -{{$hOfficesname->branch_code}}</option>
@@ -43,25 +53,13 @@
 							@enderror
 						</div>
 					</div>
-					<div class="col-md-4">
+						<div class="col-md-4">
 						<div class="form-group">
 							<label for="branch_code">Branch Code</label> *				
 							<input class="form-control" placeholder="Enter Branch code" maxlength="30" value="{{ old('branch_code') }}" name="branch_code" id="branch_code" type="text">
 							@error('branch_code')
 							<span style="color:#dc3545">
 								<strong>{{ $message }}</strong>
-							</span>
-							@enderror	
-						</div>
-					</div>
-					<div class="col-md-4">
-							<div class="form-group">
-							<label for="name">Branch Name</label>*				
-							<input placeholder="Enter  office name" onKeyPress="return ValidateAlpha(event);"  maxlength="100" class="form-control" name="name"  value="{{ old('finance_company_name') }}"  id="name"   type="text">				
-							<div class="err"></div>
-							@error('name')
-							<span class="validation-msg">
-								{{ $message }}
 							</span>
 							@enderror
 						</div>
@@ -86,34 +84,19 @@
 							@error('branch_email')
 							<span style="color:#dc3545">
 								<strong>{{ $message }}</strong>
-
-							<div class="form-group">
-								<label for="contact">Contact</label>				
-								<input type="text"  class="form-control" placeholder="Enter contact"  rows="4" maxlength="10" name="contact" value="{{ old('contact') }}" id="contact" onkeypress="return isNumberKey(event)">
-								@error('contact')
-								<span class="validation-msg">
-									{{ $message }}
-								</span>
-								@enderror
-							</div>
+							</span>
+							@enderror
 						</div>
 					</div>
 					<div class="col-md-4">
 						<div class="form-group">
-								<label for="city">Branch City</label> *				
-								<input class="form-control"  placeholder="Enter city" maxlength="20" name="city" value="{{ old('city') }}" id="city" type="text">				
-								@error('city')
-								<span style="color:#dc3545">
-									<strong>{{ $message }}</strong>
-								<div class="form-group">
-								<label for="contact_person">Contact Person</label> *				
-								<input class="form-control" placeholder="Enter contact person"  name="contact_person" maxlength="10" value="{{ old('contact_person') }}" id="contact_person" type="text" onkeypress="return isNumberKey(event)">
-								@error('contact_person')
-								<span class="validation-msg">
-									{{ $message }}
-								</span>
-								@enderror	
-							</div>
+							<label for="city">Branch City</label> *				
+							<input class="form-control"  placeholder="Enter city" maxlength="20" name="city" value="{{ old('city') }}" id="city" type="text">				
+							@error('city')
+							<span style="color:#dc3545">
+								<strong>{{ $message }}</strong>
+							</span>
+							@enderror	
 						</div>
 					</div>
 					<div class="col-md-4">
@@ -176,6 +159,8 @@
 						@enderror		
 					</div>
 				</div>
+			
+
 				<div class="row mt-5">
 					<div class="col-md-12">
 						<input  class="btn cbtn btn-info" type="submit" name="submit" value="Save">
@@ -185,7 +170,12 @@
 			</form>
 		</div> 
 	</div>
+
+
 </div>
+
+
+
 @endsection
 
 
@@ -193,12 +183,12 @@
 
 <script type="text/javascript">
 
-	$(function() {
-		$("#Officeform").validate({
+	$("#Officeform").validate({
 			rules: {
-				name: {
-					required: true
-				},
+			head_office_id: {
+				required: true,
+
+			},
 			contact_person: {
 				required: true,
 				minlength: 10,
@@ -237,10 +227,12 @@
 			gst :{
 				required:true,
 			},
+
+
 		},
 		messages: {
 		
-			finance_company_name: {
+			head_office_id: {
 				required: "Finance Company Name is a required field",
 			},
 			contact_person: {
@@ -277,68 +269,9 @@
 				required: "Gst is a required field"
 			}
 
-
-	$("#Officeform").validate({
-		rules: {
-			name: {
-				required: true
-			},
-			contact_person: {
-				required: true,
-				minlength: 10,
-				maxlength: 10
-			},
-			head_office_id:{
-				required: true	
-			},
-			branch_code:{
-				required: true	
-			},
-			contact: {
-				minlength: 10,
-				maxlength: 10,
-				required: true
-			},
-			city:{
-				required: true	
-			},
-			branch :{
-				required: true	
-			},
-			address1:{
-				required: true
-			}
-
-		},
-		messages: {
-			name: {
-				required: "Enter your username",
-			},
-			contact_person: {
-				required: "Person Contact is a required field"
-			},
-			head_office_id:{
-				required: "Head Office Name is a required field"
-			},
-			branch_code: {
-				required: "Branch Code is a required field"
-			},
-			contact: {
-				required: "Contact is a required field"
-			},
-			city:{
-				required: "City is a required field"
-			},
-			branch:{
-				required: "Branch is a required field"
-			},
-
-			address1: {
-				required: "Address is a required field"
-			},
-
 		}
 	});
+
 
 </script>
 

@@ -10,12 +10,13 @@
       </div>
       <div class="col-md-6">
          <div class="float-md-right">
-           <a class="btn btn-primary btn-sm" href="{{ route('office.create') }}">New Branch Office Add</a>
+           <a class="btn btn-primary btn-sm" href="{{ route('office.create') }}">Add New Branch Office</a>
          </div>
       </div>
    </div>
     <hr>
   
+  <div class="table-responsive">
  
    <table class="table table-striped table-bordered datatable" cellspacing="0" width="100%" id="data">
       <thead>
@@ -30,19 +31,8 @@
               <th>Manage Email</th>
               <th>Manager Contact</th>
               <th>Gst</th>
-              <th>Finance Office Name</th>
-              <th>Name</th>
-              <th>Contact Person</th>
-              <th>Contact</th>
-              <th>Address</th>
-              <th>City</th>
-              <th>Branch Code</th>
-              <th>Branch</th>
               <th>Action</th>
          </tr>
-         
-  
-        
       </thead>
    </table>
 </div>

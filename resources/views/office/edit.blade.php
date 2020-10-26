@@ -1,18 +1,29 @@
 @extends('layouts.main')
 @section('title', __('Office Add'))
 @section('css')
-<style type="text/css">
+<style type="text/css" media="screen">
 #head_office_id
 {
 	color:#494949!important;
 }
-#contact
+#branch_email
 {
 	color:#494949!important;
-}	
-#contact_person
+}
+#branch_contact
 {
 	color:#494949!important;
+
+}
+#manager_contact
+{
+	color:#494949!important;
+
+}
+#manage_email
+{
+	color:#494949!important;
+
 }
 </style>
 @endsection
@@ -69,40 +80,25 @@
 				</div>	
 				<div class="row">
 					<div class="col-md-4">
-							<div class="form-group">
-								<label for="branch_email">Branch Email</label>
-								<input type="text" class="form-control" placeholder="Enter Branch Email" maxlength="200" name="branch_email" value="{{ $OfficeEdit->branch_email }}" id="branch_email">	
-								@error('branch_email')
-								<span style="color:#dc3545">
-									<strong>{{ $message }}</strong>
-
-								<div class="form-group">
-								<label for="contact">Contact</label>				
-								<input type="text" maxlength="10" class="form-control" placeholder="Enter contact"  rows="4" name="contact" value="{{ $OfficeEdit->contact }}" id="contact" onkeypress="return isNumberKey(event)">
-								@error('contact')
-								<span class="validation-msg">
-									{{ $message }}
-								</span>
-								@enderror
-							</div>
-						</div>					
+						<div class="form-group">
+							<label for="branch_email">Branch Email</label>
+							<input type="text" class="form-control" placeholder="Enter Branch Email" maxlength="200" name="branch_email" value="{{ $OfficeEdit->branch_email }}" id="branch_email">	
+							@error('branch_email')
+							<span style="color:#dc3545">
+								<strong>{{ $message }}</strong>
+							</span>
+							@enderror
+						</div>
 					</div>
 					<div class="col-md-4">
 						<div class="form-group">
-								<label for="city">Branch City</label> *				
-								<input class="form-control"  placeholder="Enter city" maxlength="20" name="city" value="{{ $OfficeEdit->city }}" id="city" type="text">				
-								@error('city')
-								<span style="color:#dc3545">
-									<strong>{{ $message }}</strong>
-								<div class="form-group">
-									<label for="contact_person">Contact Person</label> *				
-									<input class="form-control" placeholder="Enter contact person"  name="contact_person" maxlength="10" value="{{ $OfficeEdit->contact_person }}" id="contact_person" type="text" onkeypress="return isNumberKey(event)">
-									@error('contact_person')
-									<span class="validation-msg">
-										{{ $message }}
-									</span>
-									@enderror	
-								</div>
+							<label for="city">Branch City</label> *				
+							<input class="form-control"  placeholder="Enter city" maxlength="20" name="city" value="{{ $OfficeEdit->city }}" id="city" type="text">				
+							@error('city')
+							<span style="color:#dc3545">
+								<strong>{{ $message }}</strong>
+							</span>
+							@enderror	
 						</div>
 					</div>
 					<div class="col-md-4">
@@ -186,70 +182,98 @@
 
 @section('onPageJs')
 
-
 <script type="text/javascript">
+
 	$("#Officeform").validate({
-		rules: {
-			name: {
-				required: true
+			rules: {
+			head_office_id: {
+				required: true,
+
 			},
 			contact_person: {
 				required: true,
 				minlength: 10,
 				maxlength: 10
 			},
-			head_office_id:{
-				required: true	
-			},
 			branch_code:{
 				required: true	
 			},
-			contact: {
+			branch_contact: {
 				minlength: 10,
 				maxlength: 10,
 				required: true
 			},
+			branch_email :{
+				required: true,
+	            	email: true
+			},
 			city:{
 				required: true	
 			},
-			branch :{
-				required: true	
-			},
-			address1:{
+			branch_address:{
 				required: true
-			}
+			},
+			assigned_manager:{
+				required :true
+			},
+			manager_contact: {
+				minlength: 10,
+				maxlength: 10,
+				required: true
+			},
+			manage_email :{
+				required:true,
+				email: true
+			},
+			gst :{
+				required:true,
+			},
+
 
 		},
 		messages: {
-			name: {
-				required: "Enter your username",
+		
+			head_office_id: {
+				required: "Finance Company Name is a required field",
 			},
 			contact_person: {
 				required: "Person Contact is a required field"
 			},
-			head_office_id:{
-				required: "Head Office Name is a required field"
-			},
 			branch_code: {
 				required: "Branch Code is a required field"
 			},
-			contact: {
+			branch_contact: {
 				required: "Contact is a required field"
+			},
+			branch_email:
+			{
+				required: "Branch Email is a required field",
+				email: "Improper email format"
 			},
 			city:{
 				required: "City is a required field"
 			},
-			branch:{
-				required: "Branch is a required field"
+			branch_address: {
+				required: "Branch Address is a required field"
 			},
-
-			address1: {
-				required: "Address is a required field"
+			assigned_manager :{
+				required: "Assigned Manager is a required field"
 			},
-
+			manager_contact: {
+				required: "Manager Contact is a required field"
+			},
+			manage_email : {
+				required: "Manage Email is a required field",
+				email: "Improper email format"
+			},
+			gst : {
+				required: "Gst is a required field"
+			}
 
 		}
 	});
+
+
 </script>
 
 

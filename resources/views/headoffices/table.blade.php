@@ -14,7 +14,7 @@
       </div>
       <div class="col-md-6">
          <div class="float-md-right">
-           <a class="btn btn-primary btn-sm" href="{{ route('finance-office.create') }}">New Finance Office Add</a>
+           <a class="btn btn-primary btn-sm" href="{{ route('finance-office.create') }}">Add New Finance Office</a>
          </div>
       </div>
    </div>
