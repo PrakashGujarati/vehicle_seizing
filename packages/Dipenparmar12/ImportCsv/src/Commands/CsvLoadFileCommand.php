@@ -41,17 +41,6 @@ class CsvLoadFileCommand extends Command
     protected $description = 'Import millions of record in few seconds with csv file';
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-        DB::statement("set global local_infile = 1;");
-    }
-
-    /**
      * Execute the console command.
      *
      * @return int
@@ -82,16 +71,18 @@ class CsvLoadFileCommand extends Command
             $import_query = sprintf(
                 "
                     LOAD DATA LOCAL INFILE '%s' INTO TABLE `%s`
-                        FIELDS TERMINATED BY '$this->field_terminated_by' 
-                        ENCLOSED BY '\"' 
-                        LINES TERMINATED BY '$this->line_terminated_by' IGNORE $this->csv_ignore_lines LINES            
+                        CHARACTER SET binary
+                        FIELDS TERMINATED BY '$this->field_terminated_by'
+                        LINES TERMINATED BY '$this->line_terminated_by' 
+                        IGNORE $this->csv_ignore_lines LINES
                  ;",
                 addslashes($this->csv_file),
                 $this->table_name
             );
 
             $db = DB::connection()->getpdo();
-            /*dump*/($db->exec($import_query));
+            /*dump*/
+            ($db->exec($import_query));
             return 1;
         }
 
@@ -115,10 +106,4 @@ class CsvLoadFileCommand extends Command
         return $headings_array;
     }
 
-    public function __destruct()
-    {
-        DB::statement("set global local_infile = 0;");
-    }
 }
-
-// DB::statement("update vehicles set created_at=now(), updated_at=now() where created_at=0 or created_at is null");
