@@ -38,9 +38,7 @@ class CsvImportController extends Controller
                 'table' => 'vehicles'
             ]);
 
-            DB::table('vehicles')
-                ->where('created_at', 0)->orWhereNull('created_at')->update(['created_at' => now()]);
-
+            DB::statement("update vehicles set created_at=now(), updated_at=now() where created_at=0 or created_at is null");
             return redirect()->back()->with(["success" => "Data imported successfully."]);
         }
 
