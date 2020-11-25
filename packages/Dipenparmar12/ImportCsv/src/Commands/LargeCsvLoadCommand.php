@@ -79,7 +79,7 @@ class LargeCsvLoadCommand extends Command
                 }
 
                 DB::statement("SET FOREIGN_KEY_CHECKS = 0");
-                DB::statement("set global local_infile = 1;");
+                # DB::statement("set global local_infile = 1;");
                 $import_query = sprintf(
                     "
                         LOAD DATA LOCAL INFILE '%s' INTO TABLE `%s`
@@ -149,6 +149,6 @@ class LargeCsvLoadCommand extends Command
 
     public function __destruct()
     {
-        DB::statement("set global local_infile = 0;");
+        // DB::statement("set global local_infile = 0;");
     }
 }

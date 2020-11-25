@@ -67,7 +67,7 @@ class CsvLoadFileCommand extends Command
                 DB::table($this->table_name)->truncate();
             }
 
-            DB::statement("set global local_infile = 1;");
+            // DB::statement("set global local_infile = 1;");
             $import_query = sprintf(
                 "
                     LOAD DATA LOCAL INFILE '%s' INTO TABLE `%s`
